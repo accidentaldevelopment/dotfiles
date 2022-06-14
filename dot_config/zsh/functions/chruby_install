@@ -1,0 +1,69 @@
+#!/bin/zsh
+
+(
+  emulate -L zsh
+  zmodload zsh/zftp
+  
+  if [[ -n ${@[(r)(-h|--help)]} ]]; then
+    print "Usage: $0:t [options] RUBY_VERSION_NUMBER"
+    return 0
+  fi
+
+  if [[ -n ${@[(r)(-v|--verbose)]} ]]; then
+    ZFTP_VERBOSE='12345'
+  fi
+
+  local progress_tmp="|%s|"
+  
+  zftp_progress() {
+    integer filled=$(( (ZFTP_COUNT / ${ZFTP_SIZE}.0 + 0.05) * 78 ))
+    printf "\r|%s%s|" ${(l.$filled..#.)} ${(l.(( 78 - filled )).. .)} >&2
+  }
+  
+  if (( $# < 1 )); then
+    print 'Need to enter a version' >&2
+    return 1
+  fi
+  
+  local RUBY="ruby-$1.tar.bz2"
+  local INSTALL_DIR=$(mktemp -d $TMPDIR${0:t}.XXXXXX)
+  
+  download_ruby() {
+    zftp open ftp.ruby-lang.org anonymous ''
+    (( ? )) && return 1
+    {
+      zftp cd pub/ruby
+      (( ? )) && return 1
+      if ! zftp get $RUBY > $RUBY; then
+        if [[ $ZFTP_REPLY == '550 Failed to open file.' ]]; then
+          print "Could not find file: $RUBY" >&2
+          return 1
+        fi
+      else
+        print #newline after progress bar
+      fi
+    } always {
+      zftp close 
+    }
+  }
+
+  configure_ruby() {
+    CC=clang ./configure --prefix=$HOME/.rubies/${RUBY%%.tar.bz2} --disable-install-doc --enable-shared --without-valgrind \
+                         --with-openssl-dir=$(brew --prefix openssl) \
+                         --with-readline-dir=$(brew --prefix readline) \
+                         --with-yaml-dir=$(brew --prefix libyaml) \
+                         --with-gdbm-dir=$(brew --prefix gdbm) \
+                         --with-libffi-dir=$(brew --prefix libffi)
+    return $?
+  }
+
+  cd $INSTALL_DIR
+  download_ruby || return $?
+  tar xvf $RUBY || return $?
+  cd ${RUBY%%.tar.bz2}
+  configure_ruby || return $?
+  make -j8 || return $?
+  make install || return $?
+  cd $TMPDIR
+  rm -rf $INSTALL_DIR
+)

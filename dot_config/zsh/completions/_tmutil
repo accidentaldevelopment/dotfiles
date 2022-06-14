@@ -1,0 +1,51 @@
+#compdef tmutil
+
+local -i ret=1
+local context state state_descr line
+typeset -A opt_args
+
+cmds=(
+  version:'Print version and exit'
+  enable:'Turn on automatic backups'
+  disable:'Turn off automatic backups'
+  startbackup:'Begin a backup if one is not already running'
+  stopbackup:'Cancel a backup currently in progress'
+  enablelocal:'Turn on local Time Machine snapshots'
+  disablelocal:'Turn off local Time Machine snapshots and trigger automatic cleanup of accumulated local snapshot data'
+  snapshot:'Create new local Time Machine snapshot'
+  delete:'Delete one or more snapshots, machine directories, or backup stores'
+  restore:'Restore items from backup'
+  compare:'Perform a backup diff'
+  setdestination:'Configure a local HFS+ volume, AFP share, or SMB share as a backup destination'
+  removedestination:'Remove the destination with the specified unique identifier from the Time Machine configuration'
+  destinationinfo:'Print information about destinations currently configured for use with Time Machine'
+  addexclusion:'Configure an exclusion that tells Time Machine not to back up a file, directory, or volume during future backups'
+  removeexclusion:'Configure Time Machine to back up a file, directory, or volume during future backups'
+  isexcluded:'Determine if a file, directory, or volume are excluded from Time Machine backups'
+  inheritbackup:'Claim a machine directory or sparsebundle for use by the current machine'
+  associatedisk:'Bind a snapshot volume directory to the specified local disk, thereby reconfiguring the backup history'
+  latestbackup:'Print the path to the most recent snapshot for this computer'
+  listbackups:"Print paths for all of this computer's completed snapshots"
+  machinedirectory:'Print the path to the current machine directory for this computer'
+  calculatedrift:'Analyze the snapshots in a machine directory and determine the amount of change between each'
+  uniquesize:'Analyze the specified path and determine its unique size'
+  verifychecksums:'Compute a checksum of data contained within a backup and verify the result'
+)
+
+_arguments -C \
+  '1: :->cmds' \
+  '*: :->args' \
+  && ret=0
+
+case "$state" in
+  (cmds) _describe -t commands 'verbs' cmds && ret=0 ;;
+##  (args)
+##    case "$line[1]" in
+##      (destinationinfo)
+##        _values 'desc' '-X[print in xml]' && ret=0
+##      ;;
+##    esac
+##  ;;
+esac
+
+return $ret

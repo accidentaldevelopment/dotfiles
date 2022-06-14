@@ -1,0 +1,50 @@
+#compdef tsc
+
+local context state state_descr line
+typeset -A opt_args
+local -i ret=1
+
+local -a available_libs
+available_libs=(
+  es5 es6 es2015 es7 es2016 es2017 esnext
+  dom dom.iterable
+  webworker
+  scripthost
+  es2015.core es2015.collection es2015.generator es2015.iterable es2015.promise es2015.proxy es2015.reflect es2015.symbol es2015.symbol.wellknown
+  es2016.array.include
+  es2017.object es2017.sharedmemory es2017.string esnext.asynciterable
+)
+
+_arguments \
+  '(-)'{-h,--help}'[Print this message]' \
+  '(-)--all[Show all compiler options.]' \
+  '(-)'{-v,--version}"[Print the compiler's version.]" \
+  '--init[Initializes a TypeScript project and creates a tsconfig.json file.]' \
+  '--pretty[Stylize errors and messages using color and context (experimental).]' \
+  '(-w --watch)'{-w,--watch}'[Watch input files.]' \
+  '--allowJs[Allow javascript files to be compiled.]' \
+  "--sourceMap[Generates corresponding '.map' file.]" \
+  '--removeComments[Do not emit comments to output.]' \
+  '--noEmit[Do not emit outputs.]' \
+  '--strict[Enable all strict type-checking options.]' \
+  "--noImplicitAny[Raise error on expressions and declarations with an implied 'any' type.]" \
+  '--strictNullChecks[Enable strict null checks.]' \
+  "--noImplicitThis[Raise error on 'this' expressions with an implied 'any' type.]" \
+  '--alwaysStrict[Parse in strict mode and emit "use strict" for each source file.]' \
+  '--noUnusedLocals[Report errors on unused locals.]' \
+  '--noUnusedParameters[Report errors on unused parameters.]' \
+  '--noImplicitReturns[Report error when not all code paths in function return a value.]' \
+  '--noFallthroughCasesInSwitch[Report errors for fallthrough cases in switch statement.]' \
+  '--types[Type declaration files to be included in compilation.]' \
+  '(-d --declaration)'{-d,--declaration}"[Generates corresponding '.d.ts' file.]" \
+  '*--lib[Specify library files to be included in the compilation]:library files:( $available_libs )' \
+  '(-t --target)'{-t,--target}'[Specify ECMAScript target version]:version:(ES3 ES5 ES2015 ES2016 ES2017 ESNEXT)' \
+  '(-m --module)'{-m,--module}'[Specify module code generation]:module type:(commonjs amd system umd es2015)' \
+  '--jsx[Specify JSX code generation]: :(preserve react-native react)' \
+  '--outFile[Concatenate and emit output to single file]:file:_files' \
+  '--outDir[Redirect output structure to the directory]: :_path_files -/' \
+  '(-p --project)'{-p,--project}"[Compile the project given the path to its configuration file, or to a folder with a 'tsconfig.json'.]: :_files" \
+  && ret=0
+
+
+return $ret

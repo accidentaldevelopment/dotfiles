@@ -1,0 +1,104 @@
+# vim: ft=zsh
+# zmake
+#  Copyright Brian Faga 2013
+#
+# Simple script to automate zcompiling scripts
+#
+# zwc files are built based on directories.  Files in /dir will be compiled into $DESTDIR/dir.zwc
+#
+# Configuration is handled via zstyle or environment variables, with reasonable (to me) defaults
+#
+# Environment vars:
+#   DESTDIR - The destination directory for zwc files
+#   SOURCES - Array of source directories.  Each of these becomes a zwc file in DESTDIR
+#
+# zstyle:
+#   context - :zmake:
+#   styles  - destdir (scalar)
+#             sources (array)
+#
+# The zstyle styles correspond to the uppercase environment variables
+
+emulate -L zsh
+(
+  autoload -Uz zrecompile
+  ###########################################################
+  # Local variables
+  ###########################################################
+  local -a sources
+  local destdir
+  local ret=0
+  local usage="Usage $0:t [COMMAND]
+
+help    - Print this and exit
+install - zcompile and install (this is default if you don't specify a command)
+check   - See if anything needs to be recompiled
+clean   - Remove zwc files"
+
+
+  ###########################################################
+  # Utilities
+  ###########################################################
+  run() {
+  #  print "${=@}"
+    ${=@}
+    ret=$?
+    return $ret
+  }
+
+
+  ###########################################################
+  # Set variables (env variables have highest precedence)
+  ###########################################################
+  if ! zstyle -a ':zmake:' sources sources; then
+    sources=( $HOME/.config/zsh/{functions,widgets} )
+  fi
+  sources=( ${SOURCES:-$sources} )
+
+  if ! zstyle -s ':zmake:' destdir destdir; then
+    destdir=$HOME/.config/zsh/zmade_$ZSH_VERSION
+  fi
+  destdir=${DESTDIR:-$destdir}
+
+
+  ###########################################################
+  # Main
+  ###########################################################
+
+  case $@[1] in
+    (--help|-h|help)
+      print $usage
+      return 0
+    ;;
+    (clean)
+      run rm -frv $destdir
+      return $ret
+    ;;
+    (check)
+      for dir in $sources; do
+        if zrecompile -t -p $destdir/$dir:t.zwc $dir/*; then
+          (( ret |= 1 ))
+        else
+          (( ret |= 0 ))
+        fi
+      done
+      return $ret
+    ;;
+    (install| )
+      if [[ ! -d $destdir ]]; then
+        run mkdir $destdir || return $ret
+      fi
+
+      for dir in $sources; do
+        local zwc_file=$destdir/$dir:t
+        run zrecompile -p $zwc_file $dir/*
+      done
+    ;;
+    (*)
+      print "Invalid Command: $@[1]"
+      print $usage
+      return 1
+  esac
+
+  return $ret
+)

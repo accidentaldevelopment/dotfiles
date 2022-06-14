@@ -1,0 +1,39 @@
+#compdef cap
+
+local context state line ret=1
+typeset -A opt_args
+
+_arguments \
+  '(-d --debug)'{-d,--debug}'[Prompts before each remote command execution]' \
+  '(-e --explain)'{-e,--explain}'[Displays help (if available) for the task]:task:->action' \
+  '(-F --default-config)'{-F,--default-config}'[Always use default config, even with -f]' \
+  '*'{-f,--file}'[A recipe file to load. May be given more than once]:recipe file:_files' \
+  '(- *)'{-H,--long-help}'[Explain these options and environment variables]' \
+  '(- *)'{-h,--help}'[Display this help message]' \
+  '(-l --logger)'{-l,--logger}'[Choose logger method. STDERR used by default.]:logger method:' \
+  '(-n --dry-run)'{-n,--dry-run}'[Prints out commands without running them]' \
+  '(-p --password)'{-p,--password}'[Immediately prompt for the password]' \
+  '(-q --quiet)'{-q,--quiet}'[Make the output as quiet as possible]' \
+  '(-r --preserve-roles)'{-r,--preserve-roles}'[Preserve task roles]' \
+  '(-S --set-before)'{-S,--set-before}'[Set a variable before the recipes are loaded]' \
+  '(-s --set)'{-s,--set}'[Set a variable after the recipes are loaded]' \
+  '(-T --tasks)'{-T,--tasks}'[List all tasks (matching optional PATTERN) in the loaded recipe files]::patern:' \
+  '(-t --tool)'{-t,--tool}'[Abbreviates the output of -T for tool integration]' \
+  '(- *)'{-V,--version}'[Display the Capistrano version, and exit]' \
+  '*'{-v,--verbose}'[Be more verbose. May be given more than once]' \
+  '(-X --skip-system-config)'{-X,--skip-system-config}"[Don't load the system config file (capistrano.conf)]" \
+  '(-x --skip-user-config)'{-x,--skip-user-config}"[Don't load the user config file (.caprc)]" \
+  '*: :->action' \
+  && ret=0
+
+case $state in
+  (action)
+    local -a actions
+    actions=(
+      ${${${(M)${(@f)"$(_call_program targets $words[1] -vT $opt_args[(I)-(F|-default-config)] ${(kv)opt_args[(I)(-f|--file)]} 2>/dev/null)"}:#cap *}//:/\\:}/(#b)cap ([^ ]##) *\# (*)/$match[1]:$match[2]}
+    )
+    _describe -t targets 'actions' actions && ret=0
+  ;;
+esac
+
+return $ret

@@ -1,0 +1,8 @@
+#compdef battery_meter
+
+_arguments \
+  "-n[Don't print newline]" \
+  '-P[Perform prompt expansion (automatic if printing to a tty)]' \
+  '(-)'{-h,--help}'[Display this and exit]' \
+  {-w,--width}'[Width (in chars) of the meter (not including ac icon)]:meter width:_guard "<0-9>#" "meter width - numeric"' \
+  '--no-ac[Do not display the AC icon when plugged in]' 

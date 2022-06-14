@@ -1,0 +1,4 @@
+# vim: ft=gitconfig
+
+# Put local git config modications here.
+# This file will *not* be overwritten.

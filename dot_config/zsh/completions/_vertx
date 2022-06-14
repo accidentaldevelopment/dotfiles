@@ -1,0 +1,52 @@
+#compdef vertx
+
+local expl
+local curcontext="$curcontext" state line
+local -A opt_args
+local -i ret=1
+
+local -a subcmd
+subcmd=(
+  'bare:Creates a bare instance of vert.x.'
+  'list:List vert.x applications'
+  'resolve:Resolve the vert.x stack according to the content the stack description.'
+  'run:Runs a verticle called <main-verticle> in its own instance of vert.x.'
+  'start:Start a vert.x application in background'
+  'stop:Stop a vert.x application'
+  'test:Runs a Vert.x Unit test called <test-verticle> in its own instance of vert.x.'
+  'version:Displays the version.'
+)
+
+_arguments -C \
+    ':command:->command' \
+    '*::options:->options'
+
+case $state in
+  (command)
+    _describe -t commands 'command' subcmd && ret=1
+  ;;
+
+  (options)
+    local -a opts
+    case $line[1] in
+#      _arguments \
+#-cp,--classpath <classpath>   Provides an extra classpath to be used for the
+#                               verticle deployment.
+#--cluster-host <host>      host to bind to for cluster communication. If
+#                               this is not specified vert.x will attempt to
+#                               choose one from the available interfaces.
+#--cluster-port <port>      Port to use for cluster communication. Default is
+#                               0 which means choose a spare random port.
+#--hagroup <group>          used in conjunction with -ha this specifies the
+#                               HA group this node will join. There can be
+#                               multiple HA groups in a cluster. Nodes will only
+#                               failover to other nodes in the same group.
+#                               Defaults to '__DEFAULT__'.
+#--quorum <q>               Used in conjunction with -ha this specifies the
+#                               minimum number of nodes in the cluster for any HA
+#                               deploymentIDs to be active. Defaults to 1.
+    esac
+  ;;
+esac
+
+return $ret

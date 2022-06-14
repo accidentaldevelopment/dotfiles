@@ -1,0 +1,65 @@
+#compdef ykman
+
+local context curcontext="$curcontext" state line
+typeset -A opt_args
+
+_ykman_commands() {
+  local -a _cmds
+  _cmds=(
+    'config:Enable/Disable applications.'
+    'fido:Manage FIDO applications.'
+    'info:Show general information.'
+    'list:List connected YubiKeys.'
+    'mode:Manage connection modes (USB Interfaces).'
+    'oath:Manage OATH application.'
+    'openpgp:Manage OpenPGP application.'
+    'otp:Manage OTP Application.'
+    'piv:Manage PIV application.'
+  )
+  _describe -t commands 'ykman commands' _cmds
+}
+
+_openpgp_commands() {
+  local -a _cmds
+  _cmds=(
+    'info:Display status of OpenPGP application.'
+    'reset:Reset OpenPGP application.'
+    'set-pin-retries:Manage pin-retries.'
+    'touch:Manage touch policy for OpenPGP keys.'
+  )
+  _describe -t commands 'ykman openpgp commands' _cmds
+}
+
+
+_arguments \
+  '(-)'{-h,--help}'[Show this message and exit.]' \
+  '(-)'{-v,--version}'[Show version info and exit.]' \
+  '(-d --device)'{-d,--device}':serial:' \
+  '(-l --log-level)'{-l,--log-level}'[Enable logging at given verbosity level]:level:(DEBUG INFO WARNING ERROR CRITICAL)' \
+  '(--log-file)--log-file[Write logs to the given FILE instead of standard error; ignored unless --log-level is also set]:file:' \
+  '1: :_ykman_commands' \
+  '*::arg:->args'
+
+case "$state" in
+  (args)
+    case "$words[1]" in
+      (info) _message 'no arguments' ;;
+      (list)
+        _arguments \
+          '(-s --serials)'{-s,--serials}'[Output only serial numbers, one per line (devices without serial will be omitted).]' \
+          '(-)'{-h,--help}'[Show this message and exit.]'
+      ;;
+      (openpgp)
+        _arguments \
+          '(-)'{-h,--help}'[Show this message and exit.]' \
+          '1: :_openpgp_commands' \
+          '*::openpgp arg:->openpgp_args'
+      ;;
+    esac
+  ;;
+  (openpgp_args)
+     _arguments \
+       '(-)'{-h,--help}'[Show this message and exit.]' \
+       '(-f --force)'{-f,--force}'[Show this message and exit.]'
+  ;;
+esac

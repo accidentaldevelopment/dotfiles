@@ -1,0 +1,25 @@
+{{- $name := promptString "name" -}}
+{{- $email := promptString "email" -}}
+
+{{/* Various system detection stuffs */}}
+{{- $macos := eq .chezmoi.os "darwin" -}}
+{{- $linux := eq .chezmoi.os "linux" -}}
+{{- $linux_arch := and (hasKey .chezmoi.osRelease "id" ) (eq .chezmoi.osRelease.id "arch") -}}
+
+[diff]
+command = "delta"
+
+[data]
+name = {{ $name | quote }}
+email = {{ $email | quote }}
+
+# OS Information
+[data.os]
+macos = {{ $macos }}
+linux = {{ $linux }}
+arch = {{ and ($linux ) (hasKey .chezmoi.osRelease "id" ) (eq .chezmoi.osRelease.id "arch") }}
+
+[data.dev]
+rust = {{ $macos }}
+docker = {{ $macos }}
+podman = {{ $macos }}

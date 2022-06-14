@@ -1,0 +1,6 @@
+prepend-sudo() {
+  local prefix='sudo'
+  BUFFER="$prefix $BUFFER"
+  CURSOR=$(( CURSOR + $#prefix + 1 ))
+  zle redisplay
+}

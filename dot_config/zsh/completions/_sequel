@@ -1,0 +1,41 @@
+#compdef sequel
+
+local context state line expl
+typeset -A opt_args
+local -i ret=1
+
+_arguments \
+  '(- : *)'{-h,--help}'[Show this message]' \
+  '(- : *)'{-v,--version}'[Show version]' \
+  '(-c --code)'{-c,--code}'[run the given code and exit]:code:' \
+  '(-C --copy-databases)'{-C,--copy-databases}'[copy one database to another]' \
+  '(-d --dump-migration)'{-d,--dump-migration}'[print database migration to STDOUT]' \
+  '(-D --dump-migration-same-db)'{-D,--dump-migration-same-db}'[print database migration to STDOUT without type translation]' \
+  '(-e --env)'{-e,--env}'[use environment config for database]:env:' \
+  '(-E --echo)'{-E,--echo}'[echo SQL statements]' \
+  '(-I --include)'{-I,--include}'[specify $LOAD_PATH directory]:load path:_path_files -/' \
+  '(-l --log)'{-l,--log}'[log SQL statements to log file]' \
+  '(-L --load-dir)'{-L,--load-dir}'[loads all *.rb under specifed directory]:load dir:_path_files -/' \
+  '(-m --migrate-directory)'{-m,--migrate-directory}'[run the migrations in directory]:migrate dir:_path_files -/' \
+  '(-M --migrate-version)'{-M,--migrate-version}'[migrate the database to version given]:version:' \
+  '(-N --no-test-connection)'{-N,--no-test-connection}'[do not test the connection]' \
+  '(-r --require)'{-r,--require}'[require the library, before executing your script]:require lib:' \
+  '(-S --dump-schema)'{-S,--dump-schema}'[dump the schema for all tables to the file]:dump to:_files' \
+  '(-t --trace)'{-t,--trace}'[Output the full backtrace if an exception is raised]' \
+  '1: :->config_or_uri' \
+  && ret=0
+
+case $state in
+  (config_or_uri)
+    _description urls expl uri
+    compadd "$expl[@]" -S '' -- mysql:// postgres://
+    compadd "$expl[@]" -qS '/' -- sqlite:/
+    if compset -P 'sqlite://'; then
+      _wanted files expl 'sqlite3 database file' _files && ret=0
+    else
+      _wanted files expl 'config file' _files && ret=0
+    fi
+  ;;
+esac
+
+return $ret

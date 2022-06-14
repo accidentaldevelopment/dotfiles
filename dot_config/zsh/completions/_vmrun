@@ -1,0 +1,16 @@
+#compdef vmrun
+
+local -i ret=1
+
+_arguments \
+  '-h[<hostName> (not needed for Fusion)]:hostname:_hosts' \
+  '-P[<hostPort> (not needed for Fusion)]:host port:_ports' \
+  '-T[<hostType> (ws|fusion)]:host type:(ws fusion)' \
+  '-u[<userName in host OS> (not needed for Fusion)]:host username:_users' \
+  '-p[<password in host OS> (not needed for Fusion)]:host password:' \
+  '-vp[<password for encrypted virtual machine>]:password:' \
+  '-gu[<userName in guest OS>]:guest username:_users' \
+  '-gp[<password in guest OS>]:guest password:' \
+&& ret=0
+
+return $ret

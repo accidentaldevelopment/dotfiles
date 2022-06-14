@@ -1,0 +1,49 @@
+#compdef cobbler
+
+local context state state_descr line ret=1
+typeset -A opt_args
+
+local -a _commands
+_commands=(
+  'check:Check for common configuration error'
+  'distro:Manage distros'
+  'profile:Manage profiles'
+  'system:Manage systems'
+  'repo:Manage repos'
+  'image:Manage images'
+  'mgmtclass:Manage mgmtclasses'
+  'package:Manage packages'
+  'file:Manage files'
+  'aclsetup:Manage aclsetups'
+  'buildiso:Manage buildisos'
+  'import:Manage imports'
+  'list:Manage lists'
+  'replicate:Manage replicates'
+  'report:Manage reports'
+  'reposync:Manage reposyncs'
+  'sync:Manage syncs'
+  'validateks:Validate kickstarts'
+  'version:Manage versions'
+)
+
+if (( CURRENT == 2 )); then
+  _describe -t commands 'cobbler command' _commands
+  return 0
+fi
+
+case $words[2] in
+  (distro|profile|system|repo|image|mgmtclass|package|file)
+    _args+=(
+      'dumpvars'
+      'copy'
+      'list'
+      'remove'
+      'rename'
+      'report'
+    )
+  ;;
+esac
+
+_arguments '--help' '1:cmd:( $_args )'
+
+return $ret

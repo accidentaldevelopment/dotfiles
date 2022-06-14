@@ -1,0 +1,10 @@
+#compdef zmake
+
+emulate -L zsh
+
+setopt extended_glob
+
+local -a commands
+commands=( ${${${(f)"$(zmake help)"}[2,-1]}/ #- #/:} )
+
+_describe -t commands Command commands

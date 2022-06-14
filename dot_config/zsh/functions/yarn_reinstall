@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+emulate -L zsh
+
+(( $+commands[yarn] )) || return 0
+
+setopt errexit
+
+local -a bins
+bins=(${${(M)${(@f)"$(yarn global ls 2>/dev/null)"}:#info*}/(#b)info \"([^\"]#)\" has binaries:/$match[1]})
+
+yarn global remove ${bins/@*}
+yarn global add $bins

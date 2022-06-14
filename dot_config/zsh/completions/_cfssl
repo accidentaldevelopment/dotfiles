@@ -1,0 +1,5 @@
+#compdef cfssl
+
+_arguments \
+  '1:subcmd:(ocsprefresh print-defaults serve certinfo genkey ocspdump ocspsign info revoke bundle sign gencert gencrl ocspserve scan crl gencsr selfsign version)' \
+  '*::arguments:_normal'

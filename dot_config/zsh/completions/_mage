@@ -1,0 +1,39 @@
+#compdef mage
+
+local -i ret=1
+local context state line
+typeset -A opt_args
+
+_arguments \
+  '-clean[clean out old generated binaries from CACHE_DIR]' \
+  '-compile[output a static binary to the given path]:output:_files' \
+  '-h[show this help]' \
+  '-init[create a starting template if no mage files exist]' \
+  '-l[list mage targets in this directory]' \
+  '-version[show version info for the mage binary]' \
+  '-d[directory to read magefiles from (default ".")]:directory:_path_files -/' \
+  '-debug[turn on debug messages]' \
+  '-f[force recreation of compiled magefile]' \
+  '-goarch[sets the GOARCH for the binary created by -compile (default: current arch)]:arch:(386 amd64 amd64p32 arm armbe arm64 arm64be ppc64 ppc64le mips mipsle mips64 mips64le mips64p32 mips64p32le ppc s390 s390x sparc sparc64)' \
+  '-gocmd[use the given go binary to compile the output (default: "go")]:go binary:_files' \
+  '-goos[sets the GOOS for the binary created by -compile (default: current OS)]:os:(android darwin dragonfly freebsd linux nacl netbsd openbsd plan9 solaris windows zos)' \
+  '-h[show description of a target]' \
+  '-keep[keep intermediate mage files around after running]' \
+  '-t[timeout in duration parsable format (e.g. 5m30s)]:timeout:' \
+  '-v[show verbose output when running mage targets]' \
+  '-w[working directory where magefiles will run (default -d value)]:working directory:_path_files -/' \
+  '*: :->targets' \
+  && ret=0
+
+case $state in
+  (targets)
+    local -a targets
+    targets=(
+      ${${${${(@f)"$(_call_program targets $words[1] ${(kv)opt_args[(I)-d]} -l 2>/dev/null)"}[2,-1]}//:/\\:}/(#b)  ([^ ]##) ##(*)/$match[1]:$match[2]}
+    )
+    _describe -t targets 'targets' targets && ret=0
+  ;;
+esac
+
+return $ret
+

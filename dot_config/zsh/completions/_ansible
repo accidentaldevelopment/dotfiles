@@ -1,0 +1,85 @@
+#compdef ansible ansible-playbook
+# vim: ts=2 expandtab
+
+local -i ret=1
+local -a _common_args _ansible_args _playbook_args
+local context state state_descr line
+typeset -A opt_args
+
+_common_args=(
+  '(-k --ask-pass)'{-k,--ask-pass}'[ask for SSH password]'
+  '(-K --ask-become-pass)'{-K,--ask-become-pass}'[ask for sudo password]'
+  '--ask-vault-pass[ask for vault password]'
+  '(-b --become)'{-b,--become}'[run operations with become (nopasswd implied)]'
+  '--become-method[privilege escalation method to use (default=sudo)]:become method:(sudo su pbrun pfexec runas doas)'
+  '--become-user[run operations as this user (default=root)]:become user:_users'
+  '(-C --check)'{-C,--check}"[don't make any changes; instead, try to predict some of the changes that may occur]"
+  '(-c --connection)'{-c,--connection}'[connection type to use (default=smart)]:connection type:(smart ssh paramiko local)'
+  '(-f --forks)'{-f,--forks}'[specify number of parallel processes to use]:forks'
+  '(- : *)'{-h,--help}'[show this help message and exit]'
+  '(-i --inventory)'{-i,--inventory-file}'[specify inventory host file]:inventory file:_files'
+  '(-l --limit)'{-l,--limit}'[further limit selected hosts to an additional pattern]: :->limit'
+  '--list-hosts[outputs a list of matching hosts; does not execute anything else]'
+  '*'{-M,--module-path}'[specify path(s) to module library]:module path:_files -/'
+  '--private-key[use this file to authenticate the connection]:private key:_files'
+  '(-T --timeout)'{-T,--timeout}'[override the SSH timeout in seconds]:timeout'
+  '(-u --user)'{-u,--user}'[connect as this user]:remote user:_users'
+  '*'{-v,--verbose}'[verbose mode (-vvv for more, -vvvv to enable connection debugging)]'
+  "(- : *)--version[show program's version number and exit]"
+)
+
+_ansible_args=(
+  '(-a --args)'{-a,--args}'[module arguments]:MODULE_ARGS'
+  '(-B --background)'{-B,--background}'[run asynchronously, failing after X seconds]:seconds'
+  '(-m --module-name)'{-m,--module-name}'[module name to execute]:module'
+  '(-o --one-line)'{-o,--one-line}'[condense output]'
+  '(-P --poll)'{-P,--poll}'[set the poll interval if using -B]'
+  '(-t --tree)'{-t,--tree}'[log output to this directory]:directory:_files -/'
+  '1:pattern:_guard "[^-]*" "pattern"'
+)
+
+_playbook_args=(
+  '(-D --diff)'{-D,--diff}'[Show differences in modified files]'
+  '(-e --extra-vars)'{-e,--extra-vars}'[set additional variables as key=value or YAML/JSON]:vars'
+  '--list-tasks[list all tasks that would be executed]'
+  '--list-tags[list tags in a playbook]'
+  '--skip-tags[only run plays and tasks whose tags do not match these values]:tags:->tags'
+  '--start-at-task=START_AT[start the playbook at the task matching this name]'
+  '--step[one-step-at-a-time; confirm each task before running]'
+  '--syntax-check[perform a syntax check on the playbook, but do not execute it]'
+  '(-t --tags)'{-t,--tags}'[only run plays and tasks tagged with these values]:tags:->tags'
+  '1:playbook:_files'
+)
+
+case $service in
+  (ansible)
+    _arguments -s $_common_args $_ansible_args && ret=0
+  ;;
+  (ansible-playbook)
+    _arguments -s $_common_args $_playbook_args && ret=0
+  ;;
+esac
+
+case $state in
+  (limit)
+#    _description urls expl uri
+#    compadd "$expl[@]" -S '' -- @
+    if compset -P '@'; then
+      _wanted files expl 'retry file' _files -g '*.retry' && ret=0
+    else
+      _message -e pattern 'pattern' && ret=0
+    fi
+  ;;
+  (tags)
+    typeset -Ua tags
+    if (( $#line > 0 )); then
+      tags=( ${(uz)${(M)${(@f)"$(_call_program tags $service $line[1] --list-tags)"}:#*TAGS: \[^]}/(#b)*TAGS: \[(^\])\]/${match[1]//,/ }} )
+      _values -s , 'tags' $tags
+    else
+      _message 'tags'
+    fi
+  ;;
+esac
+
+return $ret
+

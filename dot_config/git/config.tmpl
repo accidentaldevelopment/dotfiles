@@ -1,0 +1,31 @@
+# vim: ft=gitconfig
+
+[alias]
+  st = status
+  ci = commit
+  co = checkout
+[user]
+  name = Brian Faga
+  email = {{ .email | quote }}
+[core]
+  preloadindex = true
+  quotepath = false
+  pager = delta
+[push]
+  default = simple
+[github]
+  user = accidentaldevelopment
+[init]
+  defaultBranch = main
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+  line-numbers = true
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
+
+[Include]
+  path = config.local

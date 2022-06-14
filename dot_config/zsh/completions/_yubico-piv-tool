@@ -1,0 +1,73 @@
+#compdef yubico-piv-tool
+
+local -i ret=1
+
+typeset -a _actions
+_actions=(
+  version
+  generate
+  set-mgm-key
+  reset
+  pin-retries
+  import-key
+  import-certificate
+  set-chuid
+  request-certificate
+  verify-pin
+  change-pin
+  change-puk
+  unblock-pin
+  selfsign-certificate
+  delete-certificate
+  read-certificate
+  status
+  test-signature
+  test-decipher
+  list-readers
+  set-ccc
+  write-object
+  read-object
+  attest
+)
+
+typeset -a _slots
+_slots=(
+  '9a:PIV Authentication'
+  '9c:Digital Signature (PIN always checked)'
+  '9d:Key Management'
+  '9e:Card Authentication (PIN never checked)'
+  '82:'
+  '83:'
+  'f9:Attestation'
+)
+
+_arguments \
+  '(-)'{-h,--help}'[Print help and exit]' \
+  '(-)--full-help[Print help, including hidden options, and exit]' \
+  '(-)'{-V,--version}'[Print version and exit]' \
+  '(-v --verbose)'{-v,--verbose}'[Print more information]:debug level:' \
+  '(-r --reader)'{-r,--reader}'[Only use a matching reader]:reader:' \
+  '(-k --key)'{-k,--key}'[Management key to use]:key::' \
+  '*'{-a,--action}'[Action to take]:action:( $_actions )' \
+  '(-s --slot)'{-s,--slot}'[Key slot on which to operate]:slot:(( $_slots ))' \
+  '(-A --algorithm)'{-A,--algorithm}'[What algorithm to (RSA2048)]:algorithm:(RSA1024 RSA2048 ECCP256 ECCP384)' \
+  '(-H --hash)'{-H,--hash}'[Hash to use for signatures (SHA256)]:hash:(SHA1 SHA256 SHA384 SHA512)' \
+  '(-n --new-key)'{-n,--new-key}'[New management key to use for action set-mgm-key]::key:' \
+  '--pin-retries[Number of retries before the pin code is blocked]:retries:_guard "[0-9]#" "numeric value"' \
+  '--puk-retries[Number of retries before the puk code is blocked]:retries:_guard "[0-9]#" "numeric value"' \
+  '(-i --input)'{-i,--input}'[Filename to use as input (-)]:input:_files' \
+  '(-o --output)'{-o,--output}'[Filename to use as output (-)]:output:_files' \
+  '(-K --key-format)'{-K,--key-format}'[Format of the key being read/written (PEM)]:format:(PEM PKCS12 GZIP DER SSH)' \
+  '(-p --password)'{-p,--password}'[Password for decryption of private key file]::password:' \
+  '(-S --subject)'{-S,--subject}'[The subject to use for certificate request]:subject:' \
+  '--serial[Serial number of the self-signed certificate]:serial:_guard "[0-9]#" "numeric value"' \
+  '--valid-days[Time (in days) until the self-signed certificate expires (365)]:days:_guard "[0-9]#" "numeric days"' \
+  '(-P --pin)'{-P,--pin}'[Pin/puk code for verification.]:pin / puk:' \
+  '(-N --new-pin)'{-N,--new-pin}'[New pin/puk code for changing.]:new pin / puk' \
+  '--pin-policy[Set pin policy for action generate or import-key.]:pin policy:(never once always)' \
+  '--touch-policy[Set touch policy for action generate, import-key or set-mgm-key.]:touch policy:(never always cached)' \
+  '--id[Id of object for write/read object]:id:_guard "[0-9]#" "numeric value"' \
+  '(-f --format)'{-f,--format}'[Format of data for write/read object (hex)]:format:(hex base64 binary)' \
+  && ret=0
+
+return $ret

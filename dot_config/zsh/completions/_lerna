@@ -1,0 +1,59 @@
+#compdef lerna
+
+local -i ret=1
+local context state state_descr line
+typeset -A opt_args
+
+_lerna_cmds=(
+  'add:Add packages as dependency to matched packages'
+  'bootstrap:Link local packages together and install remaining package dependencies'
+  'clean:Remove the node_modules directory from all packages.'
+  'diff:Diff all packages or a single package since the last release.'
+  'exec:Run an arbitrary command in each package.'
+  'import:Import the package in <pathToRepo> into packages/<directory-name> with commit history.'
+  'init:Create a new Lerna repo or upgrade an existing repo to the current version of Lerna.'
+  'link:Symlink together all packages which are dependencies of each other'
+  'ls:List all public packages'
+  'publish:Publish packages in the current project.'
+  'run:Run an npm script in each package that contains that script.'
+  'updated:Check which packages have changed since the last publish.'
+)
+
+_arguments \
+  '(-)'{-h,--help}'[Show help]' \
+  '(-)'{-v,--version}'[Show version number.]' \
+  '--loglevel[What level of logs to report.]:log level:(silent error warn notice http timing info verbose silly)' \
+  '--concurrency[How many threads to use if lerna parallelises the tasks.]:threads:' \
+  '--include-filtered-dependents[Include all transitive dependents when running a command, regardless of --scope, --since or --ignore.]' \
+  '--include-filtered-dependencies[Include all transitive dependencies when running a command, regardless of --scope, --since or --ignore.]' \
+  '--registry[Use the specified registry for all npm client operations.]:registry url:' \
+  '--reject-cycles[Fail if a cycle is detected among dependencies]' \
+  '--sort[Sort packages topologically (all dependencies before dependents)]' \
+  '--max-buffer[Set max-buffer(bytes) for Command execution]: :_guard "[0-9]#" "bytes"' \
+  '1:command:(( $_lerna_cmds ))' \
+  '*:: :->cmd_args' \
+  && ret=0
+
+case "$state" in
+  (cmd_args)
+    case "$words[1]" in
+      (run|exec|clean|ls|bootstrap)
+        _arguments \
+          '--scope[Restricts the scope to package names matching the given glob.]' \
+          '--since[Restricts the scope to the packages that have been updated since the specified \[ref\]]' \
+          '--ignore[Ignore packages with names matching the given glob.]'
+      ;|
+      (add)
+        _arguments \
+          '(--dev -D)'{-D,--dev}'[Save as to devDependencies]' \
+          '*:package name:' \
+          && ret=0
+      ;;
+      (clean)
+        _arguments '--yes[Skip all confirmation prompts]' && ret=0
+      ;;
+    esac
+  ;;
+esac
+
+return $ret

@@ -1,0 +1,57 @@
+#compdef security
+
+local curcontext="$curcontext"
+local context state line
+typeset -A opt_args
+
+local -a commands_w_descriptions commands_wo_descriptions keychains
+commands_w_descriptions=( ${${${${(f)"$(_call_program commands security -h)"}## #}/ ##/:}/%./} )
+commands_wo_descriptions=( ${commands_w_descriptions%:*} )
+
+local common_opts='(- : *)-h[Show a usage message for the specified command.  This option is essentially the same as the help command]'
+
+_arguments \
+  '(- : *)-h[If no arguments are specified, show a list of all commands.  If arguments are provided, show usage for each the specified commands.  This option is essentially the same as the help command.]::Command:('${(j: :)commands_wo_descriptions}')'  \
+  '(-p)-i[Run security in interactive mode.  A prompt (security> by default) will be displayed and the user will be able to type commands on stdin until an EOF is encountered.]' \
+  '-l[Before security exits, run `/usr/bin/leaks -nocontext` on itself to see if the command(s) you executed had any leaks.]' \
+  '(-i)-p[This option implies the -i option but changes the default prompt to the argument specified instead.]:Prompt:' \
+  '(-v)-q[Will make security less verbose.]' \
+  '(-q)-v[Will make security more verbose.]' \
+  '(-)1:Commands:->cmds' \
+  '*::Command Arguments:->cmd_args' \
+  && return 0
+
+case $state in
+  (cmds)
+    _describe -t commands Commands commands_w_descriptions && return 0
+  ;;
+  (cmd_args)
+    curcontext="${curcontext%:*:*}:${service}-$line[1]:"
+    case $line[1] in
+      # Add -h if the command isn't help
+      (^help) _arguments $common_opts ;|
+      (cms)
+        _arguments \
+          '-C[create a CMS encrypted message]' \
+          '-D[decode a CMS message]' \
+          '-E[create a CMS enveloped message]' \
+          '-S[create a CMS signed message]' \
+          '-H[hash (default: SHA1)]:hash:(MD2 MD4 MD5 SHA1 SHA256 SHA384 SHA512)' \
+          '-i[use infile as source of data (default: stdin)]:infile:_files' \
+          '-o[use outfile as destination of data (default: stdout)]:outfile:_files' \
+          && return 0
+      (help)
+        _arguments ':Command Help:('${(j: :)commands_wo_descriptions}')' && return 0
+      ;;
+      (list-keychains|default-keychain|login-keychain)
+        _arguments \
+          '-d[Use the specified preference domain]:Preference Domain:(user system common dynamic)' \
+          '-s[Set the search list to the specified keychains]:Keychain:' \
+          && return 0
+      ;;
+      (find-*-password)
+        _arguments '::Keychain file:_files -g \*.keychain'
+      ;;
+    esac
+  ;;
+esac

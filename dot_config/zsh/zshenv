@@ -1,0 +1,32 @@
+#ZDOTDIR=${0:A:h}/.zsh.d
+
+typeset -U path fpath infopath
+
+export LANG=en_US.UTF-8
+export CLICOLOR=1
+export EDITOR=vim
+export READNULLCMD=less
+export DOCKER_BUILDKIT=1
+export GPG_TTY=$(tty)
+
+# man highlighting
+export LESS_TERMCAP_mb=$(tput bold; tput setaf red)              # begin bold
+export LESS_TERMCAP_md=$(tput setaf 74)              # begin bold
+export LESS_TERMCAP_me=$(tput sgr0)              # begin bold
+export LESS_TERMCAP_us=$(tput smul; tput setaf 182)  # begin underline
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)       # begin underline
+export LESS_TERMCAP_so=$(tput smso)                  # begin standout-mode - info box
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)                  # begin standout-mode - info box
+
+export CC_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-gcc
+export CXX_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-g++
+export AR_aarch64_unknown_linux_gnu=aarch64-unknown-linux-gnu-ar
+export CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER=aarch64-unknown-linux-gnu-gcc
+
+export HOMEBREW_PREFIX="/opt/homebrew"
+export HOMEBREW_REPOSITORY="/opt/homebrew"
+export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+infopath=(
+ "$HOMEBREW_PREFIX/share/info"
+  $infopath
+)

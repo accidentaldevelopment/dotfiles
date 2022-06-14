@@ -1,0 +1,65 @@
+#compdef ipmitool
+
+integer ret=1
+local context state state_descr line
+typeset -A opt_args
+
+_arguments \
+  '(- * :)-h[This help]' \
+  '(- * :)-V[Show version information]' \
+  '-v[Verbose (can use multiple times)]' \
+  '-c[Display output in comma separated format]' \
+  '-d[Specify a /dev/ipmiN device to use (default=0)]:N' \
+  '-I[Interface to use]:intf:(( lan\:"IPMI v1.5 LAN Interface [default]" lanplus\:"IPMI v2.0 RMCP+ LAN Interface" ))' \
+  '-H[Remote host name for LAN interface]:hostname:_hosts' \
+  '-p[Remote RMCP port]:port' \
+  '-U[Remote session username]:username:_users' \
+  '-f[Read remote session password from file]:file:_files' \
+  '-z[Change Size of Communication Channel (OEM)]:size' \
+  '-S[Use local file for remote SDR cache]:sdr' \
+  '-a[Prompt for remote password]' \
+  '-Y[Prompt for the Kg key for IPMIv2 authentication]' \
+  '-e[Set SOL escape character]:char' \
+  '-C[Cipher suite to be used by lanplus interface]:ciphersuite' \
+  '-k[Use Kg key for IPMIv2 authentication]:key' \
+  '-y[Use hexadecimal-encoded Kg key for IPMIv2 authentication]:hex_key' \
+  '-L[Remote session privilege level]:level' \
+  '-A[Force use of auth type NONE, PASSWORD, MD2, MD5 or OEM]:authtype' \
+  '-P[Remote session password]:password' \
+  '-E[Read password from IPMI_PASSWORD environment variable]' \
+  '-K[Read kgkey from IPMI_KGKEY environment variable]' \
+  '-m[Set local IPMB address]:address' \
+  '-b[Set destination channel for bridged request]:channel' \
+  '-t[Bridge request to remote target address]:address' \
+  '-M[Set transit local address for bridge request(dual bridge)]:address' \
+  '-B[Set transit channel for bridged request (dual bridge)]:channel' \
+  '-T[Set transit address for bridge request (dual bridge)]:address' \
+  '-l[Set destination lun for raw commands]:lun' \
+  "-o[Setup for OEM (use 'list' to see available OEM types)]:oemtype" \
+  '-O[Use file for OEM SEL event descriptions]:seloem' \
+  '-N[Specify timeout for lan / lanplus interface]:seconds' \
+  '-R[Set the number of retries for lan/lanplus interface]:retry' \
+  '1: :->cmd' \
+  '2: :->sub_cmd' \
+  '*:Command Arguments:' \
+  && ret=0
+
+case $state in
+  (cmd)
+    local -a cmds
+    cmds=( ${${${${(@f)"$(_call_program commands ipmitool help 2>&1)"}[2,-1]}/#[[:space:]]}/ ##/:} )
+    _describe -t commands 'Command' cmds && ret=0
+  ;;
+  (sub_cmd)
+    local -a sub_cmds
+    sub_cmds=(  ${(@f)${${"$(ipmitool $words[-2] 2>&1)"}#*:}} )
+    if (( $#sub_cmds == 1 )); then
+      sub_cmds=( ${(s:,:)${sub_cmds//[[:space:]]}} )
+      _describe -t commands 'Subcommand' sub_cmds && ret=0
+    else
+      _message 'Subcommand'
+    fi
+  ;;
+esac
+  
+return $ret

@@ -1,0 +1,22 @@
+#compdef prlctl
+
+function _prlctl {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments '1:Action:((list\:"Display information about VMs" start\:"Start a VM instance"))' '2: :->subcmd'
+  #_arguments '1: :->action'
+ 
+  case $state in
+    subcmd)
+      case $words[1] in
+        list)
+          _arguments '-a[List all]' 
+          ;;
+        *) echo $words[1]
+      esac
+    ;;
+  esac
+}
+
+_prlctl "$@"

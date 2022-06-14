@@ -1,0 +1,150 @@
+#compdef bundle
+
+local curcontext state line ret=1
+typeset -A opt_args
+curcontext="$curcontext"
+
+local -a global_opts subcmds gems
+
+_gemfile_groups() {
+  local -Ua gemfile_groups
+  local gemfile=Gemfile
+  (( $+opt_args[--gemfile] )) && gemfile=$opt_args[--gemfile] 
+  if [[ -r Gemfile ]]; then
+    gemfile_groups=( ${${=${${${${(M)${(@f)"$(<$gemfile)"}:#*group*}/ #\#*}/*group #/}/ #do #/}//,/
+}//[=>: \[\]]#/} )
+  fi
+  compadd "$@" ${gemfile_groups:#(${~${(j:|:)${(s,:,)${opt_args[--without]}}}})}
+}
+
+gems=( ${${(M)${(@f)"$(bundle show 2>/dev/null)"}:#  \**}/(#b)  \* ([^ ]#) */$match[1]} )
+
+subcmds=(
+  'install:Install the gems specified by the Gemfile or Gemfile.lock'
+  'update:Update dependencies to their latest versions'
+  'package:Package the .gem files required by  your  application  into  the vendor/cache directory'
+  'exec:Execute a script in the context of the current bundle'
+  'config:Specify and read configuration options for bundler'
+  'help:Displays the help page'
+  'check:Determine  whether  the  requirements  for  your application are installed and available to bundler'
+  'list:Show all of the gems in the current bundle'
+  'show:Show the source location of a particular gem in the bundle'
+  'outdated:Show all of the outdated gems in the current bundle'
+  'console:Start an IRB session in the context of the current bundle'
+  'open:Open an installed gem in the editor'
+  'viz:Generate a visual representation of your dependencies'
+  'init:Generate a simple Gemfile, placed in the current directory'
+  'gem:Create a simple gem, suitable for development with bundler'
+  'platform:Displays platform compatibility information'
+  'clean:Cleans up unused gems in your bundler directory'
+)
+
+global_opts=(
+  '--no-color[Prints all output without color]'
+  '(-V --verbose)'{-V,--verbose}'[Prints out additional logging information]'
+)
+
+_arguments \
+  '(- 1 *)'{-v,--version}'[display version information]' \
+  '*:: :->opts_and_args' \
+  && ret=0
+
+if (( CURRENT == 1 )); then
+  _describe -t commands 'bundle command' subcmds
+  return 0
+fi
+
+case $state in
+  (opts_and_args)
+    local -a args
+    case $line[1] in
+      (help) _values -S ' ' 'bundle command' $subcmds ;;
+      (update) args=( '--source=[The  name  of a :git or :path source used in the Gemfile]:name:' ) ;;
+      (exec) _normal && ret=0 ;;
+      (config)
+        local -a config_keys
+        config_keys=( 
+          path\:'The location on disk to install gems'
+          frozen\:'Disallow changes to the Gemfile'
+          without\:'A :-separated list of groups whose  gems bundler should not install'
+          bin\:'Install executables from gems in the bundle to the specified directory'
+          gemfile\:'The name of the file that bundler should use as the Gemfile'
+        )
+        args=(
+          '(--global --local)--delete[The delete the configuration value globally and locally]'
+          '(--delete --local)--global[Get or set the specified config value globally]'
+          '(--delete --global)--local[Get or set the specified config value locally]'
+          '1:config key:(( $config_keys ))'
+          '2::config value:'
+        )
+      ;;
+      (install|check)
+        args+=( '--gemfile=[The Gemfile to use]:Gemfile:_files' )
+      ;|
+      (show|outdated)
+          _values 'gem' $gems
+#          args+=( '1::gem:( $gems )' )
+      ;|
+      (install)
+        args+=(
+          '(--system)--path=[Location to install gems.  Defaults to GEM_HOME]:install to:_path_files -/'
+          '(--path)--system[Install gems to system location]'
+          '--without=[Space separated list of group to skip]:*[^-]:groups:_gemfile_groups'
+          '--local[Do not attempt to get gems remotely, just from local places]'
+          '--deployment[Switch defaults to deployment mode]'
+          '--binstubs=[Create a directory containing an executable that runs in the context of the bundle]:bin dir:_path_files -/'
+          '--standalone=[Make a bundle that can work without Ruby Gems or Bundler at runtime]:*[^-]::groups:_gemfile_groups --standalone'
+          '--trust-policy=[Apply the Rubygems security policy]:policy:(HighSecurity MediumSecurity LowSecurity NoSecurity)'
+          '--no-cache[Do not update the cache in vendor/cache with the newly bundled gems]'
+          '--quiet[Do not print progress information to stdout]'
+          '(-j --jobs)'{-j,--jobs}'[Install gems parallely by starting size number of parallel workers]:job count:'
+        )
+      ;;
+      (check)
+        args+=(
+          '--path=[Specify a different path than the system default]:path:_path_files -/'
+          '--dry-run[Lock the Gemfile]'
+        )
+      ;;
+      (show) args+=( '--paths[List the paths of all gems that are required by your Gemfile]' ) ;;
+      (outdated)
+        args+=(
+          '--pre[Check for newer pre-release gems]'
+          '--source[Check against a specific source]:source:'
+          '--local[Do not attempt to fetch gems remotely and use the gem cache instead]'
+        )
+      ;;
+      (console) args+=( '::group:_gemfile_groups' ) ;;
+      (init) args+=( '--gemspec=[Use the specified .gemspec to create the Gemfile]:gemspec:_files' ) ;;
+      (clean)
+        args+=(
+          '--dry-run[only print out changes, do not actually clean gems]'
+          '--force[forces clean even if --path is not set]'
+        )
+      ;;
+      (open|gem) args+=( '1:gem:( $gems)' ) ;|
+      (viz)
+        args+=(
+          '(-f --file)'{-f,--file}'[The name to use for the generated file]:output file:'
+          '(-v --version)'{-v,--version}'[Set to show each gem version]'
+          '(-r --requirements)'{-r,--requirements}'[Set to show the version of each required dependency]'
+          '(-F --format)'{-F,--format}'[Set the output format]:output format:(png jpg svg dot)'
+        )
+      ;;
+      (init) args+=( '--gemspec[Use the specified .gemspec to create the Gemfile]:.gemspec:_files' ) ;;
+      (gem)
+        args+=(
+          '(-b --bin)'{-b,--bin}'[Generate a binary for your library]'
+          '(-t --test)'{-t,--test}'[Generate a test directory for your library]'
+          '(-e --edit)'{-e,--edit}'[/path/to/your/editor]'
+        )
+      ;;
+      (platform) args+=( '--ruby[display the ruby directive information]' ) ;;
+    esac
+    _arguments \
+      $global_opts \
+      $args && ret=0
+  ;;
+esac
+
+return $ret

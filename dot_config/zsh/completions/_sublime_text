@@ -1,0 +1,12 @@
+#compdef sublime_text subl
+
+_arguments \
+  ':files to open:_files' \
+  '--project[Load the given project]:Project File:_files -g \*.sublime-project' \
+  '--command[Run the given command]:sublime command:' \
+  '(-n --new-window)'{-n,--new-window}'[Open a new window]' \
+  '(-a --add)'{-a,--add}'[Add folders to the current window]' \
+  '(-w --wait)'{-w,--wait}'[Wait for the files to be closed before returning]' \
+  '(-b --background)'{-b,--background}"[Don't activate the application]" \
+  '(- *)'{-h,--help}'[Show help (this message) and exit]' \
+  '(- *)'{-v,--version}'[Show version and exit]'

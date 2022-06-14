@@ -1,0 +1,28 @@
+#compdef ansible-doc
+# vim: ts=2 expandtab
+
+local context state line expl
+typeset -A opt_args
+local -i ret=1
+
+_arguments \
+  '(-a --all)'{-a,--all}'[Show documentation for all modules]' \
+  '(-)'{-h,--help}'[show this help message and exit]' \
+  '(-l --list)'{-l,--list}'[List available modules]' \
+  '(-M --module-path)'{-M,--module-path}'[specify path(s) to module library]:module path:->module_path' \
+  '(-s --snippet)'{-s,--snippet}'[Show playbook snippet for specified module(s)]' \
+  '*'{-v,--verbose}'[verbose mode (-vvv for more, -vvvv to enable connection debugging)]' \
+  "(-)--version[show program's version number and exit]" \
+  '*:module:' \
+  && ret=0
+
+case $state in
+  (module_path)
+    _description files expl file
+    compset -P '*:'
+    compset -S ':*'
+    _wanted files expl 'module path' _path_files -/ && ret=0
+  ;;
+esac
+
+return $ret

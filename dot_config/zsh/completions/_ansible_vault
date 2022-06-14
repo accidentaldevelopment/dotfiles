@@ -1,0 +1,18 @@
+#compdef ansible-vault
+# vim: ts=2 expandtab
+
+local -i ret=1
+
+_arguments \
+  '--ask-vault-pass[for vault password]' \
+  '(-h --help)'{-h,--help}'[show this help message and exit]' \
+  '--new-vault-password-file[new vault password file for rekey]:new vault password file:' \
+  '--output[output file name for encrypt or decrypt; use - for stdout]:new encrypted file:' \
+  '--vault-password-file[vault password file]:password file:_files' \
+  '(-v --verbose)'{-v,--verbose}'[verbose mode (-vvv for more, -vvvv to enable connection debugging)]:' \
+  "(-)--version[show program's version number and exit]" \
+  '1:command:(create decrypt edit encrypt rekey view])' \
+  '*: :_files' \
+  && ret=0
+
+return $ret

@@ -1,0 +1,12 @@
+set nocompatible
+
+set modelines=5
+
+syntax on
+set ruler
+set bg=dark
+set bs=2
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set undodir=~/.vim/undo

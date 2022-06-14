@@ -1,0 +1,10 @@
+require 'accidev.options'
+require 'accidev.keymaps'
+require 'accidev.plugins'
+
+require 'accidev.bufferline'
+require 'accidev.cmp'
+require 'accidev.colorscheme'
+require 'accidev.gitsigns'
+require 'accidev.toggleterm'
+require 'accidev.treesitter'

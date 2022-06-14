@@ -1,0 +1,4 @@
+commit-to-history() {
+  print -s ${(z)BUFFER}
+  zle send-break
+}

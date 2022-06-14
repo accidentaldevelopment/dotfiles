@@ -1,0 +1,5 @@
+expand-or-complete-with-dots() {
+  print -Pn "%F{red}......%f"
+  zle expand-or-complete
+  zle redisplay
+}

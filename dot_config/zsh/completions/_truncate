@@ -1,0 +1,41 @@
+#compdef truncate
+
+local ret=1
+local context state line expl
+local -A opt_args
+
+local -a prefixes units
+
+prefixes=(
+  '+:extend by'
+  '-:reduce by'
+  '<:at most'
+  '>:at least'
+  '/:round down to multiple of'
+  '%:round up to multiple of'
+)
+
+_arguments \
+  '(-c --no-create)'{-c,--no-create}'[do not create any files]' \
+  '(-o --io-blocks)'{-o,--io-blocks}'[Treat SIZE as number of IO blocks instead of bytes]' \
+  '(-r --reference -s --size)'{-r,--reference}'[use this FILE’s size]:file:_files' \
+  '(-s --size -r --reference)'{-s,--size}'[use this SIZE]:size:->size' \
+  '(-)--help[display this help and exit]' \
+  '(-)--version[output version information and exit]' \
+  '*:files:_files' \
+  && ret=0
+
+case $state in
+  (size)
+    _tags size prefixes units
+    while _tags; do
+      if _requested prefixes expl 'prefixes' && compset -p 0; then
+        compadd "$expl[@]" -S '' -a prefixes
+      fi
+      _requested size && _message -e description 'size'
+    done
+    ret=0
+  ;;
+esac
+
+return $ret

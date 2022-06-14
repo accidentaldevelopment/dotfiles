@@ -1,0 +1,106 @@
+path=(
+{{- if eq .chezmoi.os "darwin" }}
+  $HOME/.cargo/bin
+  /opt/homebrew/{,s}bin
+{{- end }}
+  $path
+)
+
+# if [[ -z $TMUX ]]; then
+#   exec tmux new-session -A -s $USER
+# fi
+
+fpath=(
+{{- if eq .chezmoi.os "darwin" }}
+  "$(brew --prefix)/share/zsh/site-functions"
+{{- end }}
+  $HOME/.config/zsh/{widgets,completions,functions}
+  $fpath
+)
+
+# options
+setopt inc_append_history    # append commands when typed instead when shell exits
+setopt share_history         # share history among other sessions
+setopt extended_history      # store timestamp and duration of commands
+setopt hist_ignore_all_dups  # remove previous history entries if they match the current command
+setopt hist_ignore_space     # don't append to history if command starts with a space
+setopt hist_no_store         # don't store the `history` command in history
+setopt correct               # attempt correct spelling on commands
+setopt prompt_subst          # turn on expansions in prompts
+
+# Setup history stuffs
+HISTSIZE=2000
+SAVEHIST=2000
+HISTFILE=~/.zsh_history
+
+alias cat=bat
+alias ls='lsd'
+alias ll='lsd -l'
+
+alias grep='grep --color=auto'
+[[ $TERM == 'xterm-kitty' ]] && alias ssh='kitty +kitten ssh'
+{{- if eq .chezmoi.hostname "charles" }}
+alias sr='ssh -l root'
+{{- end }}
+alias -g NO='1>/dev/null'
+alias -g NE='2>/dev/null'
+alias -g NA='&>/dev/null'
+
+bindkey -v
+
+zmodload zsh/terminfo
+bindkey $terminfo[khome] beginning-of-line \
+        $terminfo[kend] end-of-line \
+        $terminfo[kdch1] delete-char \
+        $terminfo[kcuu1] up-line-or-search \
+        $terminfo[kcud1] down-line-or-search
+bindkey -v '^?' backward-delete-char
+
+if [[ -n ${terminfo[smkx]} ]] && [[ -n ${terminfo[rmkx]} ]]; then
+  zle-line-init()   { echoti smkx }
+  zle-line-finish() { echoti rmkx }
+
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
+# bash style word splitting
+autoload -Uz select-word-style
+select-word-style bash
+
+# Red dots with completion.  Pointless but useless!
+autoload -Uz expand-or-complete-with-dots
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+zmodload zsh/complist
+autoload -Uz compinit && compinit
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions' format "%B%d%b"
+zstyle ':completion:*:messages' format "%B%F{yellow}%d%f%b"
+zstyle ':completion:*:warnings' format "%B%F{red}%d%f%b"
+zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=1;36=1;31"
+zstyle ':completion:*:*:kill:*:processes' menu select
+zstyle ':completion:*:*:killall:*:processes-names' list-colors "=(#b) #([0-9]#)*=1;36=1;31"
+zstyle ':completion:*:*:killall:*:processes-names' menu select
+zstyle ':completion:*:*:rake:*:targets' menu select
+zstyle ':completion:*:*:rake:*:targets' list-colors "=(#b) #([a-zA-Z_:]#) #--*=1;36=1;31"
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.(^1)' insert-sections   true
+
+source ~/.config/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+
+{{- if eq .chezmoi.os "darwin" }}
+source $(brew --prefix fzf)/shell/key-bindings.zsh
+source $(brew --prefix fzf)/shell/completion.zsh
+{{- end }}
+
+autoload -U +X bashcompinit && bashcompinit
+#(( $+commands[terraform] )) && complete -o nospace -C /usr/local/bin/terraform terraform
+#(( $+commands[kubectl] )) && source <(kubectl completion zsh)
+#(( $+commands[helm] )) && source <(helm completion zsh)
+
+eval "$(starship init zsh)"

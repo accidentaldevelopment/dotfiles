@@ -1,0 +1,120 @@
+#!/bin/zsh
+
+emulate -L zsh
+
+# Why wouldn't this be set?
+setopt extended_glob
+
+(
+  # Namespace variable
+  NS=_$0:t
+
+  ${NS}_Darwin() {
+    local -a info
+    info=( ${(f)"$(pmset -g batt)"} )
+    # This allows me to set the battery percentage as an env variable for testing
+    # Just takes up time when not testing, so comment out in production
+    #percentage=${PERCENTAGE:-${${info[2]# *[[:space:]]}%%%*}}
+    if (( $#info == 1 )); then
+      percentage=100
+    else
+      percentage=${${info[2]# *[[:space:]]*[[:space:]]}%%%*}
+    fi
+    ac=${${info[1]#*\'}%% *}
+  }
+
+  ####################################################
+  # Initial setup (cli opts and whatnot)
+  ####################################################
+
+  local -A opts
+  integer width
+  local newline=''
+
+  local USAGE="Usage: $0:t [options...]
+  Options
+    -n                 Don't print newline
+    -P                 Perform prompt expansion (automatic if printing to a tty)
+    -h, --help         Display this and exit
+    -w, --width WIDTH  Width (in chars) of the meter (not including ac icon)
+        --no-ac        Do not display the AC icon when plugged in"
+
+  # Attempt to parse the options and exit if there's an error
+  if ! zparseopts -A opts -K -D -- h -help w: -width: P n -no-ac; then
+    print $USAGE >&2
+    return 1
+  fi
+
+  # Check for -h|--help
+  if [[ -n ${opts[(i)-h|--help]} ]]; then
+    print $USAGE >&2
+    return 0
+  fi
+
+  # Setup -n to be sent to print if requested
+  [[ -n ${opts[(i)-n]} ]] && newline='-n'
+
+  # Set the width of the meter, default to 10
+  width=${opts[${opts[(i)-w|--width]}]:-10}
+
+
+  ####################################################
+  # Main chunk of stuffs
+  ####################################################
+
+  integer filled
+  integer percentage
+  local ac
+  local meter='%F{%h}%c%e%a%f'
+
+  (( $+functions[${NS}_$(uname -s)] )) || {
+    print 'Unsupported OS' >&2
+    return 2
+  }
+  ${NS}_$(uname -s)
+
+  # Figure out how many little arrows are filled in
+  # Find what each little triangle is worth and use that info
+  # Add 0.5 for poor person's rounding
+  # Zsh has floats/doubles :D
+  (( filled = percentage / (100.0 / width) + 0.5 ))
+
+
+  # Finally start building the output
+
+  # Pick the text colour
+  case $percentage in
+    (<70->)   zformat -f meter $meter h:green  ;;
+    (<40-69>) zformat -f meter $meter h:yellow ;;
+    (<-39>)   zformat -f meter $meter h:red    ;;
+  esac
+
+  # Maybe this should be configurable.  Easy addition.
+  if (( percentage >= 20 )); then
+    if [[ ${$(tty):t} == (ttys*|<->) ]]; then
+      zformat -f meter $meter c:${(l.$filled..▸.)} e:${(l.(( width-filled))..▹.)}
+    else
+      zformat -f meter $meter c:${(l.$filled..+.)} e:${(l.(( width-filled))..-.)}
+    fi
+  else 
+    zformat -f meter $meter c:critical e: #empty
+  fi
+
+  # Tack on the AC icon if plugged in and not disabled
+  if [[ -z ${opts[(i)--no-ac]} && $ac == 'AC' ]]; then
+    if [[ ${$(tty):t} == (ttys*|<->) ]]; then
+      #zformat -f meter $meter a:⚡
+      zformat -f meter $meter a:"\xE2\x9A\xA1"
+    else
+      zformat -f meter $meter a:"\xC2\xB1"
+    fi
+  else
+    zformat -f meter $meter a:' '
+  fi
+
+  if [[ -t 1 || -n ${opts[(i)-P]} ]]; then
+    print -P $newline -- $meter
+  else
+    print $newline -- $meter%f%b
+  fi
+)
