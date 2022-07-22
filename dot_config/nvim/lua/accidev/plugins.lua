@@ -65,7 +65,12 @@ packer.startup(function(use)
     end,
     requires = 'kyazdani42/nvim-web-devicons',
   }
-  use 'akinsho/bufferline.nvim'
+  use {
+    'akinsho/bufferline.nvim',
+    config = function()
+      require 'accidev.bufferline'
+    end,
+  }
   use 'moll/vim-bbye'
   use {
     'feline-nvim/feline.nvim',
@@ -94,10 +99,21 @@ packer.startup(function(use)
   }
 
   -- Colorschemes
-  use { 'catppuccin/nvim', as = 'catppuccin' }
+  use {
+    'catppuccin/nvim',
+    as = 'catppuccin',
+    config = function()
+      require 'accidev.colorscheme'
+    end,
+  }
 
   -- cmp plugins
-  use 'hrsh7th/nvim-cmp' -- The completion plugin
+  use {
+    'hrsh7th/nvim-cmp', -- The completion plugin
+    config = function()
+      require 'accidev.cmp'
+    end,
+  }
   use 'hrsh7th/cmp-buffer' -- buffer completions
   use 'hrsh7th/cmp-path' -- path completions
   use 'hrsh7th/cmp-cmdline' -- cmdline completions
@@ -148,11 +164,19 @@ packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    config = function()
+      require 'accidev.treesitter'
+    end,
   }
   --  use "JoosepAlviste/nvim-ts-context-commentstring"
 
   -- Git
-  use 'lewis6991/gitsigns.nvim'
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function()
+      require 'accidev.gitsigns'
+    end,
+  }
 
   use 'ellisonleao/glow.nvim'
 end)
