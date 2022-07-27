@@ -133,9 +133,12 @@ packer.startup(function(use)
   --  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- LSP
-  use 'williamboman/nvim-lsp-installer' -- simple to use language server installer
   use {
     'neovim/nvim-lspconfig', -- enable LSP
+    requires = {
+      'williamboman/mason.nvim',
+      'williamboman/mason-lspconfig.nvim',
+    },
     config = function()
       require 'accidev.lsp'
     end,

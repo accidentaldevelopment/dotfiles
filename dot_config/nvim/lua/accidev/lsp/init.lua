@@ -1,2 +1,1 @@
-require "accidev.lsp.lsp-installer"
-require("nvim-lsp-installer").setup {}
+require "accidev.lsp.mason"

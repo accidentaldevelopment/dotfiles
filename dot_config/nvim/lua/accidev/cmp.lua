@@ -98,7 +98,6 @@ cmp.setup {
         luasnip = '[Snippet]',
         buffer = '[Buffer]',
         path = '[Path]',
-        crates = '[Crates]',
       })[entry.source.name]
       return vim_item
     end,
