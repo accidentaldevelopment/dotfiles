@@ -24,4 +24,3 @@ rust = {{ $macos }}
 docker = {{ $macos }}
 podman = {{ $macos }}
 go = {{ and ($macos) (promptBoolOnce .dev "go" "are we writing go") -}}
-node = {{ and ($macos) (promptBoolOnce .dev "node" "are we writing node") -}}

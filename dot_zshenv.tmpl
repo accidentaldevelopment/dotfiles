@@ -10,6 +10,9 @@ export READNULLCMD=less
 export DOCKER_BUILDKIT=1
 {{ end -}}
 export GPG_TTY=$(tty)
+{{- if .os.macos }}
+export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+{{- end }}
 
 # man highlighting
 export LESS_TERMCAP_mb=$(tput bold; tput setaf red)   # begin bold

@@ -1,6 +1,11 @@
 path=(
-{{- if eq .chezmoi.os "darwin" }}
+{{- if .dev.rust }}
   $HOME/.cargo/bin
+{{- end }}
+{{- if .dev.go }}
+  $HOME/go/bin
+{{- end }}
+{{- if .os.macos }}
   /opt/homebrew/{,s}bin
 {{- end }}
   $path
@@ -11,7 +16,7 @@ path=(
 # fi
 
 fpath=(
-{{- if eq .chezmoi.os "darwin" }}
+{{- if .os.macos }}
   "$(brew --prefix)/share/zsh/site-functions"
 {{- end }}
   $HOME/.config/zsh/{widgets,completions,functions}
@@ -93,7 +98,7 @@ zstyle ':completion:*:manuals.(^1)' insert-sections   true
 source ~/.config/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 
-{{- if eq .chezmoi.os "darwin" }}
+{{- if .os.macos }}
 source $(brew --prefix fzf)/shell/key-bindings.zsh
 source $(brew --prefix fzf)/shell/completion.zsh
 {{- end }}
