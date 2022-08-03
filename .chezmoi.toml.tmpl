@@ -1,5 +1,5 @@
-{{- $name := promptString "name" -}}
-{{- $email := promptString "email" -}}
+{{- $name := promptStringOnce . "name" "name?" -}}
+{{- $email := promptStringOnce . "email" "email?" -}}
 
 {{/* Various system detection stuffs */}}
 {{- $macos := eq .chezmoi.os "darwin" -}}
@@ -17,9 +17,11 @@ email = {{ $email | quote }}
 [data.os]
 macos = {{ $macos }}
 linux = {{ $linux }}
-arch = {{ and ($linux ) (hasKey .chezmoi.osRelease "id" ) (eq .chezmoi.osRelease.id "arch") }}
+arch = {{ and ($linux) (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") }}
 
 [data.dev]
 rust = {{ $macos }}
 docker = {{ $macos }}
 podman = {{ $macos }}
+go = {{ and ($macos) (promptBoolOnce .dev "go" "are we writing go") -}}
+node = {{ and ($macos) (promptBoolOnce .dev "node" "are we writing node") -}}
