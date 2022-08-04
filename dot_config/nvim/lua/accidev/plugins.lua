@@ -118,6 +118,9 @@ packer.startup(function(use)
   -- cmp plugins
   use {
     'hrsh7th/nvim-cmp', -- The completion plugin
+    requires = {
+      'hrsh7th/cmp-cmdline',
+    },
     config = function()
       require 'accidev.cmp'
     end,
