@@ -1,4 +1,4 @@
-local catppuccin = require('catppuccin')
+local catppuccin = require 'catppuccin'
 
 local config = {
   transparent_background = true,
@@ -54,7 +54,7 @@ local config = {
     hop = false,
     notify = true,
     telekasten = true,
-  }
+  },
 }
 
 catppuccin.setup(config)

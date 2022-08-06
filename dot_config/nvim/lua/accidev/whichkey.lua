@@ -1,4 +1,4 @@
-local which_key = require('which-key')
+local which_key = require 'which-key'
 
 local setup = {
   plugins = {

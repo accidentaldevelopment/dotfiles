@@ -62,7 +62,7 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-  local trouble = require('trouble')
+  local trouble = require 'trouble'
   local opts = { buffer = true, silent = true }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   -- TODO: Use trouble when this is fixed: https://github.com/folke/trouble.nvim/issues/153
@@ -71,13 +71,13 @@ local function lsp_keymaps(bufnr)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
   vim.keymap.set('n', 'gr', function()
-    trouble.toggle('lsp_references')
+    trouble.toggle 'lsp_references'
   end, opts)
   vim.keymap.set('n', '[d', function()
-    vim.diagnostic.goto_prev({ border = 'rounded' })
+    vim.diagnostic.goto_prev { border = 'rounded' }
   end, opts)
   vim.keymap.set('n', ']d', function()
-    vim.diagnostic.goto_next({ border = 'rounded' })
+    vim.diagnostic.goto_next { border = 'rounded' }
   end, opts)
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
   vim.keymap.set('n', 'gl', function()
@@ -102,7 +102,7 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local cmp_nvim_lsp = require('cmp_nvim_lsp')
+local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 return M

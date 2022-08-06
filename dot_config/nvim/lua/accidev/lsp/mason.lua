@@ -1,5 +1,5 @@
-local mason = require('mason')
-local mason_lspconfig = require('mason-lspconfig')
+local mason = require 'mason'
+local mason_lspconfig = require 'mason-lspconfig'
 
 local opts = {
   on_attach = require('accidev.lsp.handlers').on_attach,
@@ -12,7 +12,7 @@ mason.setup {
   },
 }
 
-require 'fidget'.setup {}
+require('fidget').setup {}
 
 mason_lspconfig.setup()
 
@@ -22,7 +22,7 @@ local function rust_tools_setup(opts)
   }
 end
 
-local lspconfig = require('lspconfig')
+local lspconfig = require 'lspconfig'
 for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
   local setup_fn = nil
   if server == 'rust_analyzer' then

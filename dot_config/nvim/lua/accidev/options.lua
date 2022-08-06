@@ -54,5 +54,5 @@ vim.opt.whichwrap:prepend {
   ['['] = true,
   [']'] = true,
 }
-vim.opt.iskeyword:remove('-')
-vim.opt.formatoptions:remove { 'c', 'r', 'o', } -- TODO: this doesn't seem to work
+vim.opt.iskeyword:remove '-'
+vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- TODO: this doesn't seem to work

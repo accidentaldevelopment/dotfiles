@@ -3,7 +3,6 @@ local default_schemas = nil
 --default_schemas = jsonls_settings.get_default_schemas()
 local default_schemas = {}
 
-
 local schemas = {
   -- {
   --   description = "TypeScript compiler configuration file",
@@ -162,9 +161,9 @@ local schemas = {
   --   url = "https://json.schemastore.org/vsconfig.json",
   -- },
   {
-    description = "Resume json",
-    fileMatch = { "resume.json" },
-    url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+    description = 'Resume json',
+    fileMatch = { 'resume.json' },
+    url = 'https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json',
   },
 }
 
@@ -187,7 +186,7 @@ local opts = {
     commands = {
       Format = {
         function()
-          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line '$', 0 })
         end,
       },
     },

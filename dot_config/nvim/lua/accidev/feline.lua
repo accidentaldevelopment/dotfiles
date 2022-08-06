@@ -5,5 +5,4 @@ table.insert(components.active[1], 6, {
   left_sep = ' ',
 })
 
-require('feline').setup({
-})
+require('feline').setup {}
