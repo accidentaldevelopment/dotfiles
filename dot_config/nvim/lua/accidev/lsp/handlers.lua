@@ -48,21 +48,16 @@ local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     local gid = vim.api.nvim_create_augroup('lsp_document_highlight', {})
-    vim.api.nvim_create_autocmd(
-      { 'CursorHold' },
-      {
-        group = gid,
-        pattern = '<buffer>',
-        callback = vim.lsp.buf.document_highlight,
-      }
-    )
-    vim.api.nvim_create_autocmd({ 'CursorMoved' },
-      {
-        group = gid,
-        pattern = '<buffer>',
-        callback = vim.lsp.buf.clear_references,
-      }
-    )
+    vim.api.nvim_create_autocmd({ 'CursorHold' }, {
+      group = gid,
+      pattern = '<buffer>',
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+      group = gid,
+      pattern = '<buffer>',
+      callback = vim.lsp.buf.clear_references,
+    })
   end
 end
 
@@ -75,38 +70,39 @@ local function lsp_keymaps(bufnr)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', 'gr', function() trouble.toggle('lsp_references') end, opts)
-  vim.keymap.set('n', '[d', function() vim.diagnostic.goto_prev({ border = 'rounded' }) end, opts)
-  vim.keymap.set('n', ']d', function() vim.diagnostic.goto_next({ border = 'rounded' }) end, opts)
+  vim.keymap.set('n', 'gr', function()
+    trouble.toggle('lsp_references')
+  end, opts)
+  vim.keymap.set('n', '[d', function()
+    vim.diagnostic.goto_prev({ border = 'rounded' })
+  end, opts)
+  vim.keymap.set('n', ']d', function()
+    vim.diagnostic.goto_next({ border = 'rounded' })
+  end, opts)
   vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-  vim.keymap.set('n', 'gl',
-    function()
-      vim.diagnostic.open_float(bufnr, { scope = 'line' })
-    end,
-    opts
-  )
+  vim.keymap.set('n', 'gl', function()
+    vim.diagnostic.open_float(bufnr, { scope = 'line' })
+  end, opts)
 end
 
 M.on_attach = function(client, bufnr)
-  if client.name == 'tsserver' then
+  -- TODO: Find a better way to do this.
+  if client.name == 'tsserver' or client.name == 'sumneko_lua' then
     client.resolved_capabilities.document_formatting = false
   end
-  if client.resolved_capabilities.document_formatting then
-    vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-      pattern = '<buffer>',
-      callback = function()
-        vim.lsp.buf.formatting_sync(nil, 200)
-      end
-    }
-    )
-  end
+  vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+    pattern = '<buffer>',
+    callback = function()
+      vim.lsp.buf.formatting_sync(nil, 200)
+    end,
+  })
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local cmp_nvim_lsp = require 'cmp_nvim_lsp'
+local cmp_nvim_lsp = require('cmp_nvim_lsp')
 M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
 
 return M
