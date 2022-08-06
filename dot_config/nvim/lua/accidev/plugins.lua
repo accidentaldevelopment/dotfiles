@@ -139,6 +139,7 @@ packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig', -- enable LSP
     requires = {
+      'j-hui/fidget.nvim',
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
     },
