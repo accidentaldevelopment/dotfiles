@@ -181,6 +181,9 @@ packer.startup(function(use)
   use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
+    requires = {
+      'nvim-treesitter/nvim-treesitter-context',
+    },
     config = function()
       require 'accidev.treesitter'
     end,
