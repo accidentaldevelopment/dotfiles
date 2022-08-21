@@ -104,6 +104,7 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' },
     { name = 'luasnip' },
     { name = 'buffer' },
     { name = 'path' },
@@ -114,9 +115,8 @@ cmp.setup {
     select = false,
   },
   window = {
-    documentation = {
-      border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
-    },
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   experimental = {
     ghost_text = false,

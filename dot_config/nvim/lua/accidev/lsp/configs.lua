@@ -41,3 +41,5 @@ for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
   end
   setup_fn(full_opts)
 end
+
+require('accidev.lsp.handlers').setup()

@@ -146,20 +146,18 @@ packer.startup(function(use)
     'hrsh7th/nvim-cmp', -- The completion plugin
     requires = {
       'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'saadparwaiz1/cmp_luasnip',
+      -- "L3MON4D3/LuaSnip", --snippet engine
     },
     config = function()
       require 'accidev.cmp'
     end,
   }
-  use 'hrsh7th/cmp-buffer' -- buffer completions
-  use 'hrsh7th/cmp-path' -- path completions
-  use 'hrsh7th/cmp-cmdline' -- cmdline completions
-  use 'saadparwaiz1/cmp_luasnip' -- snippet completions
-  use 'hrsh7th/cmp-nvim-lsp'
-
-  -- snippets
-  use 'L3MON4D3/LuaSnip' --snippet engine
-  --  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- LSP
   use {
@@ -186,6 +184,8 @@ packer.startup(function(use)
       require('crates').setup()
     end,
   }
+
+  use 'preservim/tagbar'
 
   --  -- Telescope
   use {

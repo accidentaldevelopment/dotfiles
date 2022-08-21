@@ -1,2 +1,2 @@
-require 'accidev.lsp.mason'
+require 'accidev.lsp.configs'
 require 'accidev.lsp.null-ls'
