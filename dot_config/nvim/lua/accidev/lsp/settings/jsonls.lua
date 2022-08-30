@@ -4,14 +4,14 @@ local default_schemas = nil
 local default_schemas = {}
 
 local schemas = {
-  -- {
-  --   description = "TypeScript compiler configuration file",
-  --   fileMatch = {
-  --     "tsconfig.json",
-  --     "tsconfig.*.json",
-  --   },
-  --   url = "https://json.schemastore.org/tsconfig.json",
-  -- },
+  {
+    description = 'TypeScript compiler configuration file',
+    fileMatch = {
+      'tsconfig.json',
+      'tsconfig.*.json',
+    },
+    url = 'https://json.schemastore.org/tsconfig.json',
+  },
   -- {
   --   description = "Lerna config",
   --   fileMatch = { "lerna.json" },
@@ -146,13 +146,13 @@ local schemas = {
   --   },
   --   url = "https://json.schemastore.org/packer.json",
   -- },
-  -- {
-  --   description = "NPM configuration file",
-  --   fileMatch = {
-  --     "package.json",
-  --   },
-  --   url = "https://json.schemastore.org/package.json",
-  -- },
+  {
+    description = 'NPM configuration file',
+    fileMatch = {
+      'package.json',
+    },
+    url = 'https://json.schemastore.org/package.json',
+  },
   -- {
   --   description = "JSON schema for Visual Studio component configuration files",
   --   fileMatch = {

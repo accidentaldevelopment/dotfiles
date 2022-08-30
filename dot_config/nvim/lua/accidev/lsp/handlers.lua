@@ -63,26 +63,21 @@ end
 
 local function lsp_keymaps(bufnr)
   local trouble = require 'trouble'
+  local util = require 'accidev.util'
   local opts = { buffer = true, silent = true }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-  -- TODO: Use trouble when this is fixed: https://github.com/folke/trouble.nvim/issues/153
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  vim.keymap.set('n', 'gr', function()
-    trouble.toggle 'lsp_references'
-  end, opts)
-  vim.keymap.set('n', '[d', function()
-    vim.diagnostic.goto_prev { border = 'rounded' }
-  end, opts)
-  vim.keymap.set('n', ']d', function()
-    vim.diagnostic.goto_next { border = 'rounded' }
-  end, opts)
-  vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, opts)
-  vim.keymap.set('n', 'gl', function()
-    vim.diagnostic.open_float(bufnr, { scope = 'line' })
-  end, opts)
+
+  require('which-key').register({
+    g = {
+      D = { vim.lsp.buf.declaration, 'Declarations' },
+      d = { util.lazy_fn(trouble.toggle, 'lsp_definitions'), 'Definitions' },
+      i = { vim.lsp.buf.implementation, 'Implementation' },
+      r = { util.lazy_fn(trouble.toggle, 'lsp_references'), 'References' },
+      l = { util.lazy_fn(vim.diagnostic.open_float, bufnr, { scope = 'line' }), 'Diagnostics?' },
+    },
+    K = { vim.lsp.buf.hover, 'Hover' },
+    ['[d'] = { util.lazy_fn(vim.diagnostic.goto_prev, { border = 'rounded' }), 'Previous diagnostic' },
+    [']d'] = { util.lazy_fn(vim.diagnostic.goto_next, { border = 'rounded' }), 'Next diagnostic' },
+  }, { buffer = bufnr })
 end
 
 M.on_attach = function(client, bufnr)

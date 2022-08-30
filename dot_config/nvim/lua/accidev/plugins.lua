@@ -127,7 +127,15 @@ packer.startup(function(use)
   use {
     'folke/trouble.nvim',
     requires = 'kyazdani42/nvim-web-devicons',
+    module = 'trouble',
     config = function()
+      -- Fix for https://github.com/folke/trouble.nvim/issues/153
+      local util = require 'trouble.util'
+      local _jump_to_item = util.jump_to_item
+      util.jump_to_item = function(win, ...)
+        return _jump_to_item(win or 0, ...)
+      end
+
       require('trouble').setup()
     end,
   }
@@ -152,7 +160,7 @@ packer.startup(function(use)
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'saadparwaiz1/cmp_luasnip',
-      -- "L3MON4D3/LuaSnip", --snippet engine
+      'L3MON4D3/LuaSnip',
     },
     config = function()
       require 'accidev.cmp'
