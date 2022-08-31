@@ -76,7 +76,7 @@ local opts = {
 }
 
 local mappings = {
-  ['a'] = { '<cmd>Alpha<cr>', 'Alpha' },
+  ['a'] = { '<cmd>AerialToggle!<cr>', 'Aerial' },
   ['b'] = {
     "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
     'Buffers',

@@ -74,24 +74,6 @@ packer.startup(function(use)
     end,
   }
   use {
-    'kyazdani42/nvim-tree.lua',
-    cmd = {
-      'NvimTreeClipboard',
-      'NvimTreeClose',
-      'NvimTreeFindFile',
-      'NvimFreeFindFileToggle',
-      'NvimTreeFocus',
-      'NvimTreeOpen',
-      'NvimTreeRefresh',
-      'NvimTreeResize',
-      'NvimTreeToggle',
-    },
-    config = function()
-      require 'accidev.nvim-tree'
-    end,
-    requires = 'kyazdani42/nvim-web-devicons',
-  }
-  use {
     'akinsho/bufferline.nvim',
     config = function()
       require 'accidev.bufferline'
@@ -223,6 +205,13 @@ packer.startup(function(use)
     end,
   }
   --  use "JoosepAlviste/nvim-ts-context-commentstring"
+  use {
+    'stevearc/aerial.nvim',
+    cmd = 'AerialToggle',
+    config = function()
+      require('aerial').setup()
+    end,
+  }
 
   -- Git
   use {
