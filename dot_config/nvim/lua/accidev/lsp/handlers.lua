@@ -64,7 +64,6 @@ end
 local function lsp_keymaps(bufnr)
   local trouble = require 'trouble'
   local util = require 'accidev.util'
-  local opts = { buffer = true, silent = true }
 
   require('which-key').register({
     g = {
@@ -85,12 +84,19 @@ M.on_attach = function(client, bufnr)
   if client.name == 'tsserver' or client.name == 'sumneko_lua' then
     client.resolved_capabilities.document_formatting = false
   end
-  vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-    pattern = '<buffer>',
-    callback = function()
-      vim.lsp.buf.formatting_sync(nil, 200)
-    end,
-  })
+  if client.supports_method 'textDocument/formatting' then
+    print 'setting up formatting'
+    local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+    vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      group = augroup,
+      buffer = bufnr,
+      -- TODO: when nvim 0.8 comes out, switch to `format()` with filter.
+      callback = function()
+        vim.lsp.buf.formatting_sync(nil, 400)
+      end,
+    })
+  end
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 end

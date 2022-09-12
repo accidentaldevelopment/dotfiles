@@ -3,12 +3,7 @@ local catppuccin = require 'catppuccin'
 local config = {
   transparent_background = true,
   term_colors = false,
-  styles = {
-    comments = { 'italic' },
-    functions = { 'italic' },
-    keywords = { 'italic' },
-    variables = { 'italic' },
-  },
+  styles = {},
   integrations = {
     treesitter = true,
     native_lsp = {

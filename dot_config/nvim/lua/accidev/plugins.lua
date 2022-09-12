@@ -175,8 +175,6 @@ packer.startup(function(use)
     end,
   }
 
-  use 'preservim/tagbar'
-
   --  -- Telescope
   use {
     'nvim-telescope/telescope.nvim',
