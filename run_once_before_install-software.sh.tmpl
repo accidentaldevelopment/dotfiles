@@ -30,11 +30,12 @@ brew "tmux"
 brew "tokei"
 brew "yq"
 cask "1password-cli"
-cask "alacritty"
+cask "raycast"
+cask "wezterm"
 {{ if .dev.docker -}}
 cask "docker"
 {{ end -}}
-cask "font-fira-code-nerd-font"
+cask "font-fira-code"
 cask "protonvpn"
 EOF
 {{ else if .os.linux }}
