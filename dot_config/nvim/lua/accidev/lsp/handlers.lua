@@ -1,5 +1,12 @@
 local M = {}
 
+local disabled_formatters = {
+  tsserver = true,
+  sumneko_lua = true,
+  jsonls = true,
+  html = true,
+}
+
 -- TODO: backfill this to template
 M.setup = function()
   local signs = {
@@ -81,7 +88,7 @@ end
 
 M.on_attach = function(client, bufnr)
   -- TODO: Find a better way to do this.
-  if client.name == 'tsserver' or client.name == 'sumneko_lua' then
+  if disabled_formatters[client.name] == true then
     client.resolved_capabilities.document_formatting = false
   end
   if client.supports_method 'textDocument/formatting' then
