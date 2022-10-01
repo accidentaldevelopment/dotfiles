@@ -6,11 +6,12 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup {
   debug = false,
   sources = {
-    formatting.stylua,
+    formatting.fish_indent,
     formatting.prettier,
+    formatting.stylua,
     -- diagnostics.cspell,
-    diagnostics.zsh,
     diagnostics.eslint,
-    null_ls.builtins.completion.spell,
+    diagnostics.fish,
+    diagnostics.zsh,
   },
 }
