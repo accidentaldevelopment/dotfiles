@@ -6,3 +6,4 @@ table.insert(components.active[1], 6, {
 })
 
 require('feline').setup {}
+require('feline').winbar.setup {}

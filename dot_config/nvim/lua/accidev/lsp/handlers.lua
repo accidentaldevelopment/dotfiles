@@ -24,9 +24,9 @@ M.setup = function()
     -- disable virtual text
     virtual_text = true,
     -- show signs
-    signs = {
-      active = signs,
-    },
+    -- signs = {
+    --   active = signs,
+    -- },
     update_in_insert = true,
     underline = true,
     severity_sort = true,
@@ -53,7 +53,7 @@ end
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.documentFormattingProvider then
     local gid = vim.api.nvim_create_augroup('lsp_document_highlight', {})
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       group = gid,
@@ -88,19 +88,20 @@ end
 
 M.on_attach = function(client, bufnr)
   -- TODO: Find a better way to do this.
-  if disabled_formatters[client.name] == true then
-    client.resolved_capabilities.document_formatting = false
-  end
   if client.supports_method 'textDocument/formatting' then
-    print 'setting up formatting'
+    print('setting up formatting with ' .. client.name)
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
       buffer = bufnr,
-      -- TODO: when nvim 0.8 comes out, switch to `format()` with filter.
       callback = function()
-        vim.lsp.buf.formatting_sync(nil, 400)
+        -- TODO: something weird is happening here...
+        vim.lsp.buf.format {
+          -- filter = function(client)
+          --   return disabled_formatters[client.name] ~= true
+          -- end,
+        }
       end,
     })
   end

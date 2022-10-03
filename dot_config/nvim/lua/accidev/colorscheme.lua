@@ -54,4 +54,4 @@ local config = {
 
 catppuccin.setup(config)
 
-vim.cmd [[colorscheme catppuccin]]
+vim.cmd.colorscheme 'catppuccin'
