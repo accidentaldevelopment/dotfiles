@@ -53,7 +53,7 @@ end
 
 local function lsp_highlight_document(client)
   -- Set autocommands conditional on server_capabilities
-  if client.server_capabilities.documentFormattingProvider then
+  if client.server_capabilities.documentHighlightProvider then
     local gid = vim.api.nvim_create_augroup('lsp_document_highlight', {})
     vim.api.nvim_create_autocmd({ 'CursorHold' }, {
       group = gid,

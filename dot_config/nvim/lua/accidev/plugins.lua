@@ -86,6 +86,26 @@ packer.startup(function(use)
       require 'accidev.feline'
     end,
   }
+
+  use {
+    'folke/noice.nvim',
+    event = 'VimEnter',
+    config = function()
+      require 'accidev.noice'
+    end,
+    requires = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      'MunifTanjim/nui.nvim',
+      {
+        'rcarriga/nvim-notify',
+        config = function()
+          require('notify').setup {
+            background_colour = '#000000',
+          }
+        end,
+      },
+    },
+  }
   --  use "ahmedkhalf/project.nvim"
   --  use "lewis6991/impatient.nvim"
   use {
