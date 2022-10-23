@@ -91,8 +91,16 @@ cmp.setup {
     fields = { 'kind', 'abbr', 'menu' },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      -- vim_item.kind = string.format('%s', kind_icons[vim_item.kind])
+      if vim.tbl_contains({ 'path' }, entry.source.name) then
+        local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+        if icon then
+          vim_item.kind = icon
+          vim_item.kind_hl_group = hl_group
+          return vim_item
+        end
+      end
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
       vim_item.menu = ({
         nvim_lsp = '[LSP]',
         luasnip = '[Snippet]',
@@ -118,14 +126,29 @@ cmp.setup {
     completion = cmp.config.window.bordered(),
     documentation = cmp.config.window.bordered(),
   },
-  experimental = {
-    ghost_text = false,
-    native_menu = false,
-  },
 }
 
 cmp.setup.cmdline(':', {
   sources = {
     { name = 'cmdline' },
+  },
+  formatting = {
+    fields = { 'kind', 'abbr' },
+    format = function(_, vim_item)
+      vim_item.kind = kind_icons[vim_item.kind]
+      return vim_item
+    end,
+  },
+})
+
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' },
+  },
+  formatting = {
+    fields = { 'kind', 'abbr' },
+    format = function(_, vim_item)
+      return vim_item
+    end,
   },
 })
