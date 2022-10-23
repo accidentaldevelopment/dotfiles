@@ -12,8 +12,6 @@ mason.setup {
   },
 }
 
-require('fidget').setup {}
-
 mason_lspconfig.setup()
 
 local function rust_tools_setup(opts)

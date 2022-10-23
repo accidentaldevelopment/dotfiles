@@ -173,7 +173,6 @@ packer.startup(function(use)
   use {
     'neovim/nvim-lspconfig', -- enable LSP
     requires = {
-      'j-hui/fidget.nvim',
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       'jose-elias-alvarez/null-ls.nvim',
@@ -240,6 +239,13 @@ packer.startup(function(use)
   }
 
   use 'ellisonleao/glow.nvim'
+
+  use {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').add_default_mappings()
+    end,
+  }
 end)
 
 if packer_bootstrap then
