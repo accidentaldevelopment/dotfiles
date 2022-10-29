@@ -94,16 +94,8 @@ packer.startup(function(use)
       require 'accidev.noice'
     end,
     requires = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
       'MunifTanjim/nui.nvim',
-      {
-        'rcarriga/nvim-notify',
-        config = function()
-          require('notify').setup {
-            background_colour = '#000000',
-          }
-        end,
-      },
+      'rcarriga/nvim-notify',
     },
   }
   --  use "ahmedkhalf/project.nvim"
@@ -174,16 +166,14 @@ packer.startup(function(use)
     requires = {
       'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
+      'lvimuser/lsp-inlayhints.nvim',
       'jose-elias-alvarez/null-ls.nvim',
     },
     config = function()
       require 'accidev.lsp'
     end,
   }
-  --  use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
-  --  use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
-  use 'p00f/nvim-ts-rainbow'
-  use 'simrat39/rust-tools.nvim'
+
   use {
     'saecki/crates.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
@@ -215,6 +205,7 @@ packer.startup(function(use)
     run = ':TSUpdate',
     requires = {
       'nvim-treesitter/nvim-treesitter-context',
+      'p00f/nvim-ts-rainbow',
     },
     config = function()
       require 'accidev.treesitter'

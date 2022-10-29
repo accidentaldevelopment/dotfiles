@@ -1,9 +1,11 @@
-local catppuccin = require 'catppuccin'
-
-local config = {
-  transparent_background = true,
-  term_colors = false,
-  styles = {},
+require('catppuccin').setup {
+  highlight_overrides = {
+    mocha = function(colors)
+      return {
+        LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
+      }
+    end,
+  },
   integrations = {
     barbar = false,
     bufferline = true,
@@ -45,7 +47,5 @@ local config = {
     which_key = true,
   },
 }
-
-catppuccin.setup(config)
 
 vim.cmd.colorscheme 'catppuccin'
