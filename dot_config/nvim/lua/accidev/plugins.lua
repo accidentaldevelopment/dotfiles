@@ -236,6 +236,14 @@ packer.startup(function(use)
       require('leap').add_default_mappings()
     end,
   }
+  -- Lua
+  use {
+    'folke/todo-comments.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = function()
+      require 'accidev.todo'
+    end,
+  }
 end)
 
 if packer_bootstrap then
