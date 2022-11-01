@@ -140,7 +140,6 @@ local mappings = {
       '<cmd>Trouble workspace_diagnostics<cr>',
       'Workspace Diagnostics',
     },
-    f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format' },
     i = { '<cmd>LspInfo<cr>', 'Info' },
     I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
     j = {

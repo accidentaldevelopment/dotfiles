@@ -20,27 +20,13 @@ M.setup = function()
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = '' })
   end
 
-  local config = {
-    -- disable virtual text
-    virtual_text = true,
-    -- show signs
-    -- signs = {
-    --   active = signs,
-    -- },
-    update_in_insert = true,
-    underline = true,
-    severity_sort = true,
+  vim.diagnostic.config {
     float = {
-      focusable = false,
-      style = 'minimal',
       border = 'rounded',
-      source = 'always',
-      header = '',
-      prefix = '',
     },
+    update_in_insert = true,
+    severity_sort = true,
   }
-
-  vim.diagnostic.config(config)
 
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = 'rounded',
@@ -89,20 +75,22 @@ end
 M.on_attach = function(client, bufnr)
   -- TODO: Find a better way to do this.
   if client.supports_method 'textDocument/formatting' then
-    print('setting up formatting with ' .. client.name)
+    local format = function()
+      vim.lsp.buf.format {
+        filter = function(client)
+          return disabled_formatters[client.name] == nil
+        end,
+      }
+    end
+    require('which-key').register({
+      ['<leader>lf'] = { format, 'Format' },
+    }, { buffer = bufnr })
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
       buffer = bufnr,
-      callback = function()
-        -- TODO: something weird is happening here...
-        vim.lsp.buf.format {
-          -- filter = function(client)
-          --   return disabled_formatters[client.name] ~= true
-          -- end,
-        }
-      end,
+      callback = format,
     })
   end
   lsp_keymaps(bufnr)
