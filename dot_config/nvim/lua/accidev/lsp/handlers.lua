@@ -55,16 +55,31 @@ local function lsp_highlight_document(client)
 end
 
 local function lsp_keymaps(bufnr)
-  local trouble = require 'trouble'
+  local trouble = package.loaded.trouble --or require 'trouble'
+  local wk = package.loaded['which-key']
+  local tscope = package.loaded.telescope.builtin or require 'telescope.builtin'
   local util = require 'accidev.util'
 
-  require('which-key').register({
+  wk.register({
+    ['<leader>l'] = {
+      name = 'LSP',
+      I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
+      S = { tscope.lsp_dynamic_workspace_symbols, 'Workspace Symbols' },
+      a = { vim.lsp.buf.code_action, 'Code Action' },
+      d = { util.lazy_fn(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
+      i = { '<cmd>LspInfo<cr>', 'Info' },
+      l = { vim.lsp.codelens.run, 'CodeLens Action' },
+      q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
+      r = { vim.lsp.buf.rename, 'Rename' },
+      s = { tscope.lsp_document_symbols, 'Document Symbols' },
+      w = { util.lazy_fn(trouble.toggle, 'workspace_diagnostics'), 'Workspace Diagnostics' },
+    },
     g = {
       D = { vim.lsp.buf.declaration, 'Declarations' },
       d = { util.lazy_fn(trouble.toggle, 'lsp_definitions'), 'Definitions' },
       i = { vim.lsp.buf.implementation, 'Implementation' },
+      l = { util.lazy_fn(vim.diagnostic.open_float, bufnr, { scope = 'line' }), 'Diagnostics' },
       r = { util.lazy_fn(trouble.toggle, 'lsp_references'), 'References' },
-      l = { util.lazy_fn(vim.diagnostic.open_float, bufnr, { scope = 'line' }), 'Diagnostics?' },
     },
     K = { vim.lsp.buf.hover, 'Hover' },
     ['[d'] = { util.lazy_fn(vim.diagnostic.goto_prev, { border = 'rounded' }), 'Previous diagnostic' },
