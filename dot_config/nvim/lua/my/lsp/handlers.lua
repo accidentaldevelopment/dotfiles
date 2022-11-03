@@ -58,7 +58,7 @@ local function lsp_keymaps(bufnr)
   local trouble = package.loaded.trouble --or require 'trouble'
   local wk = package.loaded['which-key']
   local tscope = package.loaded.telescope.builtin or require 'telescope.builtin'
-  local util = require 'accidev.util'
+  local util = require 'my.util'
 
   wk.register({
     ['<leader>l'] = {

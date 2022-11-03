@@ -76,14 +76,14 @@ packer.startup(function(use)
   use {
     'akinsho/bufferline.nvim',
     config = function()
-      require 'accidev.bufferline'
+      require 'my.bufferline'
     end,
   }
   use 'moll/vim-bbye'
   use {
     'feline-nvim/feline.nvim',
     config = function()
-      require 'accidev.feline'
+      require 'my.feline'
     end,
   }
 
@@ -91,7 +91,7 @@ packer.startup(function(use)
     'folke/noice.nvim',
     event = 'VimEnter',
     config = function()
-      require 'accidev.noice'
+      require 'my.noice'
     end,
     requires = {
       'MunifTanjim/nui.nvim',
@@ -114,7 +114,7 @@ packer.startup(function(use)
   use {
     'folke/which-key.nvim',
     config = function()
-      require 'accidev.whichkey'
+      require 'my.whichkey'
     end,
   }
 
@@ -139,7 +139,7 @@ packer.startup(function(use)
     'catppuccin/nvim',
     as = 'catppuccin',
     config = function()
-      require 'accidev.colorscheme'
+      require 'my.colorscheme'
     end,
   }
 
@@ -156,7 +156,7 @@ packer.startup(function(use)
       'saadparwaiz1/cmp_luasnip',
     },
     config = function()
-      require 'accidev.cmp'
+      require 'my.cmp'
     end,
   }
 
@@ -170,7 +170,7 @@ packer.startup(function(use)
       'jose-elias-alvarez/null-ls.nvim',
     },
     config = function()
-      require 'accidev.lsp'
+      require 'my.lsp'
     end,
   }
 
@@ -195,7 +195,7 @@ packer.startup(function(use)
       },
     },
     config = function()
-      require 'accidev.telescope'
+      require 'my.telescope'
     end,
   }
 
@@ -208,7 +208,7 @@ packer.startup(function(use)
       'p00f/nvim-ts-rainbow',
     },
     config = function()
-      require 'accidev.treesitter'
+      require 'my.treesitter'
     end,
   }
   --  use "JoosepAlviste/nvim-ts-context-commentstring"
@@ -224,7 +224,7 @@ packer.startup(function(use)
   use {
     'lewis6991/gitsigns.nvim',
     config = function()
-      require 'accidev.gitsigns'
+      require 'my.gitsigns'
     end,
   }
 
@@ -241,7 +241,7 @@ packer.startup(function(use)
     'folke/todo-comments.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = function()
-      require 'accidev.todo'
+      require 'my.todo'
     end,
   }
 end)

@@ -3,8 +3,8 @@ local mason_lspconfig = require 'mason-lspconfig'
 local lsp_inlayhints = require 'lsp-inlayhints'
 
 local opts = {
-  on_attach = require('accidev.lsp.handlers').on_attach,
-  capabilities = require('accidev.lsp.handlers').capabilities,
+  on_attach = require('my.lsp.handlers').on_attach,
+  capabilities = require('my.lsp.handlers').capabilities,
 }
 
 lsp_inlayhints.setup()
@@ -32,7 +32,7 @@ mason_lspconfig.setup()
 
 local lspconfig = require 'lspconfig'
 for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
-  local status_ok, lsp_opts = pcall(require, 'accidev.lsp.settings.' .. server)
+  local status_ok, lsp_opts = pcall(require, 'my.lsp.settings.' .. server)
   local full_opts = {}
   if status_ok then
     full_opts = vim.tbl_deep_extend('force', opts, lsp_opts)
@@ -43,4 +43,4 @@ for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
   lspconfig[server].setup(full_opts)
 end
 
-require('accidev.lsp.handlers').setup()
+require('my.lsp.handlers').setup()

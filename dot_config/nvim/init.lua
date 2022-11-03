@@ -1,3 +1,3 @@
-require 'accidev.options'
-require 'accidev.keymaps'
-require 'accidev.plugins'
+require 'my.options'
+require 'my.keymaps'
+require 'my.plugins'
