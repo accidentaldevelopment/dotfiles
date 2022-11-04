@@ -1,11 +1,14 @@
 require('catppuccin').setup {
-  highlight_overrides = {
-    mocha = function(colors)
-      return {
-        LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
-      }
-    end,
+  background = {
+    -- These are defaults, leaving them here so I remember
+    light = 'latte',
+    dark = 'mocha',
   },
+  custom_highlights = function(colors)
+    return {
+      LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
+    }
+  end,
   integrations = {
     barbar = false,
     bufferline = true,
@@ -37,6 +40,7 @@ require('catppuccin').setup {
       },
     },
     neogit = false,
+    noice = true,
     notify = true,
     nvimtree = { enabled = true, show_root = true, transparent_panel = false },
     telekasten = true,
