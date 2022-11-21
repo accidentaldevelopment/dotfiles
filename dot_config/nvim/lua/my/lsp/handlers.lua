@@ -97,6 +97,9 @@ M.on_attach = function(client, bufnr)
         end,
       }
     end
+    if client.server_capabilities.documentSymbolProvider then
+      require('nvim-navic').attach(client, bufnr)
+    end
     require('which-key').register({
       ['<leader>lf'] = { format, 'Format' },
     }, { buffer = bufnr })

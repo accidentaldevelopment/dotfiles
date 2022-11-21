@@ -39,6 +39,10 @@ require('catppuccin').setup {
         information = { 'underline' },
       },
     },
+    navic = {
+      enabled = true,
+      custom_bg = 'NONE',
+    },
     neogit = false,
     noice = true,
     notify = true,

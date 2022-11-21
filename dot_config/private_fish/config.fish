@@ -5,10 +5,6 @@ set -x EDITOR nvim
 set -x PAGER less
 set -x HOMEBREW_NO_ANALYTICS 1
 
-if infocmp wezterm &>/dev/null
-    set -x TERM wezterm
-end
-
 if status is-interactive
     fish_vi_key_bindings
 

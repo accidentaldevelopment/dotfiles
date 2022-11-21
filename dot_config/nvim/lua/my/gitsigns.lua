@@ -33,3 +33,5 @@ require('gitsigns').setup {
     }, { buffer = bufnr })
   end,
 }
+
+require('scrollbar.handlers.gitsigns').setup()

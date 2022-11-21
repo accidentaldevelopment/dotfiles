@@ -84,12 +84,6 @@ packer.startup(function(use)
     end,
   }
   use 'moll/vim-bbye'
-  use {
-    'feline-nvim/feline.nvim',
-    config = function()
-      require 'my.feline'
-    end,
-  }
 
   use {
     'folke/noice.nvim',
@@ -246,6 +240,25 @@ packer.startup(function(use)
     requires = 'nvim-lua/plenary.nvim',
     config = function()
       require 'my.todo'
+    end,
+  }
+
+  use {
+    'petertriho/nvim-scrollbar',
+    config = function()
+      require('scrollbar').setup()
+    end,
+  }
+
+  use {
+    'SmiteshP/nvim-navic',
+    requires = 'neovim/nvim-lspconfig',
+  }
+
+  use {
+    'rebelot/heirline.nvim',
+    config = function()
+      require 'my.heirline'
     end,
   }
 end)
