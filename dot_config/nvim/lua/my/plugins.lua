@@ -4,7 +4,7 @@ local fn = vim.fn
 local install_path = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 local packer_bootstrap = false
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system {
+  fn.system {
     'git',
     'clone',
     '--depth',
@@ -14,6 +14,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   }
   print 'Installing packer close and reopen Neovim...'
   vim.cmd [[packadd packer.nvim]]
+  packer_bootstrap = true
 end
 
 -- Use a protected call so we don't error out on first use
@@ -261,6 +262,16 @@ packer.startup(function(use)
       require 'my.heirline'
     end,
   }
+
+  use {
+    'iamcco/markdown-preview.nvim',
+    ft = { 'markdown', 'md' },
+    run = function()
+      vim.fn['mkdp#util#install']()
+    end,
+  }
+
+  use 'folke/neodev.nvim'
 end)
 
 if packer_bootstrap then

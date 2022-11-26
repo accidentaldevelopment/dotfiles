@@ -92,6 +92,7 @@ M.on_attach = function(client, bufnr)
   if client.supports_method 'textDocument/formatting' then
     local format = function()
       vim.lsp.buf.format {
+        bufnr = bufnr,
         filter = function(client)
           return disabled_formatters[client.name] == nil
         end,

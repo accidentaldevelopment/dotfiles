@@ -30,6 +30,8 @@ mason.setup {
 
 mason_lspconfig.setup()
 
+require('neodev').setup()
+
 local lspconfig = require 'lspconfig'
 for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
   local status_ok, lsp_opts = pcall(require, 'my.lsp.settings.' .. server)
