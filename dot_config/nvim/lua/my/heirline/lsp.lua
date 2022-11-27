@@ -1,18 +1,23 @@
 local conditions = require 'heirline.conditions'
-local utils = require 'heirline.utils'
 
 local M = {}
 
-local LspActive = {
+M.LspActive = {
   condition = conditions.lsp_attached,
-  update = { 'LspAttach', 'LspDetach' },
-  provider = function()
-    local names = {}
-    for _, server in ipairs(vim.lsp.buf_get_clients(0)) do
-      table.insert(names, server.name)
-    end
-    return table.concat(names, ' ')
-  end,
+  update = { 'LspAttach', 'LspDetach', 'BufEnter' },
+  {
+    { provider = ' [' },
+    {
+      provider = function()
+        local names = {}
+        for _, server in ipairs(vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }) do
+          table.insert(names, server.name)
+        end
+        return table.concat(names, ' ')
+      end,
+    },
+    { provider = ']' },
+  },
 }
 
 M.Diagnostics = {
@@ -54,7 +59,5 @@ M.Diagnostics = {
     hl = 'DiagnosticHint',
   },
 }
-
-M.LspActive = utils.surround({ ' [', ']' }, nil, LspActive)
 
 return M
