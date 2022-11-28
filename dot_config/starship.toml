@@ -1,2 +1,9 @@
+[git_status]
+# ahead = "⬆"
+# behind = "⬇"
+ahead = "↑"
+behind = "↓"
+diverged = "↕"
+
 [sudo]
 disabled = false
