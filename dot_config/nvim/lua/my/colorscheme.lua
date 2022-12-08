@@ -6,7 +6,23 @@ require('catppuccin').setup {
   },
   custom_highlights = function(colors)
     return {
+      -- override for lsp inlay hints
       LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
+
+      -- highlights for statusline.
+      SLViModeNormal = { fg = colors.red },
+      SLViModeInsert = { fg = colors.green },
+      SLViModeVisual = { fg = colors.teal },
+      SLViModeCommand = { fg = colors.yellow },
+      SLViModeSelect = { fg = colors.pink },
+      SLViModeReplace = { fg = colors.yellow },
+      SLViModeExec = { fg = colors.red },
+      SLViModeTerminal = { fg = colors.red },
+      SLFileFlagsModified = { fg = colors.green },
+      SLFileFlagsReadOnly = { fg = colors.peach },
+      SLHelpFileName = { fg = colors.peach },
+      SLGitBranch = { fg = colors.peach },
+      SLScrollBar = { fg = colors.blue },
     }
   end,
   integrations = {

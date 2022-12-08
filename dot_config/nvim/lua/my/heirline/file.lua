@@ -37,14 +37,14 @@ M.FileFlags = {
       return vim.bo.modified
     end,
     provider = '',
-    hl = { fg = 'green' },
+    hl = 'SLFileFlagsModified',
   },
   {
     condition = function()
       return (not vim.bo.modifiable or vim.bo.readonly)
     end,
     provider = '',
-    hl = { fg = 'orange' },
+    hl = 'SLFileFlagsReadOnly',
   },
 }
 
@@ -56,7 +56,7 @@ M.HelpFileName = {
     local filename = vim.api.nvim_buf_get_name(0)
     return vim.fn.fnamemodify(filename, ':t')
   end,
-  hl = { fg = 'orange' },
+  hl = 'SLHelpFileName',
 }
 
 return M

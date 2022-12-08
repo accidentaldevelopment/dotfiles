@@ -28,7 +28,7 @@ local ScrollBar = {
     local index = math.ceil((line_ratio * #self.sbar))
     return string.rep(self.sbar[index], 2)
   end,
-  hl = { fg = colors.blue },
+  hl = 'SLScrollBar',
 }
 
 local space = { provider = ' ' }

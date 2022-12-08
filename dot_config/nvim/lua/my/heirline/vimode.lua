@@ -48,23 +48,23 @@ return {
       ['!'] = '!',
       t = 'T',
     },
-    mode_colors = function(mode)
+    hlgroup = function(mode)
       local colors = cp.get_palette()
 
       return ({
-        n = colors.red,
-        i = colors.green,
-        v = colors.teal,
-        V = colors.teal,
-        ['\22'] = colors.teal,
-        c = colors.yellow,
-        s = colors.pink,
-        S = colors.pink,
-        ['\19'] = colors.pink,
-        R = colors.yellow,
-        r = colors.yellow,
-        ['!'] = colors.red,
-        t = colors.red,
+        n = 'SLViModeNormal',
+        i = 'SLViModeInsert',
+        v = 'SLViModeVisual',
+        V = 'SLViModeVisual',
+        ['\22'] = 'SLViModeVisual',
+        c = 'SLViModeCommand',
+        s = 'SLViModeSelect',
+        S = 'SLViModeSelect',
+        ['\19'] = 'SLViModeSelect',
+        R = 'SLViModeReplace',
+        r = 'SLViModeReplace',
+        ['!'] = 'SLViModeExec',
+        t = 'SLViModeTerminal',
       })[mode]
     end,
   },
@@ -73,7 +73,7 @@ return {
   end,
   hl = function(self)
     local mode = self.mode:sub(1, 1)
-    return { fg = self.mode_colors(mode) }
+    return self.hlgroup(mode)
   end,
   update = { 'ModeChanged' },
 }

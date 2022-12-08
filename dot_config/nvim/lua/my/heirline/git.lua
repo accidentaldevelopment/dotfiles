@@ -10,9 +10,8 @@ return {
       or (self.status_dict.removed ~= 0)
       or (self.status_dict.changed ~= 0)
     )
-    return nil
   end,
-  hl = { fg = 'orange' },
+  hl = 'SLGitBranch',
   {
     provider = function(self)
       return ('\239\144\152 ' .. self.status_dict.head)
