@@ -1,5 +1,3 @@
-local mason = require 'mason'
-local mason_lspconfig = require 'mason-lspconfig'
 local lsp_inlayhints = require 'lsp-inlayhints'
 
 local opts = {
@@ -18,31 +16,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local bufnr = args.buf
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    lsp_inlayhints.on_attach(client, bufnr)
+    lsp_inlayhints.on_attach(client, bufnr, false)
   end,
 })
 
-mason.setup {
+require('mason').setup {
   ui = {
     border = 'rounded',
   },
 }
 
-mason_lspconfig.setup()
+require('mason-lspconfig').setup()
 
-require('neodev').setup()
+require('neodev').setup {
+  override = function(root_dir, library)
+    if string.find(root_dir, 'chezmoi/dot_config/nvim') then
+      library.enabled = true
+      library.plugins = true
+    end
+  end,
+}
 
-local lspconfig = require 'lspconfig'
-for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
-  local status_ok, lsp_opts = pcall(require, 'my.lsp.settings.' .. server)
-  local full_opts = {}
-  if status_ok then
-    full_opts = vim.tbl_deep_extend('force', opts, lsp_opts)
-  else
-    -- vim.notify('no custom settings for lsp: ' .. server.name, vim.log.levels.DEBUG)
-    full_opts = opts
-  end
-  lspconfig[server].setup(full_opts)
-end
+require('mason-lspconfig').setup_handlers {
+  function(server_name)
+    local ok, lsp_opts = pcall(require, 'my.lsp.settings.' .. server_name)
+    if ok then
+      require('lspconfig')[server_name].setup(vim.tbl_deep_extend('force', opts, lsp_opts))
+    else
+      require('lspconfig')[server_name].setup(opts)
+    end
+  end,
+}
 
 require('my.lsp.handlers').setup()
