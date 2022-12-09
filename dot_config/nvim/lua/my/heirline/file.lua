@@ -1,28 +1,35 @@
+local utils = require 'heirline.utils'
+
 local M = {}
 
-M.FileName = {
+local file_name = {
   init = function(self)
     local filename = vim.api.nvim_buf_get_name(0)
-    local extension = vim.fn.fnamemodify(filename, ':e')
     self.filename = filename
-    self.icon, self.icon_color = require('nvim-web-devicons').get_icon_color(filename, extension, { default = true })
   end,
-  {
-    provider = function(self)
-      if self.icon then
-        return self.icon .. ' '
-      end
-    end,
-    hl = function(self)
-      return { fg = self.icon_color }
-    end,
-  },
-  {
-    provider = function(self)
-      return self.filename
-    end,
-  },
 }
+
+M.FileIcon = {
+  init = function(self)
+    local extension = vim.fn.fnamemodify(self.filename, ':e')
+    self.icon, self.icon_color =
+      require('nvim-web-devicons').get_icon_color(self.filename, extension, { default = true })
+  end,
+  provider = function(self)
+    if self.icon then
+      return self.icon .. ' '
+    end
+  end,
+  hl = function(self)
+    return { fg = self.icon_color }
+  end,
+}
+
+M.FileName = utils.insert(file_name, M.FileIcon, {
+  provider = function(self)
+    return self.filename
+  end,
+})
 
 M.FileType = {
   provider = function()

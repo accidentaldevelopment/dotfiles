@@ -9,6 +9,8 @@ require('catppuccin').setup {
       -- override for lsp inlay hints
       LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
 
+      TabLine = { bg = colors.mantle, fg = colors.overlay1 },
+
       -- highlights for statusline.
       SLViModeNormal = { fg = colors.red },
       SLViModeInsert = { fg = colors.green },
@@ -27,9 +29,8 @@ require('catppuccin').setup {
   end,
   integrations = {
     barbar = false,
-    bufferline = true,
     cmp = true,
-    dashboard = true,
+    dashboard = false,
     fern = false,
     gitgutter = false,
     gitsigns = true,

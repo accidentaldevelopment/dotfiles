@@ -74,7 +74,7 @@ end
 status_lines = utils.insert({ hl = _27_, fallthrough = false }, special_status_line, DefaultStatusLine)
 do
   local h = require 'heirline'
-  h.setup(status_lines, DefaultWinbar)
+  h.setup(status_lines, DefaultWinbar, require 'my.heirline.bufferline')
 end
 local group = vim.api.nvim_create_augroup('Heirline', { clear = true })
 local function _29_()

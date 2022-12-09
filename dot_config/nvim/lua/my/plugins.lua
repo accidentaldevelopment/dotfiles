@@ -78,12 +78,6 @@ packer.startup(function(use)
       }
     end,
   }
-  use {
-    'akinsho/bufferline.nvim',
-    config = function()
-      require 'my.bufferline'
-    end,
-  }
   use 'moll/vim-bbye'
 
   use {
