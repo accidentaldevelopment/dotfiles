@@ -266,6 +266,13 @@ packer.startup(function(use)
   }
 
   use 'folke/neodev.nvim'
+
+  use {
+    'dnlhc/glance.nvim',
+    config = function()
+      require 'my.glance'
+    end,
+  }
 end)
 
 if packer_bootstrap then
