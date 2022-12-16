@@ -57,8 +57,8 @@ end
 local function lsp_keymaps(bufnr)
   local trouble = package.loaded.trouble --or require 'trouble'
   local wk = package.loaded['which-key']
-  local tscope = package.loaded.telescope.builtin or require 'telescope.builtin'
-  local util = require 'my.util'
+  local tscope = require 'telescope.builtin'
+  local util = require 'util'
 
   wk.register({
     ['<leader>l'] = {
@@ -87,31 +87,38 @@ local function lsp_keymaps(bufnr)
   }, { buffer = bufnr })
 end
 
-M.on_attach = function(client, bufnr)
-  -- TODO: Find a better way to do this.
-  if client.supports_method 'textDocument/formatting' then
-    local format = function()
+local function setup_formatting(client, bufnr)
+  if client.supports_method 'textDocument/formatting' and not disabled_formatters[client.name] then
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
       vim.lsp.buf.format {
-        bufnr = bufnr,
-        filter = function(client)
-          return disabled_formatters[client.name] == nil
-        end,
+        -- bufnr = bufnr,
+        -- filter = function(client)
+        --   return not disabled_formatters[client.name]
+        -- end,
       }
-    end
-    if client.server_capabilities.documentSymbolProvider then
-      require('nvim-navic').attach(client, bufnr)
-    end
+    end, { desc = 'Format the current buffer' })
+
     require('which-key').register({
-      ['<leader>lf'] = { format, 'Format' },
+      ['<leader>lf'] = { vim.cmd.Format, 'Format current buffer' },
     }, { buffer = bufnr })
+
+    vim.keymap.set('n', '<leader>lf', vim.cmd.Format, { buffer = bufnr, desc = 'Format current buffer' })
+
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
     vim.api.nvim_create_autocmd('BufWritePre', {
       group = augroup,
       buffer = bufnr,
-      callback = format,
+      command = 'Format',
     })
   end
+end
+
+M.on_attach = function(client, bufnr)
+  if client.server_capabilities.documentSymbolProvider then
+    require('nvim-navic').attach(client, bufnr)
+  end
+  setup_formatting(client, bufnr)
   lsp_keymaps(bufnr)
   lsp_highlight_document(client)
 end

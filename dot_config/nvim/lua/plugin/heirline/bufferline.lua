@@ -64,7 +64,7 @@ local TablineFileNameBlock = {
     end
   end,
   TablineBufnr,
-  require('my.heirline.file').FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
+  require('plugin.heirline.file').FileIcon, -- turns out the version defined in #crash-course-part-ii-filename-and-friends can be reutilized as is here!
   TablineFileName,
   TablineFileFlags,
 }

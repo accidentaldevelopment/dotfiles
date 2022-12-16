@@ -1,3 +1,2 @@
-require 'my.options'
-require 'my.keymaps'
-require 'my.plugins'
+require 'options'
+require 'keymaps'
