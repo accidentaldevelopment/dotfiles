@@ -32,9 +32,6 @@ packer.startup {
 
     use 'gpanders/editorconfig.nvim'
 
-    -- TODO: look into replacing with `famiu/bufdelete.nvim`
-    use 'moll/vim-bbye'
-
     use(require 'plugin.colorscheme')
 
     -- TODO: Do I use this?
@@ -56,7 +53,7 @@ packer.startup {
 
     use(require 'plugin.treesitter')
 
-    use(require('plugin.gitsigns'))
+    use(require 'plugin.gitsigns')
 
     use(require 'plugin.todo')
 

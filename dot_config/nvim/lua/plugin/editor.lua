@@ -1,4 +1,10 @@
 return {
+
+  {
+    'famiu/bufdelete.nvim',
+    module = 'bufdelete',
+    cmd = { 'Bdelete', 'Bwipeout' },
+  },
   {
     'windwp/nvim-autopairs',
     config = function()
