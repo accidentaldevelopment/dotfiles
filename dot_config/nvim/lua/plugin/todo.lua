@@ -1,5 +1,6 @@
 return {
   'folke/todo-comments.nvim',
+  event = 'BufReadPre',
   config = function()
     require('todo-comments').setup()
     -- FIX: Key bindings don't work for me currently

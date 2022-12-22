@@ -1,24 +1,34 @@
 return {
+  -- Self-management
+  'wbthomason/packer.nvim',
 
+  -- d by everything, so just always include it.
+  'nvim-lua/plenary.nvim',
+
+  'alker0/chezmoi.vim',
+
+  'gpanders/editorconfig.nvim',
   {
     'famiu/bufdelete.nvim',
-    module = 'bufdelete',
     cmd = { 'Bdelete', 'Bwipeout' },
   },
   {
     'windwp/nvim-autopairs',
+    event = 'BufReadPre',
     config = function()
       require('nvim-autopairs').setup()
     end,
   },
   {
     'numToStr/Comment.nvim',
+    event = 'VeryLazy',
     config = function()
       require('Comment').setup()
     end,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
+    event = 'BufReadPre',
     config = function()
       require('indent_blankline').setup {
         show_current_context = true,
@@ -29,8 +39,7 @@ return {
 
   {
     'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    module = 'trouble',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('trouble').setup()
     end,
@@ -53,12 +62,14 @@ return {
   },
   {
     'ggandor/leap.nvim',
+    keys = { 's', 'S' },
     config = function()
       require('leap').add_default_mappings()
     end,
   },
   {
     'petertriho/nvim-scrollbar',
+    event = 'BufReadPre',
     config = function()
       require('scrollbar').setup()
     end,
@@ -67,8 +78,10 @@ return {
   {
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown', 'md' },
-    run = function()
+    build = function()
       vim.fn['mkdp#util#install']()
     end,
   },
+
+  'folke/neodev.nvim',
 }

@@ -1,5 +1,6 @@
 return {
   'lewis6991/gitsigns.nvim',
+  event = 'BufReadPre',
   config = function()
     require('gitsigns').setup {
       numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
@@ -13,9 +14,9 @@ return {
         enable = false,
       },
       on_attach = function(bufnr)
-        local gs = package.loaded.gitsigns
-        local wk = package.loaded['which-key']
-        local tscope = package.loaded.telescope.builtin or require 'telescope.builtin'
+        local gs = require('gitsigns')
+        local wk = require('which-key')
+        local tscope = require('telescope.builtin')
 
         wk.register({
           ['<leader>g'] = {

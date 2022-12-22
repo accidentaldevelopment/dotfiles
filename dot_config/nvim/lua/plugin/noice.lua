@@ -1,8 +1,7 @@
 return {
   'folke/noice.nvim',
   event = 'VimEnter',
-  after = 'catppuccin',
-  requires = {
+  dependencies = {
     'MunifTanjim/nui.nvim',
     'rcarriga/nvim-notify',
   },

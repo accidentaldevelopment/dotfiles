@@ -1,7 +1,7 @@
 return {
   'rebelot/heirline.nvim',
-  requires = 'SmiteshP/nvim-navic',
-  after = 'catppuccin',
+  dependencies = 'SmiteshP/nvim-navic',
+  event = 'BufReadPre',
   config = function()
     local colors = require('catppuccin.palettes').get_palette()
     local utils = require 'heirline.utils'
@@ -32,6 +32,24 @@ return {
       hl = 'SLScrollBar',
     }
 
+    local LazyStats = {
+      init = function(self)
+        local stats = require('lazy').stats()
+        self.count = stats.count
+        self.loaded = stats.loaded
+      end,
+      provider = function(self)
+        return self.loaded .. '/' .. self.count
+      end,
+    }
+
+    local LazyUpdates = {
+      condition = require('lazy.status').has_updates,
+      provider = function()
+        return require('lazy.status').updates()
+      end,
+    }
+
     local space = { provider = ' ' }
     local align = { provider = '%=' }
     local vi_mode = require 'plugin.heirline.vimode'
@@ -51,6 +69,9 @@ return {
       space,
       lsp.Diagnostics,
       align,
+      LazyStats,
+      LazyUpdates,
+      space,
       git,
       space,
       Ruler,

@@ -1,6 +1,7 @@
 return {
   'nvim-telescope/telescope.nvim',
-  requires = {
+  cmd = 'Telescope',
+  dependencies = {
     {
       'stevearc/dressing.nvim',
       config = function()

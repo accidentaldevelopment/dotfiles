@@ -1,5 +1,6 @@
 return {
   'folke/which-key.nvim',
+  event = 'BufReadPre',
   config = function()
     local which_key = require 'which-key'
 

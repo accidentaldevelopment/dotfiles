@@ -2,7 +2,7 @@ return {
   'nvim-neo-tree/neo-tree.nvim',
   branch = 'v2.x',
   cmd = 'Neotree',
-  requires = {
+  dependencies = {
     'kyazdani42/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
   },

@@ -1,8 +1,8 @@
 local lsp_inlayhints = require 'lsp-inlayhints'
 
 local opts = {
-  on_attach = require('lsp.handlers').on_attach,
-  capabilities = require('lsp.handlers').capabilities,
+  on_attach = require('plugin.lsp.handlers').on_attach,
+  capabilities = require('plugin.lsp.handlers').capabilities,
 }
 
 lsp_inlayhints.setup()
@@ -39,7 +39,7 @@ require('neodev').setup {
 
 require('mason-lspconfig').setup_handlers {
   function(server_name)
-    local ok, lsp_opts = pcall(require, 'lsp.settings.' .. server_name)
+    local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
     if ok then
       require('lspconfig')[server_name].setup(vim.tbl_deep_extend('force', opts, lsp_opts))
     else
@@ -48,4 +48,4 @@ require('mason-lspconfig').setup_handlers {
   end,
 }
 
-require('lsp.handlers').setup()
+require('plugin.lsp.handlers').setup()

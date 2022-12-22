@@ -1,6 +1,7 @@
 return {
   'catppuccin/nvim',
-  as = 'catppuccin',
+  name = 'catppuccin',
+  lazy = false,
   config = function()
     require('catppuccin').setup {
       background = {

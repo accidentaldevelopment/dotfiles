@@ -1,6 +1,7 @@
 return {
   'hrsh7th/nvim-cmp',
-  requires = {
+  event = 'BufReadPre',
+  dependencies = {
     'L3MON4D3/LuaSnip',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',

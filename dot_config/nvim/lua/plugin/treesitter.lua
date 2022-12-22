@@ -1,15 +1,19 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  run = ':TSUpdate',
-  requires = {
+  build = ':TSUpdate',
+  lazy = false,
+  dependencies = {
     'nvim-treesitter/nvim-treesitter-context',
     'p00f/nvim-ts-rainbow',
   },
   config = function()
     require('nvim-treesitter.configs').setup {
       ensure_installed = {
-        'rust',
+        'help',
         'json',
+        'lua',
+        'rust',
+        'vim',
       }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
       ignore_install = { '' }, -- List of parsers to ignore installing
