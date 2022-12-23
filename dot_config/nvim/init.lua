@@ -1,5 +1,4 @@
 require 'options'
-require 'keymaps'
 
 -- Automatically verify or install packer
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
@@ -28,4 +27,12 @@ require('lazy').setup('plugin', {
   ui = {
     border = 'rounded',
   },
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'VeryLazy',
+  desc = 'Handle late loading',
+  callback = function()
+    require('keymaps')
+  end
 })

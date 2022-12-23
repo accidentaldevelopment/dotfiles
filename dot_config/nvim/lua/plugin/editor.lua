@@ -1,6 +1,5 @@
 return {
-  -- Self-management
-  'wbthomason/packer.nvim',
+  'folke/which-key.nvim',
 
   -- d by everything, so just always include it.
   'nvim-lua/plenary.nvim',
