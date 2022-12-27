@@ -7,7 +7,7 @@ return {
     'p00f/nvim-ts-rainbow',
   },
   config = function()
-    require('nvim-treesitter.configs').setup {
+    require('nvim-treesitter.configs').setup({
       ensure_installed = {
         'help',
         'json',
@@ -34,9 +34,9 @@ return {
         enable = true,
         extended_mode = true,
       },
-    }
+    })
 
-    require('treesitter-context').setup {
+    require('treesitter-context').setup({
       patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
         -- For all filetypes
         -- Note that setting an entry here replaces all other patterns for this entry.
@@ -56,7 +56,7 @@ return {
           'match',
         },
       },
-    }
+    })
 
     -- Folding options
     vim.o.foldmethod = 'expr'
@@ -64,10 +64,10 @@ return {
     -- Don't fold everything at startup
     vim.o.foldlevelstart = 99
     vim.o.foldcolumn = 'auto:3'
-    vim.opt.fillchars:append {
+    vim.opt.fillchars:append({
       foldopen = '▼',
       -- foldsep = '|',
       foldclose = '▶',
-    }
+    })
   end,
 }

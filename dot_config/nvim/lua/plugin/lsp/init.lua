@@ -9,7 +9,7 @@ return {
     'folke/trouble.nvim',
   },
   config = function()
-    require 'plugin.lsp.configs'
-    require 'plugin.lsp.null-ls'
+    require('plugin.lsp.configs')
+    require('plugin.lsp.null-ls')
   end,
 }

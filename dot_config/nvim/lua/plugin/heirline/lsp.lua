@@ -1,4 +1,4 @@
-local conditions = require 'heirline.conditions'
+local conditions = require('heirline.conditions')
 
 local M = {}
 
@@ -10,7 +10,7 @@ M.LspActive = {
     {
       provider = function()
         local names = {}
-        for _, server in ipairs(vim.lsp.get_active_clients { bufnr = vim.api.nvim_get_current_buf() }) do
+        for _, server in ipairs(vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
           table.insert(names, server.name)
         end
         return table.concat(names, ' ')
@@ -32,28 +32,28 @@ M.Diagnostics = {
   end,
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined 'DiagnosticSignError')[1]
+      local sign = (vim.fn.sign_getdefined('DiagnosticSignError'))[1]
       return (sign.text .. self.errors .. ' ')
     end,
     hl = 'DiagnosticError',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined 'DiagnosticSignWarn')[1]
+      local sign = (vim.fn.sign_getdefined('DiagnosticSignWarn'))[1]
       return (sign.text .. self.warnings .. ' ')
     end,
     hl = 'DiagnosticWarn',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined 'DiagnosticSignInfo')[1]
+      local sign = (vim.fn.sign_getdefined('DiagnosticSignInfo'))[1]
       return (sign.text .. self.info .. ' ')
     end,
     hl = 'DiagnosticInfo',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined 'DiagnosticSignHint')[1]
+      local sign = (vim.fn.sign_getdefined('DiagnosticSignHint'))[1]
       return (sign.text .. self.hints)
     end,
     hl = 'DiagnosticHint',

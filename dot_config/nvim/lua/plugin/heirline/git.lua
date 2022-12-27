@@ -1,5 +1,5 @@
-local conditions = require 'heirline.conditions'
-local utils = require 'heirline.utils'
+local conditions = require('heirline.conditions')
+local utils = require('heirline.utils')
 
 return {
   condition = conditions.is_git_repo,

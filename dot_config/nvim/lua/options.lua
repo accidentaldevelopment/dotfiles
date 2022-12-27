@@ -35,17 +35,17 @@ vim.o.scrolloff = 8 -- is one of my fav
 vim.o.sidescrolloff = 8
 vim.o.laststatus = 3
 
-vim.opt.shortmess:append 'c'
+vim.opt.shortmess:append('c')
 
 vim.opt.completeopt = { 'menuone', 'noselect' } -- mostly just for cmp
 -- vim.cmd 'set whichwrap+=<,>,[,],h,l'
 -- vim.opt.whichwrap:prepend('<,>,[,],h,l')
 -- vim.opt.whichwrap:prepend { '<', '>', '[', ']', }
-vim.opt.whichwrap:prepend {
+vim.opt.whichwrap:prepend({
   ['<'] = true,
   ['>'] = true,
   ['['] = true,
   [']'] = true,
-}
-vim.opt.iskeyword:remove '-'
-vim.opt.formatoptions:remove { 'c', 'r', 'o' } -- TODO: this doesn't seem to work
+})
+vim.opt.iskeyword:remove('-')
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- TODO: this doesn't seem to work

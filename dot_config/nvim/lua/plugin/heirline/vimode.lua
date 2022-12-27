@@ -1,4 +1,4 @@
-local cp = require 'catppuccin.palettes'
+local cp = require('catppuccin.palettes')
 -- colors = cp.get_palette()
 return {
   init = function(self)

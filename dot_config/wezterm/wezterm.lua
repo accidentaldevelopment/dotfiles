@@ -1,4 +1,4 @@
-local wezterm = require 'wezterm'
+local wezterm = require('wezterm')
 local action = wezterm.action
 
 return {
@@ -15,7 +15,7 @@ return {
     bottom = 0,
   },
   font_size = 11,
-  font = wezterm.font {
+  font = wezterm.font({
     family = 'Fira Code',
     harfbuzz_features = {
       'ss02',
@@ -26,7 +26,7 @@ return {
       'ss05',
       'ss03',
     },
-  },
+  }),
   mouse_bindings = {
     {
       event = { Up = { streak = 1, button = 'Left' } },
@@ -45,8 +45,8 @@ return {
   },
   disable_default_key_bindings = true,
   keys = {
-    { key = 'c', mods = 'SUPER', action = action.CopyTo 'Clipboard' },
-    { key = 'v', mods = 'SUPER', action = action.PasteFrom 'Clipboard' },
+    { key = 'c', mods = 'SUPER', action = action.CopyTo('Clipboard') },
+    { key = 'v', mods = 'SUPER', action = action.PasteFrom('Clipboard') },
     { key = 'h', mods = 'CMD', action = action.HideApplication },
     { key = 'm', mods = 'CMD', action = action.Hide },
     { key = 'n', mods = 'SUPER', action = action.SpawnWindow },
@@ -54,15 +54,15 @@ return {
     { key = '-', mods = 'SUPER', action = action.DecreaseFontSize },
     { key = '=', mods = 'SUPER', action = action.IncreaseFontSize },
     { key = '0', mods = 'SUPER', action = action.ResetFontSize },
-    { key = 'w', mods = 'CMD', action = action.CloseCurrentTab { confirm = false } },
+    { key = 'w', mods = 'CMD', action = action.CloseCurrentTab({ confirm = false }) },
     { key = 'q', mods = 'CMD', action = action.QuitApplication },
     {
       key = 'k',
       mods = 'SUPER',
-      action = action.Multiple {
-        action.SendKey { key = 'L', mods = 'CTRL' },
-        action.ClearScrollback 'ScrollbackOnly',
-      },
+      action = action.Multiple({
+        action.SendKey({ key = 'L', mods = 'CTRL' }),
+        action.ClearScrollback('ScrollbackOnly'),
+      }),
     },
     { key = 'l', mods = 'CMD|SHIFT', action = action.ShowDebugOverlay },
   },

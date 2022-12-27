@@ -1,6 +1,6 @@
-local which_key = require 'which-key'
+local which_key = require('which-key')
 
-which_key.setup {
+which_key.setup({
   plugins = {
     spelling = {
       enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
@@ -10,7 +10,7 @@ which_key.setup {
   window = {
     border = 'rounded', -- none, single, double, shadow
   },
-}
+})
 
 -- --Remap space as leader key
 -- keymap('', '<Space>', '<Nop>', opts)
@@ -78,7 +78,7 @@ local leader_mappings = {
   ['a'] = { '<cmd>AerialToggle!<cr>', 'Aerial' },
   ['b'] = {
     function()
-      require('telescope.builtin').buffers(require('telescope.themes').get_dropdown { previewer = false })
+      require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
     end,
     'Buffers',
   },
@@ -86,7 +86,7 @@ local leader_mappings = {
   ['c'] = { '<cmd>Bdelete<cr>', 'Close Buffer' },
   ['f'] = {
     function()
-      require('telescope.builtin').find_files(require('telescope.themes').get_dropdown { previewer = false })
+      require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))
     end,
     'Find files',
   },
@@ -112,4 +112,4 @@ local leader_mappings = {
 }
 
 which_key.register(leader_mappings, { prefix = '<leader>' })
-which_key.register { g = { name = '+goto' } }
+which_key.register({ g = { name = '+goto' } })

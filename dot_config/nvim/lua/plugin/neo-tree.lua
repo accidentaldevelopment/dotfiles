@@ -8,7 +8,7 @@ return {
   },
   config = function()
     vim.g.neo_tree_remove_legacy_commands = 1
-    require('neo-tree').setup {
+    require('neo-tree').setup({
       window = {
         mappings = {
           ['<space>'] = 'none',
@@ -20,6 +20,6 @@ return {
           use_git_status_colors = true,
         },
       },
-    }
+    })
   end,
 }

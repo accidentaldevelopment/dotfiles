@@ -4,13 +4,13 @@ local M = {}
 ---@param client any LSP Client object
 ---@param buffer number Buffer number
 function M.setup(client, buffer)
-  local trouble = require 'trouble'
-  local tscope = require 'telescope.builtin'
-  local util = require 'util'
+  local trouble = require('trouble')
+  local tscope = require('telescope.builtin')
+  local util = require('util')
 
   local caps = client.server_capabilities
 
-  require('which-key').register {
+  require('which-key').register({
     buffer = buffer,
     ['<leader>l'] = {
       name = 'LSP',
@@ -66,7 +66,7 @@ function M.setup(client, buffer)
       util.lazy(vim.diagnostic.goto_next, { severity = vim.diagnostic.severity.WARNING, border = 'rounded' }),
       'Next Warning',
     },
-  }
+  })
 end
 
 return M

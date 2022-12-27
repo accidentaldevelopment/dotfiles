@@ -1,4 +1,4 @@
-local lsp_inlayhints = require 'lsp-inlayhints'
+local lsp_inlayhints = require('lsp-inlayhints')
 
 local opts = {
   on_attach = require('plugin.lsp.handlers').on_attach,
@@ -20,24 +20,24 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('mason').setup {
+require('mason').setup({
   ui = {
     border = 'rounded',
   },
-}
+})
 
 require('mason-lspconfig').setup()
 
-require('neodev').setup {
+require('neodev').setup({
   override = function(root_dir, library)
     if string.find(root_dir, 'chezmoi/dot_config/nvim') then
       library.enabled = true
       library.plugins = true
     end
   end,
-}
+})
 
-require('mason-lspconfig').setup_handlers {
+require('mason-lspconfig').setup_handlers({
   function(server_name)
     local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
     if ok then
@@ -46,6 +46,6 @@ require('mason-lspconfig').setup_handlers {
       require('lspconfig')[server_name].setup(opts)
     end
   end,
-}
+})
 
 require('plugin.lsp.handlers').setup()

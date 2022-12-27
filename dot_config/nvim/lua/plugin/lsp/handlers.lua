@@ -1,20 +1,20 @@
 local M = {}
 
 M.setup = function()
-  vim.fn.sign_define {
+  vim.fn.sign_define({
     { name = 'DiagnosticSignError', text = '', texthl = 'DiagnosticSignError', numhl = '' },
     { name = 'DiagnosticSignWarn', text = '', texthl = 'DiagnosticSignWarn', numhl = '' },
     { name = 'DiagnosticSignHint', text = '', texthl = 'DiagnosticSignHint', numhl = '' },
     { name = 'DiagnosticSignInfo', text = '', texthl = 'DiagnosticSignInfo', numhl = '' },
-  }
+  })
 
-  vim.diagnostic.config {
+  vim.diagnostic.config({
     float = {
       border = 'rounded',
     },
     update_in_insert = true,
     severity_sort = true,
-  }
+  })
 
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = 'rounded',

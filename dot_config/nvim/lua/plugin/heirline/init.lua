@@ -4,8 +4,8 @@ return {
   event = 'BufReadPre',
   config = function()
     local colors = require('catppuccin.palettes').get_palette()
-    local utils = require 'heirline.utils'
-    local conditions = require 'heirline.conditions'
+    local utils = require('heirline.utils')
+    local conditions = require('heirline.conditions')
 
     local Ruler = { provider = '%7(%l/%3L%):%2c %P' }
 
@@ -23,8 +23,8 @@ return {
         },
       },
       provider = function(self)
-        local curr_line = vim.fn.line '.'
-        local lines = vim.fn.line '$'
+        local curr_line = vim.fn.line('.')
+        local lines = vim.fn.line('$')
         local line_ratio = (curr_line / lines)
         local index = math.ceil((line_ratio * #self.sbar))
         return string.rep(self.sbar[index], 2)
@@ -52,11 +52,11 @@ return {
 
     local space = { provider = ' ' }
     local align = { provider = '%=' }
-    local vi_mode = require 'plugin.heirline.vimode'
-    local navic = require 'plugin.heirline.navic'
-    local file = require 'plugin.heirline.file'
-    local lsp = require 'plugin.heirline.lsp'
-    local git = require 'plugin.heirline.git'
+    local vi_mode = require('plugin.heirline.vimode')
+    local navic = require('plugin.heirline.navic')
+    local file = require('plugin.heirline.file')
+    local lsp = require('plugin.heirline.lsp')
+    local git = require('plugin.heirline.git')
 
     local DefaultStatusLine = {
       vi_mode,
@@ -82,7 +82,7 @@ return {
 
     local special_status_line
     local function _26_()
-      return conditions.buffer_matches { buftype = { 'nofile', 'prompt', 'help', 'quickfix' }, filetype = { '^git.*' } }
+      return conditions.buffer_matches({ buftype = { 'nofile', 'prompt', 'help', 'quickfix' }, filetype = { '^git.*' } })
     end
     special_status_line = utils.insert({ condition = _26_ }, file.FileType, space, file.HelpFileName, align)
     local status_lines
@@ -95,8 +95,8 @@ return {
     end
     status_lines = utils.insert({ hl = _27_, fallthrough = false }, special_status_line, DefaultStatusLine)
     do
-      local h = require 'heirline'
-      h.setup(status_lines, DefaultWinbar, require 'plugin.heirline.bufferline')
+      local h = require('heirline')
+      h.setup(status_lines, DefaultWinbar, require('plugin.heirline.bufferline'))
     end
     local group = vim.api.nvim_create_augroup('Heirline', { clear = true })
     local function _29_()

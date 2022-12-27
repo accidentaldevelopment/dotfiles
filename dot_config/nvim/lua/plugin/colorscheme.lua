@@ -3,7 +3,7 @@ return {
   name = 'catppuccin',
   lazy = false,
   config = function()
-    require('catppuccin').setup {
+    require('catppuccin').setup({
       background = {
         -- These are defaults, leaving them here so I remember
         light = 'latte',
@@ -77,7 +77,7 @@ return {
         which_key = true,
       },
 
-      vim.cmd.colorscheme 'catppuccin',
-    }
+      vim.cmd.colorscheme('catppuccin'),
+    })
   end,
 }

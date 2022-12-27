@@ -5,15 +5,15 @@ return {
     {
       'stevearc/dressing.nvim',
       config = function()
-        require('dressing').setup {}
+        require('dressing').setup({})
       end,
     },
   },
   config = function()
-    local telescope = require 'telescope'
-    local actions = require 'telescope.actions'
+    local telescope = require('telescope')
+    local actions = require('telescope.actions')
 
-    telescope.setup {
+    telescope.setup({
       defaults = {
 
         prompt_prefix = ' ',
@@ -39,6 +39,6 @@ return {
           theme = 'cursor',
         },
       },
-    }
+    })
   end,
 }

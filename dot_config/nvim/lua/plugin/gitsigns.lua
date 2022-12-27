@@ -2,7 +2,7 @@ return {
   'lewis6991/gitsigns.nvim',
   event = 'BufReadPre',
   config = function()
-    require('gitsigns').setup {
+    require('gitsigns').setup({
       numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
       current_line_blame_opts = {
         virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
@@ -14,9 +14,9 @@ return {
         enable = false,
       },
       on_attach = function(bufnr)
-        local gs = require 'gitsigns'
-        local wk = require 'which-key'
-        local tscope = require 'telescope.builtin'
+        local gs = require('gitsigns')
+        local wk = require('which-key')
+        local tscope = require('telescope.builtin')
 
         wk.register({
           ['<leader>g'] = {
@@ -36,7 +36,7 @@ return {
           },
         }, { buffer = bufnr })
       end,
-    }
+    })
 
     require('scrollbar.handlers.gitsigns').setup()
   end,

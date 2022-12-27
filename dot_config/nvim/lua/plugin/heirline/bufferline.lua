@@ -1,4 +1,4 @@
-local utils = require 'heirline.utils'
+local utils = require('heirline.utils')
 
 local TablineBufnr = {
   provider = function(self)

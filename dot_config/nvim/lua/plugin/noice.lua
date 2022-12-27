@@ -6,7 +6,7 @@ return {
     'rcarriga/nvim-notify',
   },
   config = function()
-    require('noice').setup {
+    require('noice').setup({
       views = {
         cmdline_popup = {
           position = {
@@ -28,6 +28,6 @@ return {
       presets = {
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
-    }
+    })
   end,
 }
