@@ -14,9 +14,9 @@ return {
         enable = false,
       },
       on_attach = function(bufnr)
-        local gs = require('gitsigns')
-        local wk = require('which-key')
-        local tscope = require('telescope.builtin')
+        local gs = require 'gitsigns'
+        local wk = require 'which-key'
+        local tscope = require 'telescope.builtin'
 
         wk.register({
           ['<leader>g'] = {
