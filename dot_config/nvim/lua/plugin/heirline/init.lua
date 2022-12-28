@@ -1,9 +1,11 @@
 return {
   'rebelot/heirline.nvim',
-  dependencies = 'SmiteshP/nvim-navic',
-  event = 'BufReadPre',
+  dependencies = {
+    'SmiteshP/nvim-navic',
+    'kyazdani42/nvim-web-devicons',
+  },
+  event = 'VeryLazy',
   config = function()
-    local colors = require('catppuccin.palettes').get_palette()
     local utils = require('heirline.utils')
     local conditions = require('heirline.conditions')
 

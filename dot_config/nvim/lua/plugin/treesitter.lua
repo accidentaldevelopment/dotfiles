@@ -9,9 +9,13 @@ return {
   config = function()
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
+        'bash',
         'help',
         'json',
         'lua',
+        'markdown',
+        'markdown_inline',
+        'regex',
         'rust',
         'vim',
       }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages

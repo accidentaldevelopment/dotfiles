@@ -20,12 +20,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('mason').setup({
-  ui = {
-    border = 'rounded',
-  },
-})
-
 require('mason-lspconfig').setup()
 
 require('neodev').setup({

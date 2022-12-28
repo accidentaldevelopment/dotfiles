@@ -5,7 +5,6 @@ local M = {}
 ---@param buffer number Buffer number
 function M.setup(client, buffer)
   local trouble = require('trouble')
-  local tscope = require('telescope.builtin')
   local util = require('util')
 
   local caps = client.server_capabilities
@@ -15,7 +14,7 @@ function M.setup(client, buffer)
     ['<leader>l'] = {
       name = 'LSP',
       I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
-      S = { tscope.lsp_dynamic_workspace_symbols, 'Workspace Symbols' },
+      S = { util.lazy_require('telescope.builtin', 'lsp_dynamic_workspace_symbols'), 'Workspace Symbols' },
       a = {
         {
           vim.lsp.buf.code_action,
@@ -29,7 +28,7 @@ function M.setup(client, buffer)
       },
       d = { util.lazy(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
       i = { '<cmd>LspInfo<cr>', 'Info' },
-      -- l = { vim.lsp.codelens.run, 'CodeLens Action' },
+      l = { vim.lsp.codelens.run, 'CodeLens Action' },
       q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
       r = { vim.lsp.buf.rename, 'Rename', cond = caps.renameProvider },
       s = { util.lazy_require('telescope.builtin', 'lsp_document_symbols'), 'Document Symbols' },
@@ -38,9 +37,7 @@ function M.setup(client, buffer)
     g = {
       name = '+goto',
       d = { '<cmd>Telescope lsp_definitions<cr>', 'Goto Definition' },
-      -- r = { '<cmd>Telescope lsp_references<cr>', 'References' },
       r = { '<cmd>Telescope lsp_references<cr>', 'References' },
-      -- R = { '<cmd>Trouble lsp_references<cr>', 'Trouble References' },
       R = { util.lazy(trouble.toggle, 'lsp_references'), 'Trouble References' },
       D = { '<cmd>Telescope lsp_declarations<CR>', 'Goto Declaration' },
       I = { '<cmd>Telescope lsp_implementations<CR>', 'Goto Implementation' },

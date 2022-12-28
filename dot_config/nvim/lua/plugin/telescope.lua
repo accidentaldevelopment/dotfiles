@@ -2,12 +2,7 @@ return {
   'nvim-telescope/telescope.nvim',
   cmd = 'Telescope',
   dependencies = {
-    {
-      'stevearc/dressing.nvim',
-      config = function()
-        require('dressing').setup({})
-      end,
-    },
+    'nvim-lua/plenary.nvim',
   },
   config = function()
     local telescope = require('telescope')

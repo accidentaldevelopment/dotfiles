@@ -1,9 +1,6 @@
 return {
   'folke/which-key.nvim',
 
-  -- d by everything, so just always include it.
-  'nvim-lua/plenary.nvim',
-
   'alker0/chezmoi.vim',
 
   'gpanders/editorconfig.nvim',
@@ -14,16 +11,12 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'BufReadPre',
-    config = function()
-      require('nvim-autopairs').setup()
-    end,
+    config = true,
   },
   {
     'numToStr/Comment.nvim',
     event = 'VeryLazy',
-    config = function()
-      require('Comment').setup()
-    end,
+    config = true,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
@@ -35,29 +28,31 @@ return {
       })
     end,
   },
-
+  {
+    'williamboman/mason.nvim',
+    cmd = 'Mason',
+    config = {
+      ui = {
+        border = 'rounded',
+      },
+    },
+  },
   {
     'folke/trouble.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('trouble').setup()
-    end,
+    config = true,
   },
 
   {
     'saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
-    config = function()
-      require('crates').setup()
-    end,
+    config = true,
   },
 
   {
     'stevearc/aerial.nvim',
     cmd = 'AerialToggle',
-    config = function()
-      require('aerial').setup()
-    end,
+    config = true,
   },
   {
     'ggandor/leap.nvim',
@@ -69,11 +64,8 @@ return {
   {
     'petertriho/nvim-scrollbar',
     event = 'BufReadPre',
-    config = function()
-      require('scrollbar').setup()
-    end,
+    config = true,
   },
-
   {
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown', 'md' },
@@ -81,6 +73,5 @@ return {
       vim.fn['mkdp#util#install']()
     end,
   },
-
   'folke/neodev.nvim',
 }

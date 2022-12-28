@@ -8,7 +8,7 @@ function M.setup(client, buf)
   local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
 
   local enabled = false
-  if #require('null-ls.sources').get_available(ft, 'NULL_LS_FORMATTING') > 0 then
+  if #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0 then
     enabled = client.name == 'null-ls'
   else
     enabled = not (client.name == 'null-ls')

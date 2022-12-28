@@ -25,18 +25,22 @@ M.setup = function()
   })
 end
 
-local function lsp_highlight_document(client)
+---@param client any
+---@param bufnr integer
+local function lsp_document_highlight(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
     local gid = vim.api.nvim_create_augroup('lsp_document_highlight', {})
     vim.api.nvim_create_autocmd('CursorHold', {
       group = gid,
-      pattern = '<buffer>',
+      buffer = bufnr,
       callback = vim.lsp.buf.document_highlight,
+      desc = 'Document highlight',
     })
     vim.api.nvim_create_autocmd('CursorMoved', {
       group = gid,
-      pattern = '<buffer>',
+      buffer = bufnr,
       callback = vim.lsp.buf.clear_references,
+      desc = 'Clear references',
     })
   end
 end
@@ -48,7 +52,9 @@ M.on_attach = function(client, bufnr)
 
   require('plugin.lsp.formatting').setup(client, bufnr)
   require('plugin.lsp.keymaps').setup(client, bufnr)
-  lsp_highlight_document(client)
+  lsp_document_highlight(client, bufnr)
 end
+
+M.capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 return M

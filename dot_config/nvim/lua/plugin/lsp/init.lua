@@ -2,7 +2,7 @@ return {
   'neovim/nvim-lspconfig',
   event = 'BufReadPre',
   dependencies = {
-    'williamboman/mason.nvim',
+    'L3MON4D3/LuaSnip',
     'williamboman/mason-lspconfig.nvim',
     'lvimuser/lsp-inlayhints.nvim',
     'jose-elias-alvarez/null-ls.nvim',

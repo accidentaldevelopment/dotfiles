@@ -75,23 +75,23 @@ vim.keymap.set('v', 'p', '"_dP')
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 local leader_mappings = {
-  ['a'] = { '<cmd>AerialToggle!<cr>', 'Aerial' },
-  ['b'] = {
+  a = { '<cmd>AerialToggle!<cr>', 'Aerial' },
+  b = {
     function()
       require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
     end,
     'Buffers',
   },
-  ['e'] = { '<cmd>Neotree toggle<cr>', 'Explorer' },
-  ['c'] = { '<cmd>Bdelete<cr>', 'Close Buffer' },
-  ['f'] = {
+  e = { '<cmd>Neotree toggle<cr>', 'Explorer' },
+  c = { '<cmd>Bdelete<cr>', 'Close Buffer' },
+  f = {
     function()
       require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))
     end,
     'Find files',
   },
-  ['F'] = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Find Text' },
-
+  F = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Find Text' },
+  L = { require('lazy').home, 'Show Lazy' },
   s = {
     name = 'Search',
     b = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },

@@ -32,7 +32,7 @@ require('lazy').setup('plugin', {
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'VeryLazy',
-  desc = 'Handle late loading',
+  desc = 'Last minute loading of some files',
   callback = function()
     require('keymaps')
   end,
