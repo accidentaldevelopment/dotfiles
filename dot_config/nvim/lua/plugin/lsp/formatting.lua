@@ -26,7 +26,7 @@ function M.setup(client, buf)
     vim.api.nvim_create_autocmd('BufWritePre', {
       buffer = buf,
       desc = 'Format the current buffer',
-      group = vim.api.nvim_create_augroup('LspFormat', {}),
+      group = vim.api.nvim_create_augroup('LspFormat', { clear = false }),
       callback = M.format,
     })
   end

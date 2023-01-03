@@ -4,6 +4,7 @@ return {
   lazy = false,
   dependencies = {
     'nvim-treesitter/nvim-treesitter-context',
+    -- TODO: Unmaintained. See if we can find a replacement.
     'p00f/nvim-ts-rainbow',
   },
   config = function()

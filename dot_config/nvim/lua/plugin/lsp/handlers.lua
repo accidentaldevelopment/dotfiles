@@ -29,7 +29,7 @@ end
 ---@param bufnr integer
 local function lsp_document_highlight(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then
-    local gid = vim.api.nvim_create_augroup('lsp_document_highlight', {})
+    local gid = vim.api.nvim_create_augroup('lsp_document_highlight', { clear = false })
     vim.api.nvim_create_autocmd('CursorHold', {
       group = gid,
       buffer = bufnr,

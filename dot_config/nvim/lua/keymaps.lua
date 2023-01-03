@@ -39,8 +39,8 @@ vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>')
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>')
 
 -- Navigate buffers
-vim.keymap.set('n', '<S-l>', ':bnext<CR>')
-vim.keymap.set('n', '<S-h>', ':bprevious<CR>')
+vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>')
+vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>')
 
 -- Move text up and down
 vim.keymap.set('n', '<A-j>', '<Esc>:m .+1<CR>==gi')
