@@ -1,33 +1,29 @@
 local M = {}
 
-function M.format()
-  vim.lsp.buf.format()
+function M.format(bufnr)
+  local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
+  local have_nls = #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0
+
+  vim.lsp.buf.format({
+    bufnr = bufnr,
+    filter = function(client)
+      if have_nls then
+        return client.name == 'null-ls'
+      end
+      return client.name ~= 'null-ls'
+    end,
+  })
 end
 
 function M.setup(client, buf)
-  local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
-
-  local enabled = false
-  if #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0 then
-    enabled = client.name == 'null-ls'
-  else
-    enabled = not (client.name == 'null-ls')
-  end
-
-  -- if client.name == 'tsserver' then
-  --   enabled = false
-  -- end
-
-  -- util.info(client.name .. " " .. (enable and "yes" or "no"), "format")
-
-  client.server_capabilities.documentFormattingProvider = enabled
-  -- format on save
-  if client.server_capabilities.documentFormattingProvider then
+  if client.supports_method('textDocument/formatting') then
     vim.api.nvim_create_autocmd('BufWritePre', {
-      buffer = buf,
+      group = vim.api.nvim_create_augroup('LspFormat.' .. buf, {}),
       desc = 'Format the current buffer',
-      group = vim.api.nvim_create_augroup('LspFormat', { clear = false }),
-      callback = M.format,
+      buffer = buf,
+      callback = function(meta)
+        M.format(meta.buf)
+      end,
     })
   end
 end
