@@ -7,6 +7,9 @@ return {
   {
     'famiu/bufdelete.nvim',
     cmd = { 'Bdelete', 'Bwipeout' },
+    keys = {
+      { '<leader>bc', '<cmd>Bdelete<cr>', desc = 'Close Buffer' },
+    },
   },
   {
     'windwp/nvim-autopairs',
@@ -52,6 +55,7 @@ return {
   {
     'stevearc/aerial.nvim',
     cmd = 'AerialToggle',
+    keys = { { '<leader>a', '<cmd>AerialToggle!<cr>', desc = 'Aerial' } },
     config = true,
   },
   {

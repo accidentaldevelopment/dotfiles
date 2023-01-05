@@ -74,42 +74,13 @@ vim.keymap.set('v', 'p', '"_dP')
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
-local leader_mappings = {
-  a = { '<cmd>AerialToggle!<cr>', 'Aerial' },
-  b = {
-    function()
-      require('telescope.builtin').buffers(require('telescope.themes').get_dropdown({ previewer = false }))
-    end,
-    'Buffers',
-  },
-  e = { '<cmd>Neotree toggle<cr>', 'Explorer' },
-  c = { '<cmd>Bdelete<cr>', 'Close Buffer' },
-  f = {
-    function()
-      require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))
-    end,
-    'Find files',
-  },
-  F = { '<cmd>Telescope live_grep theme=ivy<cr>', 'Find Text' },
-  L = { require('lazy').home, 'Show Lazy' },
-  s = {
-    name = 'Search',
-    b = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },
-    c = { '<cmd>Telescope commands<cr>', 'Commands' },
-    h = { '<cmd>Telescope help_tags<cr>', 'Find Help' },
-    M = { '<cmd>Telescope man_pages<cr>', 'Man Pages' },
-    r = { '<cmd>Telescope oldfiles<cr>', 'Open Recent File' },
-    R = { '<cmd>Telescope registers<cr>', 'Registers' },
-    k = { '<cmd>Telescope keymaps<cr>', 'Keymaps' },
-  },
-
-  -- t = {
-  --   name = 'Terminal',
-  --   f = { '<cmd>ToggleTerm direction=float<cr>', 'Float' },
-  --   h = { '<cmd>ToggleTerm size=10 direction=horizontal<cr>', 'Horizontal' },
-  --   v = { '<cmd>ToggleTerm size=80 direction=vertical<cr>', 'Vertical' },
-  -- },
-}
-
-which_key.register(leader_mappings, { prefix = '<leader>' })
-which_key.register({ g = { name = '+goto' } })
+which_key.register({
+  mode = { 'n', 'v' },
+  g = { name = 'goto' },
+  [']'] = { name = 'next' },
+  ['['] = { name = 'prev' },
+  ['<leader>b'] = { name = 'buffer' },
+  ['<leader>h'] = { name = 'help' },
+  ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
+  ['<leader>s'] = { name = 'search' },
+})
