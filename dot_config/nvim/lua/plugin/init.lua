@@ -5,29 +5,49 @@ return {
 
   'gpanders/editorconfig.nvim',
   {
-    'famiu/bufdelete.nvim',
-    cmd = { 'Bdelete', 'Bwipeout' },
+    'echasnovski/mini.bufremove',
     keys = {
-      { '<leader>bc', '<cmd>Bdelete<cr>', desc = 'Close Buffer' },
+      {
+        '<leader>bc',
+        function()
+          require('mini.bufremove').delete(0, false)
+        end,
+        desc = 'Close Buffer',
+      },
     },
   },
   {
-    'windwp/nvim-autopairs',
-    event = 'BufReadPre',
-    config = true,
+    'echasnovski/mini.pairs',
+    event = 'VeryLazy',
+    config = function()
+      require('mini.pairs').setup()
+    end,
   },
   {
-    'numToStr/Comment.nvim',
+    'echasnovski/mini.comment',
     event = 'VeryLazy',
-    config = true,
+    config = function()
+      require('mini.comment').setup()
+    end,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
     event = 'BufReadPre',
     config = function()
       require('indent_blankline').setup({
-        show_current_context = true,
-        show_current_context_start = true,
+        show_trailing_blankline_indent = false,
+        show_current_context = false,
+        -- show_current_context_start = true,
+      })
+    end,
+  },
+  {
+    'echasnovski/mini.indentscope',
+    event = 'BufReadPre',
+    config = function()
+      require('mini.indentscope').setup({
+        symbol = '│',
+        options = { try_as_border = true },
       })
     end,
   },
