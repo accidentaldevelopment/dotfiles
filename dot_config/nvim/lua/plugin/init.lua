@@ -80,7 +80,10 @@ return {
   },
   {
     'ggandor/leap.nvim',
-    keys = { 's', 'S' },
+    keys = {
+      { 's', desc = 'Leap forward' },
+      { 'S', desc = 'Leap backward' },
+    },
     config = function()
       require('leap').add_default_mappings()
     end,

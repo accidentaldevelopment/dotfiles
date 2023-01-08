@@ -1,4 +1,5 @@
 local which_key = require('which-key')
+local util = require('util')
 
 which_key.setup({
   plugins = {
@@ -27,10 +28,10 @@ which_key.setup({
 
 -- Normal --
 -- Better window navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h')
-vim.keymap.set('n', '<C-j>', '<C-w>j')
-vim.keymap.set('n', '<C-k>', '<C-w>k')
-vim.keymap.set('n', '<C-l>', '<C-w>l')
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Go to left Window' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Go to lower Window' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Go to upper Window' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Go to right Window' })
 
 -- Resize with arrows
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>')
@@ -60,6 +61,28 @@ vim.keymap.set('v', '<A-j>', ':m .+1<CR>==')
 vim.keymap.set('v', '<A-k>', ':m .-2<CR>==')
 vim.keymap.set('v', 'p', '"_dP')
 
+-- floating terminal
+vim.keymap.set('n', '<leader>ot', function()
+  util.float_term(nil, { cwd = util.get_root() })
+end, { desc = 'Terminal (root dir)' })
+vim.keymap.set('n', '<leader>oT', function()
+  util.float_term()
+end, { desc = 'Terminal (cwd)' })
+vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Enter Normal Mode' })
+
+-- toggle options
+vim.keymap.set('n', '<leader>ts', function()
+  util.toggle('spell')
+end, { desc = 'Spelling' })
+vim.keymap.set('n', '<leader>tn', function()
+  util.toggle('relativenumber', true)
+  util.toggle('number')
+end, { desc = 'Line Numbers' })
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+vim.keymap.set('n', '<leader>tc', function()
+  util.toggle('conceallevel', false, { 0, conceallevel })
+end, { desc = 'Conceal' })
+
 -- Visual Block --
 -- Move text up and down
 --keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
@@ -79,8 +102,10 @@ which_key.register({
   g = { name = 'goto' },
   [']'] = { name = 'next' },
   ['['] = { name = 'prev' },
+  ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
   ['<leader>b'] = { name = 'buffer' },
   ['<leader>h'] = { name = 'help' },
-  ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
+  ['<leader>o'] = { name = 'open' },
   ['<leader>s'] = { name = 'search' },
+  ['<leader>t'] = { name = 'toggle' },
 })
