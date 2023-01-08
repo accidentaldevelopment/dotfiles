@@ -10,8 +10,10 @@ return {
     'kyazdani42/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
   },
-  config = function()
+  init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
+  end,
+  config = function()
     require('neo-tree').setup({
       use_popups_for_input = false,
       window = {
