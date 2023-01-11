@@ -61,13 +61,9 @@ vim.keymap.set('v', '<A-j>', ':m .+1<CR>==')
 vim.keymap.set('v', '<A-k>', ':m .-2<CR>==')
 vim.keymap.set('v', 'p', '"_dP')
 
--- floating terminal
 vim.keymap.set('n', '<leader>ot', function()
-  util.float_term(nil, { cwd = util.get_root() })
-end, { desc = 'Terminal (root dir)' })
-vim.keymap.set('n', '<leader>oT', function()
-  util.float_term()
-end, { desc = 'Terminal (cwd)' })
+  require('lazy.util').float_term()
+end, { desc = 'Terminal' })
 vim.keymap.set('t', '<esc><esc>', '<c-\\><c-n>', { desc = 'Enter Normal Mode' })
 
 -- toggle options
