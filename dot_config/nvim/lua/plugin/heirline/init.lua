@@ -82,28 +82,37 @@ return {
     }
     local DefaultWinbar = { navic }
 
-    local special_status_line
-    local function _26_()
-      return conditions.buffer_matches({ buftype = { 'nofile', 'prompt', 'help', 'quickfix' }, filetype = { '^git.*' } })
-    end
-    special_status_line = utils.insert({ condition = _26_ }, file.FileType, space, file.HelpFileName, align)
-    local status_lines
-    local function _27_()
-      if conditions.is_active() then
-        return 'StatusLine'
-      else
-        return 'StatusLineNC'
-      end
-    end
-    status_lines = utils.insert({ hl = _27_, fallthrough = false }, special_status_line, DefaultStatusLine)
-    do
-      local h = require('heirline')
-      h.setup(status_lines, DefaultWinbar, require('plugin.heirline.bufferline'))
-    end
-    local group = vim.api.nvim_create_augroup('Heirline', { clear = true })
-    local function _29_()
-      return utils.on_colorscheme()
-    end
-    vim.api.nvim_create_autocmd('ColorScheme', { callback = _29_, group = group })
+    local SpecialStatusLine = utils.insert({
+      condition = function()
+        return conditions.buffer_matches({
+          buftype = { 'nofile', 'prompt', 'help', 'quickfix' },
+          filetype = { '^git.*' },
+        })
+      end,
+    }, file.FileType, space, file.HelpFileName, align)
+
+    local StatusLines = utils.insert({
+      hl = function()
+        if conditions.is_active() then
+          return 'StatusLine'
+        else
+          return 'StatusLineNC'
+        end
+      end,
+      fallthrough = false,
+    }, SpecialStatusLine, DefaultStatusLine)
+
+    require('heirline').setup({
+      statusline = StatusLines,
+      winbar = DefaultWinbar,
+      tabline = require('plugin.heirline.bufferline'),
+    })
+
+    vim.api.nvim_create_autocmd('ColorScheme', {
+      group = vim.api.nvim_create_augroup('Heirline', { clear = true }),
+      callback = function()
+        return utils.on_colorscheme({})
+      end,
+    })
   end,
 }
