@@ -42,6 +42,11 @@ return {
       mods = 'CMD',
       action = action.StartWindowDrag,
     },
+    {
+      event = { Drag = { streak = 1, button = 'Left' } },
+      mods = 'SHIFT|CMD',
+      action = action.StartWindowDrag,
+    },
   },
   disable_default_key_bindings = true,
   keys = {
