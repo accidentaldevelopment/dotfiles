@@ -8,79 +8,30 @@ return {
   config = function()
     local utils = require('heirline.utils')
     local conditions = require('heirline.conditions')
-
-    local Ruler = { provider = '%7(%l/%3L%):%2c %P' }
-
-    local ScrollBar = {
-      static = {
-        sbar = {
-          '▁',
-          '▂',
-          '▃',
-          '▄',
-          '▅',
-          '▆',
-          '▇',
-          '█',
-        },
-      },
-      provider = function(self)
-        local curr_line = vim.fn.line('.')
-        local lines = vim.fn.line('$')
-        local line_ratio = (curr_line / lines)
-        local index = math.ceil((line_ratio * #self.sbar))
-        return string.rep(self.sbar[index], 2)
-      end,
-      hl = 'SLScrollBar',
-    }
-
-    local LazyStats = {
-      init = function(self)
-        local stats = require('lazy').stats()
-        self.count = stats.count
-        self.loaded = stats.loaded
-      end,
-      provider = function(self)
-        return self.loaded .. '/' .. self.count
-      end,
-    }
-
-    local LazyUpdates = {
-      condition = require('lazy.status').has_updates,
-      provider = function()
-        return require('lazy.status').updates()
-      end,
-    }
-
-    local space = { provider = ' ' }
-    local align = { provider = '%=' }
-    local vi_mode = require('plugin.heirline.vimode')
-    local navic = require('plugin.heirline.navic')
-    local file = require('plugin.heirline.file')
-    local lsp = require('plugin.heirline.lsp')
-    local git = require('plugin.heirline.git')
+    local c = require('plugin.heirline.components')
 
     local DefaultStatusLine = {
-      vi_mode,
-      space,
-      file.FileName,
-      file.FileFlags,
-      space,
-      space,
-      lsp.LspActive,
-      space,
-      lsp.Diagnostics,
-      align,
-      LazyStats,
-      LazyUpdates,
-      space,
-      git,
-      space,
-      Ruler,
-      space,
-      ScrollBar,
+      c.ViMode,
+      c.Space,
+      c.FileName,
+      c.FileFlags,
+      c.Space,
+      c.Space,
+      c.LspActive,
+      c.Space,
+      c.Diagnostics,
+      c.Align,
+      c.LazyStats,
+      c.LazyUpdates,
+      c.Space,
+      c.Git,
+      c.Space,
+      c.Ruler,
+      c.Space,
+      c.ScrollBar,
     }
-    local DefaultWinbar = { navic }
+
+    local DefaultWinbar = { c.Navic }
 
     local SpecialStatusLine = utils.insert({
       condition = function()
@@ -89,7 +40,7 @@ return {
           filetype = { '^git.*' },
         })
       end,
-    }, file.FileType, space, file.HelpFileName, align)
+    }, c.FileType, c.Space, c.HelpFileName, c.Align)
 
     local StatusLines = utils.insert({
       hl = function()

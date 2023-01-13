@@ -2,6 +2,7 @@ local conditions = require('heirline.conditions')
 
 local M = {}
 
+--- Lists attached language server processes.
 M.LspActive = {
   condition = conditions.lsp_attached,
   update = { 'LspAttach', 'LspDetach', 'BufEnter' },
@@ -20,6 +21,7 @@ M.LspActive = {
   },
 }
 
+--- Diagnostic stats for all attached language servers.
 M.Diagnostics = {
   condition = conditions.lsp_attached,
   update = { 'DiagnosticChanged', 'BufEnter' },

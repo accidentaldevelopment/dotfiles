@@ -9,6 +9,7 @@ local file_name = {
   end,
 }
 
+--- Icon associated with the file type.
 M.FileIcon = {
   init = function(self)
     local extension = vim.fn.fnamemodify(self.filename, ':e')
@@ -25,12 +26,14 @@ M.FileIcon = {
   end,
 }
 
+--- Full path of the current file
 M.FileName = utils.insert(file_name, M.FileIcon, {
   provider = function(self)
     return self.filename
   end,
 })
 
+--- File type
 M.FileType = {
   provider = function()
     return string.upper(vim.bo.filetype)
@@ -38,6 +41,9 @@ M.FileType = {
   hl = 'Type',
 }
 
+--- A collection of icons for file status:
+--- * modified
+--- * readonly
 M.FileFlags = {
   {
     condition = function()
@@ -55,6 +61,7 @@ M.FileFlags = {
   },
 }
 
+--- The name of the help file if the current filetype is help.
 M.HelpFileName = {
   condition = function()
     return (vim.bo.filetype == 'help')
