@@ -15,5 +15,4 @@ if status is-interactive
     # source "$(brew --prefix fzf)/shell/key-bindings.fish" && fzf_key_bindings
 
     starship init fish | source
-    enable_transience
 end

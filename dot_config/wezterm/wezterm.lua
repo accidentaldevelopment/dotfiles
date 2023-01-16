@@ -1,6 +1,17 @@
 local wezterm = require('wezterm')
 local action = wezterm.action
 
+local search_mode = wezterm.gui.default_key_tables().search_mode
+
+table.insert(search_mode, {
+  key = 'c',
+  mods = 'CTRL',
+  action = action.Multiple({
+    action.CopyMode('ClearPattern'),
+    action.CopyMode('Close'),
+  }),
+})
+
 return {
   initial_rows = 61,
   initial_cols = 201,
@@ -56,6 +67,7 @@ return {
     { key = '=', mods = 'SUPER', action = action.IncreaseFontSize },
     { key = 'Enter', mods = 'SUPER', action = action.ToggleFullScreen },
     { key = 'c', mods = 'SUPER', action = action.CopyTo('Clipboard') },
+    { key = 'f', mods = 'CMD', action = action.Search({ CaseInSensitiveString = '' }) },
     { key = 'h', mods = 'CMD', action = action.HideApplication },
     {
       key = 'k',
@@ -69,7 +81,11 @@ return {
     { key = 'm', mods = 'CMD', action = action.Hide },
     { key = 'n', mods = 'SUPER', action = action.SpawnWindow },
     { key = 'q', mods = 'CMD', action = action.QuitApplication },
-    { key = 'v', mods = 'SUPER', action = action.PasteFrom('Clipboard') },
+    { key = 'v', mods = 'SUPER', action = action.PasteFrom('PrimarySelection') },
     { key = 'w', mods = 'CMD', action = action.CloseCurrentTab({ confirm = false }) },
+    { key = 'x', mods = 'CTRL|SHIFT', action = action.ActivateCopyMode },
+  },
+  key_tables = {
+    search_mode = search_mode,
   },
 }
