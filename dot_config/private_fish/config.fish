@@ -3,6 +3,7 @@ set -u fish_greeting
 set -x GPG_TTY "$(tty)"
 set -x EDITOR nvim
 set -x PAGER less
+set -x MANPAGER 'nvim +Man!'
 set -x HOMEBREW_NO_ANALYTICS 1
 
 if status is-interactive
