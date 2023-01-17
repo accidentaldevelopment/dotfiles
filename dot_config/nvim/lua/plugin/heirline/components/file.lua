@@ -61,10 +61,11 @@ M.FileFlags = {
   },
 }
 
---- The name of the help file if the current filetype is help.
+--- The name of the file if tyep is help or man.
 M.HelpFileName = {
   condition = function()
-    return (vim.bo.filetype == 'help')
+    local ft = vim.bo.filetype
+    return ft == 'help' or ft == 'man'
   end,
   provider = function()
     local filename = vim.api.nvim_buf_get_name(0)
