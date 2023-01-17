@@ -1,7 +1,21 @@
 return {
   'folke/which-key.nvim',
-
-  'alker0/chezmoi.vim',
+  {
+    'alker0/chezmoi.vim',
+    priority = 9900,
+    lazy = false,
+    cond = false,
+    ---  @param plugin LazyPlugin
+    init = function(plugin)
+      for _, a in ipairs(vim.fn.argv()) do
+        if a:find('chezmoi-edit', 1, true) ~= nil then
+          vim.notify('enabling chezmoi', vim.log.levels.INFO)
+          plugin.cond = true
+          return nil
+        end
+      end
+    end,
+  },
 
   'gpanders/editorconfig.nvim',
   {
@@ -20,41 +34,40 @@ return {
     'echasnovski/mini.pairs',
     event = 'VeryLazy',
     config = function()
-      require('mini.pairs').setup()
+      require('mini.pairs').setup({})
     end,
   },
   {
     'echasnovski/mini.comment',
     event = 'VeryLazy',
     config = function()
-      require('mini.comment').setup()
+      require('mini.comment').setup({})
     end,
   },
   {
     'lukas-reineke/indent-blankline.nvim',
     event = 'BufReadPre',
-    config = function()
-      require('indent_blankline').setup({
-        show_trailing_blankline_indent = false,
-        show_current_context = false,
-        -- show_current_context_start = true,
-      })
-    end,
+    opts = {
+      show_trailing_blankline_indent = false,
+      show_current_context = false,
+      -- show_current_context_start = true,
+    },
   },
   {
     'echasnovski/mini.indentscope',
     event = 'BufReadPre',
-    config = function()
-      require('mini.indentscope').setup({
-        symbol = '│',
-        options = { try_as_border = true },
-      })
+    opts = {
+      symbol = '│',
+      options = { try_as_border = true },
+    },
+    config = function(_, opts)
+      require('mini.indentscope').setup(opts)
     end,
   },
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
-    config = {
+    opts = {
       ui = {
         border = 'rounded',
       },
@@ -91,7 +104,9 @@ return {
   {
     'petertriho/nvim-scrollbar',
     event = 'BufReadPre',
-    config = true,
+    opts = {
+      handlers = { gitsigns = true },
+    },
   },
   {
     'iamcco/markdown-preview.nvim',
@@ -100,23 +115,47 @@ return {
       vim.fn['mkdp#util#install']()
     end,
   },
-  'folke/neodev.nvim',
   {
     'echasnovski/mini.surround',
     keys = { 'gz' },
-    config = function()
+    opts = {
+      mappings = {
+        add = 'gza', -- Add surrounding in Normal and Visual modes
+        delete = 'gzd', -- Delete surrounding
+        find = 'gzf', -- Find surrounding (to the right)
+        find_left = 'gzF', -- Find surrounding (to the left)
+        highlight = 'gzh', -- Highlight surrounding
+        replace = 'gzr', -- Replace surrounding
+        update_n_lines = 'gzn', -- Update `n_lines`
+      },
+    },
+    config = function(_, opts)
       -- use gz mappings instead of s to prevent conflict with leap
-      require('mini.surround').setup({
-        mappings = {
-          add = 'gza', -- Add surrounding in Normal and Visual modes
-          delete = 'gzd', -- Delete surrounding
-          find = 'gzf', -- Find surrounding (to the right)
-          find_left = 'gzF', -- Find surrounding (to the left)
-          highlight = 'gzh', -- Highlight surrounding
-          replace = 'gzr', -- Replace surrounding
-          update_n_lines = 'gzn', -- Update `n_lines`
-        },
-      })
+      require('mini.surround').setup(opts)
     end,
+  },
+  {
+    'RRethy/vim-illuminate',
+    event = 'BufReadPost',
+    opts = { delay = 200 },
+    config = function(_, opts)
+      require('illuminate').configure(opts)
+    end,
+    -- keys = {
+    --   {
+    --     ']]',
+    --     function()
+    --       require('illuminate').goto_next_reference(false)
+    --     end,
+    --     desc = 'Next Reference',
+    --   },
+    --   {
+    --     '[[',
+    --     function()
+    --       require('illuminate').goto_prev_reference(false)
+    --     end,
+    --     desc = 'Prev Reference',
+    --   },
+    -- },
   },
 }

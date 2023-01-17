@@ -11,39 +11,40 @@ return {
       -- TODO: Unmaintained. See if we can find a replacement.
       'p00f/nvim-ts-rainbow',
     },
-    config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = {
-          'bash',
-          'help',
-          'json',
-          'lua',
-          'markdown',
-          'markdown_inline',
-          'regex',
-          'rust',
-          'vim',
-        }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-        sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-        ignore_install = { '' }, -- List of parsers to ignore installing
-        autopairs = {
-          enable = true,
-        },
-        highlight = {
-          enable = true, -- false will disable the whole extension
-          disable = { '' }, -- list of language that will be disabled
-          additional_vim_regex_highlighting = true,
-        },
-        indent = { enable = true, disable = { 'yaml' } },
-        context_commentstring = {
-          enable = true,
-          enable_autocmd = false,
-        },
-        rainbow = {
-          enable = true,
-          extended_mode = true,
-        },
-      })
+    opts = {
+      ensure_installed = {
+        'bash',
+        'help',
+        'json',
+        'lua',
+        'markdown',
+        'markdown_inline',
+        'regex',
+        'rust',
+        'vim',
+      }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+      sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+      ignore_install = { '' }, -- List of parsers to ignore installing
+      autopairs = {
+        enable = true,
+      },
+      highlight = {
+        enable = true, -- false will disable the whole extension
+        disable = { '' }, -- list of language that will be disabled
+        additional_vim_regex_highlighting = true,
+      },
+      indent = { enable = true, disable = { 'yaml' } },
+      context_commentstring = {
+        enable = true,
+        enable_autocmd = false,
+      },
+      rainbow = {
+        enable = true,
+        extended_mode = true,
+      },
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
 
       -- -- Folding options
       -- vim.o.foldmethod = 'expr'

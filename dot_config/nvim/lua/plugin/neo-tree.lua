@@ -13,20 +13,18 @@ return {
   init = function()
     vim.g.neo_tree_remove_legacy_commands = 1
   end,
-  config = function()
-    require('neo-tree').setup({
-      use_popups_for_input = false,
-      window = {
-        mappings = {
-          ['<space>'] = 'none',
-        },
+  opts = {
+    use_popups_for_input = false,
+    window = {
+      mappings = {
+        ['<space>'] = 'none',
       },
-      default_component_configs = {
-        name = {
-          trailing_slash = true,
-          use_git_status_colors = true,
-        },
+    },
+    default_component_configs = {
+      name = {
+        trailing_slash = true,
+        use_git_status_colors = true,
       },
-    })
-  end,
+    },
+  },
 }

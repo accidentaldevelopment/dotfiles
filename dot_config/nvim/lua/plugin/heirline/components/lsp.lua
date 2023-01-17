@@ -7,7 +7,7 @@ M.LspActive = {
   condition = conditions.lsp_attached,
   update = { 'LspAttach', 'LspDetach', 'BufEnter' },
   {
-    { provider = ' [' },
+    { provider = ' [' },
     {
       provider = function()
         local names = {}

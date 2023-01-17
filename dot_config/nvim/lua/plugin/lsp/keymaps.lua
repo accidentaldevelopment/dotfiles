@@ -3,7 +3,7 @@ local M = {}
 --- Attach LSP related key mappings `buffer`
 ---@param client any LSP Client object
 ---@param buffer number Buffer number
-function M.setup(client, buffer)
+function M.on_attach(client, buffer)
   local trouble = require('trouble')
   local util = require('util')
 

@@ -30,11 +30,10 @@ return {
     { '<leader>hs', '<cmd>Telescope highlights<cr>', desc = 'Search Highlight Groups' },
     { '<leader>ht', '<cmd>Telescope builtin<cr>', desc = 'Telescope' },
   },
-  config = function()
-    local telescope = require('telescope')
+  opts = function()
     local actions = require('telescope.actions')
 
-    telescope.setup({
+    return {
       defaults = {
 
         prompt_prefix = ' ',
@@ -60,8 +59,11 @@ return {
           theme = 'cursor',
         },
       },
-    })
-
+    }
+  end,
+  config = function(_, opts)
+    local telescope = require('telescope')
+    telescope.setup(opts)
     telescope.load_extension('noice')
   end,
 }
