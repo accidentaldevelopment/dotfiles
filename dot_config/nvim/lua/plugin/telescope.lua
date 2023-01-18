@@ -35,10 +35,8 @@ return {
 
     return {
       defaults = {
-
         prompt_prefix = ' ',
         selection_caret = ' ',
-        path_display = { 'smart' },
 
         mappings = {
           i = {
@@ -54,16 +52,6 @@ return {
           },
         },
       },
-      pickers = {
-        lsp_code_actions = {
-          theme = 'cursor',
-        },
-      },
     }
-  end,
-  config = function(_, opts)
-    local telescope = require('telescope')
-    telescope.setup(opts)
-    telescope.load_extension('noice')
   end,
 }

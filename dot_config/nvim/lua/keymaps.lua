@@ -1,16 +1,4 @@
-local which_key = require('which-key')
 local util = require('util')
-
-which_key.setup({
-  plugins = {
-    spelling = {
-      enabled = true,
-    },
-  },
-  window = {
-    border = 'rounded', -- none, single, double, shadow
-  },
-})
 
 -- --Remap space as leader key
 -- keymap('', '<Space>', '<Nop>', opts)
@@ -91,16 +79,3 @@ end, { desc = 'Conceal' })
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 -- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
-which_key.register({
-  mode = { 'n', 'v' },
-  g = { name = 'goto' },
-  [']'] = { name = 'next' },
-  ['['] = { name = 'prev' },
-  ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
-  ['<leader>b'] = { name = 'buffer' },
-  ['<leader>h'] = { name = 'help' },
-  ['<leader>o'] = { name = 'open' },
-  ['<leader>s'] = { name = 'search' },
-  ['<leader>t'] = { name = 'toggle' },
-})

@@ -2,7 +2,7 @@ return {
   'lewis6991/gitsigns.nvim',
   event = 'BufReadPre',
   opts = {
-    numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
+    numhl = true,
     current_line_blame_opts = {
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
     },
@@ -12,32 +12,28 @@ return {
     yadm = {
       enable = false,
     },
-    on_attach = function(bufnr)
-      local gs = require('gitsigns')
-      local wk = require('which-key')
-      local tscope = require('telescope.builtin')
+    on_attach = function(buffer)
+      local gs = package.loaded.gitsigns
+      local function map(mode, l, r, desc)
+        vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
+      end
 
-      wk.register({
-        ['<leader>g'] = {
-          name = 'Git',
-          j = { gs.next_hunk, 'Next Hunk' },
-          k = { gs.prev_hunk, 'Prev Hunk' },
-          l = { gs.blame_line, 'Blame' },
-          p = { gs.preview_hunk, 'Preview Hunk' },
-          r = { gs.reset_hunk, 'Reset Hunk' },
-          R = { gs.reset_buffer, 'Reset Buffer' },
-          s = { gs.stage_hunk, 'Stage Hunk' },
-          u = { gs.undo_stage_hunk, 'Undo Stage Hunk' },
-          o = { tscope.git_status, 'Open changed file' },
-          b = { tscope.git_branches, 'Checkout branch' },
-          c = { tscope.git_commits, 'Checkout commit' },
-          d = { gs.diffthis, 'Diff' },
-        },
-      }, { buffer = bufnr })
+      map('n', ']h', gs.next_hunk, 'Next Hunk')
+      map('n', '[h', gs.prev_hunk, 'Prev Hunk')
+      map({ 'n', 'v' }, '<leader>ghs', ':Gitsigns stage_hunk<CR>', 'Stage Hunk')
+      map({ 'n', 'v' }, '<leader>ghr', ':Gitsigns reset_hunk<CR>', 'Reset Hunk')
+      map('n', '<leader>ghS', gs.stage_buffer, 'Stage Buffer')
+      map('n', '<leader>ghu', gs.undo_stage_hunk, 'Undo Stage Hunk')
+      map('n', '<leader>ghR', gs.reset_buffer, 'Reset Buffer')
+      map('n', '<leader>ghp', gs.preview_hunk, 'Preview Hunk')
+      map('n', '<leader>ghb', function()
+        gs.blame_line({ full = true })
+      end, 'Blame Line')
+      map('n', '<leader>ghd', gs.diffthis, 'Diff This')
+      map('n', '<leader>ghD', function()
+        gs.diffthis('~')
+      end, 'Diff This ~')
+      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>', 'GitSigns Select Hunk')
     end,
   },
-  -- config = function(_, opts)
-  --   require('gitsigns').setup(opts)
-  --   require('scrollbar.handlers.gitsigns').setup()
-  -- end,
 }

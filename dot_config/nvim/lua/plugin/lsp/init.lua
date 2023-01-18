@@ -3,9 +3,9 @@ return {
     'neovim/nvim-lspconfig',
     event = 'BufReadPre',
     dependencies = {
-      'L3MON4D3/LuaSnip',
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
+      'mason.nvim',
       { 'lvimuser/lsp-inlayhints.nvim', config = true },
       {
         'folke/neodev.nvim',
@@ -94,5 +94,14 @@ return {
         },
       }
     end,
+  },
+  {
+    'williamboman/mason.nvim',
+    cmd = 'Mason',
+    opts = {
+      ui = {
+        border = 'rounded',
+      },
+    },
   },
 }

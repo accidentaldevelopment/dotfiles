@@ -14,7 +14,8 @@ return {
         -- override for lsp inlay hints
         LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
 
-        TabLine = { bg = colors.mantle, fg = colors.overlay1 },
+        TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.mantle },
+        TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 
         -- highlights for statusline.
         SLViModeNormal = { fg = colors.red },
