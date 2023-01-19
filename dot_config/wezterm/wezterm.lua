@@ -15,7 +15,7 @@ table.insert(search_mode, {
 return {
   initial_rows = 61,
   initial_cols = 201,
-  -- window_decorations = 'RESIZE',
+  window_decorations = 'RESIZE',
   color_scheme = 'Catppuccin Mocha',
   enable_tab_bar = false,
   term = 'wezterm',
