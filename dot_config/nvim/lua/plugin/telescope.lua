@@ -9,26 +9,26 @@ return {
 
     -- require('telescope.themes').get_dropdown({ previewer = false }))
     { '<leader>f', '<cmd>Telescope find_files<cr>', desc = 'Find files' },
-    { '<leader>F', '<cmd>Telescope live_grep theme=ivy<cr>', desc = 'Find Text' },
+    { '<leader>/', '<cmd>Telescope live_grep theme=ivy<cr>', desc = 'Search' },
+    { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command history' },
 
+    -- search
+    { '<leader>sM', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
+    { '<leader>sR', '<cmd>Telescope registers<cr>', desc = 'Registers' },
+    { '<leader>sa', '<cmd>Telescope autocommands<cr>', desc = 'Auto Commands' },
     { '<leader>sb', '<cmd>Telescope git_branches<cr>', desc = 'Checkout branch' },
     { '<leader>sc', '<cmd>Telescope commands<cr>', desc = 'Commands' },
+    { '<leader>sc', '<cmd>Telescope commands<cr>', desc = 'Commands' },
+    { '<leader>sf', '<cmd>Telescope filetypes<cr>', desc = 'File Types' },
     { '<leader>sh', '<cmd>Telescope help_tags<cr>', desc = 'Find Help' },
-    { '<leader>sM', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
-    { '<leader>sr', '<cmd>Telescope oldfiles<cr>', desc = 'Open Recent File' },
-    { '<leader>sR', '<cmd>Telescope registers<cr>', desc = 'Registers' },
+    { '<leader>sh', '<cmd>Telescope help_tags<cr>', desc = 'Help Pages' },
+    { '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Key Maps' },
     { '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
-
-    -- help
-    { '<leader>ha', '<cmd>Telescope autocommands<cr>', desc = 'Auto Commands' },
-    { '<leader>hc', '<cmd>Telescope commands<cr>', desc = 'Commands' },
-    { '<leader>hf', '<cmd>Telescope filetypes<cr>', desc = 'File Types' },
-    { '<leader>hh', '<cmd>Telescope help_tags<cr>', desc = 'Help Pages' },
-    { '<leader>hk', '<cmd>Telescope keymaps<cr>', desc = 'Key Maps' },
-    { '<leader>hm', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
-    { '<leader>ho', '<cmd>Telescope vim_options<cr>', desc = 'Options' },
-    { '<leader>hs', '<cmd>Telescope highlights<cr>', desc = 'Search Highlight Groups' },
-    { '<leader>ht', '<cmd>Telescope builtin<cr>', desc = 'Telescope' },
+    { '<leader>sm', '<cmd>Telescope man_pages<cr>', desc = 'Man Pages' },
+    { '<leader>so', '<cmd>Telescope vim_options<cr>', desc = 'Options' },
+    { '<leader>sr', '<cmd>Telescope oldfiles<cr>', desc = 'Open Recent File' },
+    { '<leader>ss', '<cmd>Telescope highlights<cr>', desc = 'Search Highlight Groups' },
+    { '<leader>st', '<cmd>Telescope builtin<cr>', desc = 'Telescope' },
   },
   opts = function()
     local actions = require('telescope.actions')
