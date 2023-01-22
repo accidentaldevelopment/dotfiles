@@ -14,6 +14,7 @@ M.FileFlags = file.FileFlags
 M.HelpFileName = file.HelpFileName
 M.LspActive = lsp.LspActive
 M.Diagnostics = lsp.Diagnostics
+M.Format = lsp.Format
 
 --- LSP-derived breadcrumbs
 M.Navic = {

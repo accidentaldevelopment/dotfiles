@@ -1,6 +1,5 @@
--- Mode-to-statusline table
--- Statusline indicators that can be calculated are left to the metatable below.
-local mode_names = setmetatable({
+local mode_names = {
+  n = 'N',
   no = 'N?',
   nov = 'N?',
   noV = 'N?',
@@ -8,29 +7,44 @@ local mode_names = setmetatable({
   niI = 'Ni',
   niR = 'Nr',
   niV = 'Nv',
+  nt = 'Nt',
+  v = 'V',
+  vs = 'Vs',
   V = 'V_',
+  Vs = 'Vs',
   ['\22'] = '^V',
   ['\22s'] = '^V',
+  s = 'S',
   S = 'S_',
   ['\19'] = '^S',
+  i = 'I',
+  ic = 'Ic',
+  ix = 'Ix',
+  R = 'R',
+  Rc = 'Rc',
+  Rx = 'Rx',
+  Rv = 'Rv',
   Rvc = 'Rv',
   Rvx = 'Rv',
+  c = 'C',
   cv = 'Ex',
   r = '...',
   rm = 'M',
   ['r?'] = '?',
-}, {
-  -- If the given key isn't found, return the first (or only) letter capitalized.
-  __index = function(_, key)
-    return (key:gsub('^%l', string.upper))
-  end,
-})
+  ['!'] = '!',
+  t = 'T',
+}
 
 return {
   init = function(self)
     self.mode = vim.fn.mode(1)
     if not self.once then
-      vim.api.nvim_create_autocmd('ModeChanged', { pattern = '*:*o', command = 'redrawstatus' })
+      vim.api.nvim_create_autocmd(
+        'ModeChanged',
+        -- The c:* pattern doesn't work (for some reason) and it keeps the mode indicator in `C` even if we switch to `N`.
+        -- { pattern = { '*:*o', 'c:*' }, command = 'redrawstatus', desc = 'Redraw the statusbar during a mode change' }
+        { command = 'redrawstatus', desc = 'Redraw the statusbar during a mode change' }
+      )
       self.once = true
     end
   end,
@@ -55,13 +69,7 @@ return {
     end,
   },
   provider = function(self)
-    local mode = self.mode_names[self.mode]
-    -- multi-char mode indicators squish up against the V logo, so add an extra space.
-    if string.len(mode) == 1 then
-      return ('%2(' .. self.mode_names[self.mode] .. '%)')
-    else
-      return (' %2(' .. self.mode_names[self.mode] .. '%)')
-    end
+    return ' %2(' .. self.mode_names[self.mode] .. '%)'
   end,
   hl = function(self)
     local mode = self.mode:sub(1, 1)

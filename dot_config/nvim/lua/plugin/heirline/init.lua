@@ -19,6 +19,8 @@ return {
       c.LspActive,
       c.Space,
       c.Diagnostics,
+      c.Space,
+      c.Format,
       c.Align,
       c.LazyStats,
       c.LazyUpdates,

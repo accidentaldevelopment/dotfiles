@@ -22,10 +22,19 @@ function M.on_attach(client, buffer)
         },
         { vim.lsp.buf.code_action, 'Code Action', mode = 'v' },
       },
-      f = {
-        { require('plugin.lsp.formatting').format, 'Format buffer', cond = caps.documentFormattingProvider },
-        { require('plugin.lsp.formatting').format, 'Format range', cond = caps.documentRangeFormatting, mode = 'v' },
-      },
+      -- f = {
+      --   {
+      --     '<cmd>Format<cr>',
+      --     'Format buffer',
+      --     cond = caps.documentFormattingProvider,
+      --   },
+      --   {
+      --     '<cmd>Format<cr>',
+      --     'Format range',
+      --     cond = caps.documentRangeFormattingProvider,
+      --     mode = 'v',
+      --   },
+      -- },
       d = { util.lazy(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },

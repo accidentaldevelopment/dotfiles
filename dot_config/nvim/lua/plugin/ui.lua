@@ -46,7 +46,8 @@ return {
         },
       },
       presets = {
-        lsp_doc_border = true, -- add a border to hover docs and signature help
+        long_message_to_split = true,
+        lsp_doc_border = true,
       },
     },
     config = function(_, opts)

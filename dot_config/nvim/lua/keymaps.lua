@@ -59,7 +59,6 @@ vim.keymap.set('n', '<leader>ts', function()
 end, { desc = 'Spelling' })
 vim.keymap.set('n', '<leader>tn', function()
   util.toggle('relativenumber', true)
-  util.toggle('number')
 end, { desc = 'Line Numbers' })
 local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
 vim.keymap.set('n', '<leader>tc', function()

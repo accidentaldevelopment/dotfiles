@@ -21,6 +21,19 @@ M.LspActive = {
   },
 }
 
+M.Format = {
+  condition = conditions.lsp_attached,
+  update = { 'User', pattern = 'FormatOnSave' },
+  provider = '󰬍',
+  hl = function()
+    if require('plugin.lsp.formatting').format_on_save() then
+      return 'FormatOnSave'
+    else
+      return 'FormatOnSaveDisabled'
+    end
+  end,
+}
+
 --- Diagnostic stats for all attached language servers.
 M.Diagnostics = {
   condition = conditions.lsp_attached,

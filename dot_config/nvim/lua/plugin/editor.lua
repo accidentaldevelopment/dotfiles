@@ -68,13 +68,19 @@ return {
   },
   {
     'ggandor/leap.nvim',
-    event = 'VeryLazy',
+    keys = {
+      { 's', mode = { 'n', 'v' }, desc = 'Leap forward' },
+      { 'S', mode = { 'n', 'v' }, desc = 'Leap backward' },
+      { 'x', mode = { 'v' }, desc = 'Leap forward (exclude match)' },
+      { 'X', mode = { 'v' }, desc = 'Leap backward (exclude match)' },
+    },
     config = function()
       require('leap').add_default_mappings()
     end,
   },
   {
     'folke/which-key.nvim',
+    event = 'VeryLazy',
     opts = {
       plugins = {
         spelling = {
