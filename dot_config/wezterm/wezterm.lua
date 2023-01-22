@@ -27,7 +27,7 @@ return {
   },
   font_size = 11,
   font = wezterm.font({
-    family = 'Fira Code',
+    family = 'FiraCode Nerd Font',
     harfbuzz_features = {
       'ss02',
       'ss07',

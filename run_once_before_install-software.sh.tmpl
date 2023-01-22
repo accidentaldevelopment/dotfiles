@@ -8,7 +8,7 @@ tap "homebrew/cask-fonts"
 tap "homebrew/core"
 # brew "dagger/tap/dagger"
 # brew "messense/macos-cross-toolchains/x86_64-unknown-linux-gnu"
-brew "asdf"
+# brew "asdf"
 brew "bat"
 brew "editorconfig"
 brew "fd"
@@ -35,7 +35,7 @@ cask "wezterm"
 {{ if .dev.docker -}}
 cask "docker"
 {{ end -}}
-cask "font-fira-code"
+cask "font-fira-code-nerd-font"
 cask "protonvpn"
 EOF
 {{ else if .os.linux }}
