@@ -17,6 +17,8 @@ return {
         TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.mantle },
         TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 
+        Comment = { fg = colors.overlay1 },
+
         FormatOnSave = { fg = colors.green },
         FormatOnSaveDisabled = { fg = colors.subtext1 },
 

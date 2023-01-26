@@ -29,13 +29,13 @@ return {
   font = wezterm.font({
     family = 'FiraCode Nerd Font',
     harfbuzz_features = {
-      'ss02',
-      'ss07',
-      'cv26',
-      'ss06',
-      'zero',
-      'ss05',
-      'ss03',
+      'ss02', -- <= >=
+      'ss07', -- =~ !~
+      'cv26', -- :-
+      'ss06', -- \\
+      'zero', -- 0
+      'ss05', -- @
+      'ss03', -- &
     },
   }),
   mouse_bindings = {
@@ -46,6 +46,7 @@ return {
     {
       event = { Up = { streak = 1, button = 'Left' } },
       mods = 'CMD',
+      mouse_reporting = true,
       action = action.OpenLinkAtMouseCursor,
     },
     {
