@@ -23,4 +23,4 @@ arch = {{ and ($linux) (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.i
 rust = {{ $macos }}
 docker = {{ $macos }}
 podman = {{ $macos }}
-go = {{ and ($macos) (promptBoolOnce .dev "go" "are we writing go") -}}
+go = {{ and ($macos) (promptBoolOnce . "go" "are we writing go") -}}
