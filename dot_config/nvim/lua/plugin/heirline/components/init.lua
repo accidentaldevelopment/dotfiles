@@ -18,11 +18,13 @@ M.Format = lsp.Format
 
 --- LSP-derived breadcrumbs
 M.Navic = {
-  condition = navic.is_available,
+  condition = function()
+    return navic.is_available()
+  end,
   provider = function()
     return navic.get_location({ highlight = true })
   end,
-  update = { 'BufReadPre', 'CursorMoved' },
+  update = { 'CursorMoved' },
 }
 
 M.Ruler = { provider = '%7(%l/%3L%):%2c %3p%%' }
