@@ -100,6 +100,7 @@ return {
         gz = { name = 'surround' },
         [']'] = { name = 'next' },
         ['['] = { name = 'prev' },
+        ['<leader><tab>'] = { name = 'tabs' },
         ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
         ['<leader>b'] = { name = 'buffer' },
         ['<leader>g'] = { name = 'git' },

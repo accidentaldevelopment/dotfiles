@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 -- TODO: See if I can do something with this.
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = ' '
 
 vim.o.backup = false -- creates a backup file
 -- vim.o.clipboard = "unnamedplus", -- allows neovim to access the system clipboard

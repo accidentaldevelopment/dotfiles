@@ -65,6 +65,13 @@ vim.keymap.set('n', '<leader>tc', function()
   util.toggle('conceallevel', false, { 0, conceallevel })
 end, { desc = 'Conceal' })
 
+vim.keymap.set('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
+vim.keymap.set('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
+vim.keymap.set('n', '<leader><tab>n', '<cmd>tabnew<cr>', { desc = 'New Tab' })
+vim.keymap.set('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
+vim.keymap.set('n', '<leader><tab>c', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
+vim.keymap.set('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+
 -- Visual Block --
 -- Move text up and down
 --keymap("x", "J", ":move '>+1<CR>gv-gv", opts)

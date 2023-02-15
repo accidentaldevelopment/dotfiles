@@ -53,6 +53,9 @@ local TablineFileNameBlock = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(self.bufnr)
   end,
+  condition = function(self)
+    return self.is_visible
+  end,
   hl = function(self)
     if self.is_active then
       return 'TabLineSel'
@@ -76,6 +79,27 @@ local TablineBufferBlock = utils.surround({ '| ', ' |' }, function(self)
   end
 end, { TablineFileNameBlock })
 
+local TabPage = {
+  provider = function(self)
+    return '%' .. self.tabnr .. 'T ' .. self.tabpage .. ' %T'
+  end,
+  hl = function(self)
+    if self.is_active then
+      return 'TabLineSel'
+    else
+      return 'TabLine'
+    end
+  end,
+}
+
+local TabPages = {
+  condition = function(self)
+    return #vim.api.nvim_list_tabpages() > 1
+  end,
+  { provider = '%=' },
+  utils.make_tablist(TabPage),
+}
+
 -- and here we go
 local BufferLine = utils.make_buflist(
   TablineBufferBlock,
@@ -84,4 +108,4 @@ local BufferLine = utils.make_buflist(
   -- by the way, open a lot of buffers and try clicking them ;)
 )
 
-return BufferLine
+return { BufferLine, TabPages }
