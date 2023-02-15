@@ -17,6 +17,7 @@ return {
   initial_cols = 201,
   window_decorations = 'RESIZE',
   color_scheme = 'Catppuccin Mocha',
+  native_macos_fullscreen_mode = true,
   enable_tab_bar = false,
   term = 'wezterm',
   window_padding = {
