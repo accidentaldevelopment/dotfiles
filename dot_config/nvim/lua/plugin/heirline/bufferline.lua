@@ -53,9 +53,6 @@ local TablineFileNameBlock = {
   init = function(self)
     self.filename = vim.api.nvim_buf_get_name(self.bufnr)
   end,
-  condition = function(self)
-    return self.is_visible
-  end,
   hl = function(self)
     if self.is_active then
       return 'TabLineSel'
