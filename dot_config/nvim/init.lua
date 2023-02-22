@@ -28,6 +28,24 @@ require('lazy').setup('plugin', {
   ui = {
     border = 'rounded',
   },
+  performance = {
+    rtp = {
+      ---@type string[] list any plugins you want to disable here
+      disabled_plugins = {
+        'gzip',
+        'health',
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+        'rplugin',
+        -- 'spellfile',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
+  },
 })
 
 vim.api.nvim_create_autocmd('User', {

@@ -10,6 +10,7 @@ return {
       },
       -- TODO: Unmaintained. See if we can find a replacement.
       'p00f/nvim-ts-rainbow',
+      'andymass/vim-matchup',
     },
     opts = {
       ensure_installed = {
@@ -41,6 +42,10 @@ return {
       rainbow = {
         enable = true,
         extended_mode = true,
+      },
+      matchup = {
+        enable = true,
+        include_match_words = true,
       },
     },
     config = function(_, opts)
