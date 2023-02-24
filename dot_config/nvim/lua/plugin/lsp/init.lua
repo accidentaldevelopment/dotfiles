@@ -18,6 +18,15 @@ return {
           end,
         },
       },
+      {
+        'folke/neoconf.nvim',
+        opts = {
+          import = {
+            coc = false,
+            nlsp = false,
+          },
+        },
+      },
     },
     init = function()
       vim.api.nvim_create_autocmd('LspAttach', {

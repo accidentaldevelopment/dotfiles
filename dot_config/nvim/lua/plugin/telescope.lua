@@ -8,7 +8,7 @@ return {
     { '<leader>bl', '<cmd>Telescope buffers<cr>', desc = 'Search buffers' },
 
     -- require('telescope.themes').get_dropdown({ previewer = false }))
-    { '<leader>f', '<cmd>Telescope find_files<cr>', desc = 'Find files' },
+    { '<leader>f', '<cmd>Telescope find_files hidden=true<cr>', desc = 'Find files' },
     { '<leader>/', '<cmd>Telescope live_grep theme=ivy<cr>', desc = 'Search' },
     { '<leader>:', '<cmd>Telescope command_history<cr>', desc = 'Command history' },
 

@@ -156,4 +156,19 @@ return {
       { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
     },
   },
+  {
+    'stevearc/oil.nvim',
+    cmd = 'Oil',
+    keys = {
+      { '<leader>E', '<cmd>Oil --float<cr>', desc = 'Oil' },
+    },
+    opts = {
+      columns = {
+        'icon',
+        'permissions',
+        'size',
+        'mtime',
+      },
+    },
+  },
 }
