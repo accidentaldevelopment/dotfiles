@@ -4,7 +4,7 @@ local M = {}
 
 local file_name = {
   init = function(self)
-    local filename = vim.api.nvim_buf_get_name(0)
+    local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ':~')
     self.filename = filename
   end,
 }
@@ -28,9 +28,22 @@ M.FileIcon = {
 
 --- Full path of the current file
 M.FileName = utils.insert(file_name, M.FileIcon, {
-  provider = function(self)
-    return self.filename
-  end,
+  flexible = 2,
+  {
+    provider = function(self)
+      return self.filename
+    end,
+  },
+  {
+    provider = function(self)
+      return './' .. vim.fn.fnamemodify(self.filename, ':.')
+    end,
+  },
+  {
+    provider = function(self)
+      return vim.fn.fnamemodify(self.filename, ':t')
+    end,
+  },
 })
 
 --- File type
