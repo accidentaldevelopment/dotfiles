@@ -69,7 +69,8 @@ return {
     end,
   },
   provider = function(self)
-    return ' %2(' .. self.mode_names[self.mode] .. '%)'
+    -- this is a little cramped, but an extra space here also looks awkward
+    return '%2(' .. self.mode_names[self.mode] .. '%)'
   end,
   hl = function(self)
     local mode = self.mode:sub(1, 1)

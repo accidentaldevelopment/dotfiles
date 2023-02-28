@@ -1,7 +1,7 @@
 return {
   {
     'neovim/nvim-lspconfig',
-    event = 'BufReadPre',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
@@ -85,7 +85,7 @@ return {
 
   {
     'jose-elias-alvarez/null-ls.nvim',
-    event = 'BufReadPre',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
     opts = function()
       local nls = require('null-ls')
@@ -107,6 +107,7 @@ return {
   {
     'williamboman/mason.nvim',
     cmd = 'Mason',
+    keys = { { '<leader>M', '<cmd>Mason<cr>', desc = 'Show Mason' } },
     opts = {
       ui = {
         border = 'rounded',
