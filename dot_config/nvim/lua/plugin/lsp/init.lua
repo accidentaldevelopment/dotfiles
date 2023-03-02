@@ -7,17 +7,7 @@ return {
       'folke/trouble.nvim',
       'mason.nvim',
       { 'lvimuser/lsp-inlayhints.nvim', config = true },
-      {
-        'folke/neodev.nvim',
-        opts = {
-          override = function(root_dir, library)
-            if root_dir:find('chezmoi/dot_config/nvim') then
-              library.enabled = true
-              library.plugins = true
-            end
-          end,
-        },
-      },
+      { 'folke/neodev.nvim', config = true },
       {
         'folke/neoconf.nvim',
         opts = {
