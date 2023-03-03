@@ -49,3 +49,13 @@ vim.opt.whichwrap:prepend({
 })
 vim.opt.iskeyword:remove('-')
 vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- TODO: this doesn't seem to work
+
+vim.filetype.add({
+  filename = {
+    ['tsconfig.json'] = 'jsonc',
+  },
+  pattern = {
+    ['*.jsonc'] = 'jsonc',
+    ['tsconfig*.json'] = 'jsonc',
+  },
+})
