@@ -8,8 +8,7 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         config = true,
       },
-      -- TODO: Unmaintained. See if we can find a replacement.
-      'p00f/nvim-ts-rainbow',
+      'HiPhish/nvim-ts-rainbow2',
       'andymass/vim-matchup',
     },
     opts = {
@@ -41,7 +40,6 @@ return {
       },
       rainbow = {
         enable = true,
-        extended_mode = true,
       },
       matchup = {
         enable = true,

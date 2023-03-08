@@ -79,7 +79,7 @@ return {
       telekasten = true,
       telescope = true,
       treesitter = true,
-      ts_rainbow = true,
+      ts_rainbow2 = true,
       vim_sneak = false,
       which_key = true,
     },
