@@ -18,6 +18,7 @@ export HOMEBREW_NO_ANALYTICS=1
 {{- if .dev.go }}
 export GOPATH="$HOME/go"
 {{- end }}
+export CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse
 
 # man highlighting
 export LESS_TERMCAP_mb=$(tput bold; tput setaf red)   # begin bold
