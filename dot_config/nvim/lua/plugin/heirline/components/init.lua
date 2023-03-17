@@ -52,33 +52,31 @@ M.ScrollBar = {
   hl = 'SLScrollBar',
 }
 
-M.LazyStats = {
-  flexible = 1,
-  {
-    init = function(self)
-      local stats = require('lazy').stats()
-      self.count = stats.count
-      self.loaded = stats.loaded
-    end,
-    provider = function(self)
-      return self.loaded .. '/' .. self.count
-    end,
-  },
-  { provider = '' },
+LazyStats = {
+  init = function(self)
+    local stats = require('lazy').stats()
+    self.count = stats.count
+    self.loaded = stats.loaded
+  end,
+  provider = function(self)
+    return ' ' .. self.loaded .. '/' .. self.count
+  end,
 }
 
-M.LazyUpdates = {
-  flexible = 1,
-  {
-    condition = require('lazy.status').has_updates,
-    provider = function()
-      return require('lazy.status').updates()
-    end,
-  },
-  { provider = '' },
+LazyUpdates = {
+  condition = require('lazy.status').has_updates,
+  provider = function()
+    return '(' .. require('lazy.status').updates():sub(5) .. ')'
+  end,
 }
 
 M.Space = { provider = ' ' }
+
+M.LazyInfo = {
+  flexible = 1,
+  { LazyStats, LazyUpdates },
+  { provider = '' },
+}
 
 M.Align = { provider = '%=' }
 
