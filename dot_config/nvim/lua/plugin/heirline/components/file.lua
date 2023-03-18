@@ -99,4 +99,11 @@ M.HelpFileName = {
   hl = 'SLHelpFileName',
 }
 
+M.Indent = {
+  update = { 'OptionSet', pattern = { 'expandtab', 'tabstop' } },
+  provider = function()
+    return (vim.o.expandtab and 'spaces: ' or 'tab: ') .. tostring(vim.o.tabstop)
+  end,
+}
+
 return M

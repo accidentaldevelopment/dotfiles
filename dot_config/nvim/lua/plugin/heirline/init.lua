@@ -18,18 +18,24 @@ return {
       c.FileFlags,
       c.Space,
       c.Spell,
+      c.Space,
+
       c.Align,
+
       c.LspActive,
       c.Space,
       c.Diagnostics,
       c.Space,
       c.Format,
+
       c.Align,
+
       c.LazyInfo,
       c.Space,
       c.Git,
       c.Space,
-      c.Ruler,
+      -- c.Ruler,
+      c.Indent,
       c.Space,
       c.ScrollBar,
     }

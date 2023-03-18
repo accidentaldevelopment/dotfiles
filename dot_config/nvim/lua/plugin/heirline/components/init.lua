@@ -12,6 +12,7 @@ M.FileName = file.FileName
 M.FileType = file.FileType
 M.FileFlags = file.FileFlags
 M.Spell = file.Spell
+M.Indent = file.Indent
 M.HelpFileName = file.HelpFileName
 M.LspActive = lsp.LspActive
 M.Diagnostics = lsp.Diagnostics
