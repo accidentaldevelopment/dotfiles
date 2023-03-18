@@ -10,7 +10,7 @@ set -x CARGO_REGISTRIES_CRATES_IO_PROTOCOL sparse
 if status is-interactive
     fish_vi_key_bindings
 
-    fish_add_path "~/.cargo/bin"
+    fish_add_path "$HOME/.cargo/bin"
     fish_add_path "$(brew --prefix)/bin" "$(brew --prefix)/sbin"
 
     # source "$(brew --prefix asdf)/libexec/asdf.fish"
