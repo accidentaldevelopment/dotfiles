@@ -54,6 +54,18 @@ M.FileType = {
   hl = 'Type',
 }
 
+M.Spell = {
+  update = { 'OptionSet', pattern = 'spell' },
+  provider = '󰬚',
+  hl = function()
+    if vim.o.spell then
+      return 'SLOptionEnabled'
+    else
+      return 'SLOptionDisabled'
+    end
+  end,
+}
+
 --- A collection of icons for file status:
 --- * modified
 --- * readonly

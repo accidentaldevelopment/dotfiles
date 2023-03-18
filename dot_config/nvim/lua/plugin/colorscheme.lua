@@ -19,8 +19,8 @@ return {
 
         Comment = { fg = colors.overlay1 },
 
-        FormatOnSave = { fg = colors.green },
-        FormatOnSaveDisabled = { fg = colors.subtext1 },
+        SLOptionEnabled = { fg = colors.green },
+        SLOptionDisabled = { fg = colors.subtext1 },
 
         -- highlights for statusline.
         SLViModeNormal = { fg = colors.red },

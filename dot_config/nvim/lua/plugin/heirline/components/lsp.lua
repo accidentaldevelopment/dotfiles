@@ -27,9 +27,9 @@ M.Format = {
   provider = '󰬍',
   hl = function()
     if require('plugin.lsp.formatting').format_on_save() then
-      return 'FormatOnSave'
+      return 'SLOptionEnabled'
     else
-      return 'FormatOnSaveDisabled'
+      return 'SLOptionDisabled'
     end
   end,
 }
