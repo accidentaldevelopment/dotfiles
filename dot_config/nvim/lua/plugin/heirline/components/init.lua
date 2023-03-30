@@ -26,7 +26,7 @@ M.Navic = {
   provider = function()
     return navic.get_location({ highlight = true })
   end,
-  update = { 'CursorMoved' },
+  update = 'CursorMoved',
 }
 
 M.Ruler = { provider = '%7(%l/%3L%):%2c %3p%%' }

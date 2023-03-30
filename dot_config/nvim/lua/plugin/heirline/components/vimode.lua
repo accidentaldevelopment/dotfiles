@@ -38,15 +38,6 @@ local mode_names = {
 return {
   init = function(self)
     self.mode = vim.fn.mode(1)
-    if not self.once then
-      vim.api.nvim_create_autocmd(
-        'ModeChanged',
-        -- The c:* pattern doesn't work (for some reason) and it keeps the mode indicator in `C` even if we switch to `N`.
-        -- { pattern = { '*:*o', 'c:*' }, command = 'redrawstatus', desc = 'Redraw the statusbar during a mode change' }
-        { command = 'redrawstatus', desc = 'Redraw the statusbar during a mode change' }
-      )
-      self.once = true
-    end
   end,
   static = {
     mode_names = mode_names,
@@ -76,5 +67,11 @@ return {
     local mode = self.mode:sub(1, 1)
     return self.hlgroup(mode)
   end,
-  update = { 'ModeChanged' },
+  update = {
+    'ModeChanged',
+    pattern = '*:*',
+    callback = vim.schedule_wrap(function()
+      vim.cmd.redrawstatus()
+    end),
+  },
 }
