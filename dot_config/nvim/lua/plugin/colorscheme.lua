@@ -39,6 +39,7 @@ return {
       }
     end,
     integrations = {
+      aerial = true,
       barbar = false,
       cmp = true,
       dashboard = false,

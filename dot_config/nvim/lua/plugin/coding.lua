@@ -67,9 +67,16 @@ return {
   },
   {
     'stevearc/aerial.nvim',
-    cmd = 'AerialToggle',
+    cmd = { 'AerialToggle', 'AerialNavToggle' },
     keys = { { '<leader>a', '<cmd>AerialToggle!<cr>', desc = 'Aerial' } },
-    config = true,
+    opts = {
+      nav = {
+        keymaps = {
+          ['<c-h>'] = 'actions.left',
+          ['<c-l>'] = 'actions.right',
+        },
+      },
+    },
   },
 
   {
