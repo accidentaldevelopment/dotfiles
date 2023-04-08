@@ -1,32 +1,10 @@
 return {
   {
-    'gpanders/editorconfig.nvim',
-    event = 'BufReadPre',
-    --- @param plugin LazyPlugin
-    init = function(plugin)
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'LspProgressUpdate',
-        desc = 'remind me to remove this plugin when 0.9 is released',
-        callback = function()
-          if package.loaded.notify then
-            if vim.version().minor > 8 then
-              vim.notify('remove plugin: ' .. plugin.name, vim.log.levels.WARN)
-            end
-            return true
-          end
-        end,
-      })
-    end,
-    cond = function()
-      return vim.version().minor < 9
-    end,
-  },
-  {
     'alker0/chezmoi.vim',
     priority = 9900,
     lazy = false,
     cond = false,
-    ---  @param plugin LazyPlugin
+    --- @param plugin LazyPlugin
     init = function(plugin)
       for _, a in ipairs(vim.fn.argv()) do
         if a:find('chezmoi-edit', 1, true) ~= nil then

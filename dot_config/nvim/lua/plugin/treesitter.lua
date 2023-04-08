@@ -14,7 +14,6 @@ return {
     opts = {
       ensure_installed = {
         'bash',
-        'help',
         'json',
         'lua',
         'markdown',
@@ -22,7 +21,8 @@ return {
         'regex',
         'rust',
         'vim',
-      }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+        'vimdoc',
+      },
       sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
       ignore_install = { '' }, -- List of parsers to ignore installing
       autopairs = {

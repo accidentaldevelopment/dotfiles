@@ -1,4 +1,3 @@
-local navic = require('nvim-navic')
 local file = require('plugin.heirline.components.file')
 local lsp = require('plugin.heirline.components.lsp')
 
@@ -21,10 +20,10 @@ M.Format = lsp.Format
 --- LSP-derived breadcrumbs
 M.Navic = {
   condition = function()
-    return navic.is_available()
+    return require('nvim-navic').is_available()
   end,
   provider = function()
-    return navic.get_location({ highlight = true })
+    return require('nvim-navic').get_location({ highlight = true })
   end,
   update = 'CursorMoved',
 }

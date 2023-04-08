@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 require('options')
 
 -- Automatically verify or install packer

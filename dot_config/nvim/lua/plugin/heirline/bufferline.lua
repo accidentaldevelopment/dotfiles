@@ -90,7 +90,7 @@ local TabPage = {
 }
 
 local TabPages = {
-  condition = function(self)
+  condition = function()
     return #vim.api.nvim_list_tabpages() > 1
   end,
   { provider = '%=' },
