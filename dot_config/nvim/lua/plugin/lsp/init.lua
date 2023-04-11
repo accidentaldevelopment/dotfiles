@@ -5,6 +5,7 @@ return {
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
+      'SmiteshP/nvim-navic',
       'mason.nvim',
       { 'lvimuser/lsp-inlayhints.nvim', config = true },
       { 'folke/neodev.nvim', config = true },
