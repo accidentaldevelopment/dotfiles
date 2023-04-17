@@ -14,7 +14,7 @@ return {
         -- override for lsp inlay hints
         LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
 
-        TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.mantle },
+        TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.base },
         TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 
         Comment = { fg = colors.overlay1 },
@@ -71,7 +71,6 @@ return {
       },
       navic = {
         enabled = true,
-        custom_bg = 'NONE',
       },
       neogit = false,
       noice = true,
