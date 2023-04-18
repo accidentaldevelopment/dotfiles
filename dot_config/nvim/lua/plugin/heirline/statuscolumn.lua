@@ -73,6 +73,8 @@ M.GitIndicator = utils.insert(GitHighlight, {
   provider = ' ▏',
 })
 
+M.SignColumn = { provider = '%s' }
+
 M.LineNo = utils.insert(GitHighlight, {
   condition = function()
     return vim.v.virtnum == 0

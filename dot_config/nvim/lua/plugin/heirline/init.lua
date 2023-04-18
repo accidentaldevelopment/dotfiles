@@ -64,10 +64,12 @@ return {
 
     local sc = require('plugin.heirline.statuscolumn')
     local statuscolumn = {
-      sc.LspDiagIcon,
+      -- sc.LspDiagIcon,
+      sc.SignColumn,
       c.Align,
       sc.LineNo,
-      sc.GitIndicator,
+      -- sc.GitIndicator,
+      c.Space,
     }
 
     require('heirline').setup({
