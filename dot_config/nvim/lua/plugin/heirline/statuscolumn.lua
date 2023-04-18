@@ -74,7 +74,20 @@ M.GitIndicator = utils.insert(GitHighlight, {
 })
 
 M.LineNo = utils.insert(GitHighlight, {
-  provider = '%3{v:relnum?v:relnum:v:lnum}',
+  condition = function()
+    return vim.v.virtnum == 0
+  end,
+  init = function(self)
+    local lines = vim.api.nvim_buf_line_count(0)
+    self.padding = tostring(lines):len()
+  end,
+  provider = function(self)
+    if vim.v.relnum == 0 then
+      return string.format('%-' .. self.padding .. 'd', vim.v.lnum)
+    else
+      return string.format('%' .. self.padding .. 'd', vim.v.relnum)
+    end
+  end,
 })
 
 return M
