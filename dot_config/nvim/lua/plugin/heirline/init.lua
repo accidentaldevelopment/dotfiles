@@ -62,10 +62,19 @@ return {
       fallthrough = false,
     }, SpecialStatusLine, DefaultStatusLine)
 
+    local sc = require('plugin.heirline.statuscolumn')
+    local statuscolumn = {
+      sc.LspDiagIcon,
+      c.Align,
+      sc.LineNo,
+      sc.GitIndicator,
+    }
+
     require('heirline').setup({
       statusline = StatusLines,
       winbar = DefaultWinbar,
       tabline = require('plugin.heirline.bufferline'),
+      statuscolumn = statuscolumn,
       opts = {
         disable_winbar_cb = function(args)
           local buf = args.buf
