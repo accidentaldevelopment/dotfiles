@@ -3,6 +3,8 @@ local action = wezterm.action
 
 local search_mode = wezterm.gui.default_key_tables().search_mode
 
+local keymaps = require('keymaps')
+
 table.insert(search_mode, {
   key = 'c',
   mods = 'CTRL',
@@ -19,7 +21,11 @@ config.initial_cols = 201
 config.window_decorations = 'RESIZE'
 config.color_scheme = 'Catppuccin Mocha'
 config.native_macos_fullscreen_mode = true
-config.enable_tab_bar = false
+
+-- config.use_fancy_tab_bar = false
+config.tab_bar_at_bottom = true
+config.hide_tab_bar_if_only_one_tab = false
+
 config.term = 'wezterm'
 config.window_padding = {
   left = 0,
@@ -63,31 +69,9 @@ config.mouse_bindings = {
   },
 }
 config.disable_default_key_bindings = true
-config.keys = {
-  { key = '/', mods = 'CTRL', action = action.SendString('\x1f') },
-  { key = '-', mods = 'SUPER', action = action.DecreaseFontSize },
-  { key = '0', mods = 'SUPER', action = action.ResetFontSize },
-  { key = '=', mods = 'SUPER', action = action.IncreaseFontSize },
-  { key = 'Enter', mods = 'SUPER', action = action.ToggleFullScreen },
-  { key = 'c', mods = 'SUPER', action = action.CopyTo('Clipboard') },
-  { key = 'f', mods = 'CMD', action = action.Search({ CaseInSensitiveString = '' }) },
-  { key = 'h', mods = 'CMD', action = action.HideApplication },
-  {
-    key = 'k',
-    mods = 'SUPER',
-    action = action.Multiple({
-      action.SendKey({ key = 'L', mods = 'CTRL' }),
-      action.ClearScrollback('ScrollbackOnly'),
-    }),
-  },
-  { key = 'l', mods = 'CMD|SHIFT', action = action.ShowDebugOverlay },
-  { key = 'm', mods = 'CMD', action = action.Hide },
-  { key = 'n', mods = 'SUPER', action = action.SpawnWindow },
-  { key = 'q', mods = 'CMD', action = action.QuitApplication },
-  { key = 'v', mods = 'SUPER', action = action.PasteFrom('PrimarySelection') },
-  { key = 'w', mods = 'CMD', action = action.CloseCurrentTab({ confirm = false }) },
-  { key = 'x', mods = 'CTRL|SHIFT', action = action.ActivateCopyMode },
-}
+config.leader = keymaps.leader
+config.keys = keymaps.keys
+
 config.key_tables = {
   search_mode = search_mode,
 }
