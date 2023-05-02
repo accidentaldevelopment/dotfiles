@@ -9,8 +9,8 @@ local function basename(s)
 end
 
 local function is_vim(pane)
-  local process_name = basename(pane:get_foreground_process_name())
-  return process_name == 'nvim' or process_name == 'vim'
+  -- this is set by the plugin, and unset on ExitPre in Neovim
+  return pane:get_user_vars().IS_NVIM == 'true'
 end
 
 local direction_keys = {

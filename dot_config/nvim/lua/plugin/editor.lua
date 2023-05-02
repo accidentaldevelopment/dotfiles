@@ -149,5 +149,5 @@ return {
       },
     },
   },
-  { 'mrjones2014/smart-splits.nvim' },
+  { 'mrjones2014/smart-splits.nvim', lazy = false },
 }
