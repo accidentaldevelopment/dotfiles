@@ -23,6 +23,7 @@ config.color_scheme = 'Catppuccin Mocha'
 config.native_macos_fullscreen_mode = true
 
 -- config.use_fancy_tab_bar = false
+config.tab_max_width = 36
 config.tab_bar_at_bottom = true
 config.hide_tab_bar_if_only_one_tab = false
 
@@ -54,7 +55,6 @@ config.mouse_bindings = {
   {
     event = { Up = { streak = 1, button = 'Left' } },
     mods = 'CMD',
-    mouse_reporting = true,
     action = action.OpenLinkAtMouseCursor,
   },
   {
