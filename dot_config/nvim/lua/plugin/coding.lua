@@ -21,16 +21,12 @@ return {
   {
     'echasnovski/mini.pairs',
     event = 'VeryLazy',
-    config = function()
-      require('mini.pairs').setup({})
-    end,
+    setup = true,
   },
   {
     'echasnovski/mini.comment',
     event = 'VeryLazy',
-    config = function()
-      require('mini.comment').setup({})
-    end,
+    setup = true,
   },
   {
     'echasnovski/mini.surround',
@@ -60,10 +56,6 @@ return {
         update_n_lines = 'gzn', -- Update `n_lines`
       },
     },
-    config = function(_, opts)
-      -- use gz mappings instead of s to prevent conflict with leap
-      require('mini.surround').setup(opts)
-    end,
   },
   {
     'stevearc/aerial.nvim',
