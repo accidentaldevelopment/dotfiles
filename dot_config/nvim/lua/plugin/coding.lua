@@ -21,12 +21,12 @@ return {
   {
     'echasnovski/mini.pairs',
     event = 'VeryLazy',
-    setup = true,
+    config = true,
   },
   {
     'echasnovski/mini.comment',
     event = 'VeryLazy',
-    setup = true,
+    config = true,
   },
   {
     'echasnovski/mini.surround',
