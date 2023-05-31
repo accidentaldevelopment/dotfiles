@@ -36,7 +36,7 @@ config.window_padding = {
 }
 config.font_size = 11
 config.font = wezterm.font({
-  family = 'FiraCode Nerd Font',
+  family = 'Fira Code',
   harfbuzz_features = {
     'ss02', -- <= >=
     'ss07', -- =~ !~
