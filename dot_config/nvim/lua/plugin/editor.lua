@@ -16,15 +16,33 @@ return {
     end,
   },
   {
-    'nvim-tree/nvim-tree.lua',
-    cmd = 'NvimTreeToggle',
+    'nvim-neo-tree/neo-tree.nvim',
+    branch = 'v2.x',
+    cmd = 'Neotree',
     keys = {
-      { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'Explorer' },
+      { '<leader>e', '<cmd>Neotree toggle<cr>', desc = 'Explorer' },
     },
     dependencies = {
+      'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
     },
-    config = true,
+    init = function()
+      vim.g.neo_tree_remove_legacy_commands = 1
+    end,
+    opts = {
+      use_popups_for_input = false,
+      window = {
+        mappings = {
+          ['<space>'] = 'none',
+        },
+      },
+      default_component_configs = {
+        name = {
+          trailing_slash = true,
+        },
+      },
+    },
   },
   {
     'ggandor/leap.nvim',
