@@ -39,7 +39,6 @@ return {
       }
     end,
     integrations = {
-      aerial = true,
       barbar = false,
       cmp = true,
       dashboard = false,
@@ -76,6 +75,7 @@ return {
       noice = true,
       notify = true,
       nvimtree = { enabled = true, show_root = true, transparent_panel = false },
+      symbols_outline = true,
       telekasten = true,
       telescope = true,
       treesitter = true,

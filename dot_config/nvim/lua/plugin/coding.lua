@@ -58,19 +58,10 @@ return {
     },
   },
   {
-    'stevearc/aerial.nvim',
-    cmd = { 'AerialToggle', 'AerialNavToggle' },
-    keys = { { '<leader>a', '<cmd>AerialToggle!<cr>', desc = 'Aerial' } },
-    opts = {
-      nav = {
-        keymaps = {
-          ['<c-h>'] = 'actions.left',
-          ['<c-l>'] = 'actions.right',
-        },
-      },
-    },
+    'simrat39/symbols-outline.nvim',
+    cmd = 'SymbolsOutline',
+    config = true,
   },
-
   {
     'saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
