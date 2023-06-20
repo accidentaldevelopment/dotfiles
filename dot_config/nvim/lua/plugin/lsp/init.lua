@@ -1,3 +1,6 @@
+--- `true` if this version of nvim can show inlay hints.
+local has_inlay_hints = vim.lsp.buf['inlay_hint'] ~= nil
+
 return {
   {
     'neovim/nvim-lspconfig',
@@ -7,7 +10,7 @@ return {
       'folke/trouble.nvim',
       'SmiteshP/nvim-navic',
       'mason.nvim',
-      { 'lvimuser/lsp-inlayhints.nvim', config = true },
+      { 'lvimuser/lsp-inlayhints.nvim', config = true, cond = not has_inlay_hints },
       { 'folke/neodev.nvim', config = true },
       {
         'folke/neoconf.nvim',
@@ -37,7 +40,11 @@ return {
 
           require('plugin.lsp.formatting').on_attach(client, bufnr)
           require('plugin.lsp.keymaps').on_attach(client, bufnr)
-          require('lsp-inlayhints').on_attach(client, bufnr, false)
+          if has_inlay_hints then
+            vim.lsp.buf.inlay_hint(0, true)
+          else
+            require('lsp-inlayhints').on_attach(client, bufnr, false)
+          end
         end,
       })
     end,
