@@ -10,7 +10,16 @@ return {
       'folke/trouble.nvim',
       'SmiteshP/nvim-navic',
       'mason.nvim',
-      { 'lvimuser/lsp-inlayhints.nvim', config = true, cond = not has_inlay_hints },
+      {
+        'lvimuser/lsp-inlayhints.nvim',
+        cond = function()
+          if has_inlay_hints and vim.version().prerelease ~= false then
+            vim.notify('nvim now supports inlay hints. Remove lsp-inlayhints and related checks.', vim.log.levels.WARN)
+          end
+          return not has_inlay_hints
+        end,
+        config = true,
+      },
       { 'folke/neodev.nvim', config = true },
       {
         'folke/neoconf.nvim',
@@ -41,7 +50,9 @@ return {
           require('plugin.lsp.formatting').on_attach(client, bufnr)
           require('plugin.lsp.keymaps').on_attach(client, bufnr)
           if has_inlay_hints then
-            vim.lsp.buf.inlay_hint(0, true)
+            if client.server_capabilities.inlayHintProvider then
+              vim.lsp.buf.inlay_hint(0, true)
+            end
           else
             require('lsp-inlayhints').on_attach(client, bufnr, false)
           end
