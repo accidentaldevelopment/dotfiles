@@ -11,9 +11,6 @@ return {
     },
     custom_highlights = function(colors)
       return {
-        -- override for lsp inlay hints
-        LspInlayHint = { bg = colors.surface0, fg = colors.overlay1 },
-
         TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.base },
         TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 

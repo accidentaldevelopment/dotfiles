@@ -45,16 +45,43 @@ return {
     },
   },
   {
-    'ggandor/leap.nvim',
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    ---@type Flash.Config
     keys = {
-      { 's', mode = { 'n', 'v' }, desc = 'Leap forward' },
-      { 'S', mode = { 'n', 'v' }, desc = 'Leap backward' },
-      { 'x', mode = { 'v' }, desc = 'Leap forward (exclude match)' },
-      { 'X', mode = { 'v' }, desc = 'Leap backward (exclude match)' },
+      {
+        'x',
+        mode = { 'n', 'x', 'o' },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require('flash').jump({
+            action = function(match, state)
+              vim.api.nvim_win_call(match.win, function()
+                vim.api.nvim_win_set_cursor(match.win, match.pos)
+                vim.diagnostic.open_float()
+                vim.api.nvim_win_set_cursor(match.win, state.pos)
+              end)
+            end,
+          })
+        end,
+      },
+      {
+        's',
+        mode = { 'n', 'x', 'o' },
+        function()
+          -- default options: exact mode, multi window, all directions, with a backdrop
+          require('flash').jump()
+        end,
+      },
+      {
+        'S',
+        mode = { 'o', 'x' },
+        function()
+          require('flash').treesitter()
+        end,
+      },
     },
-    config = function()
-      require('leap').add_default_mappings()
-    end,
+    config = true,
   },
   {
     'folke/which-key.nvim',
