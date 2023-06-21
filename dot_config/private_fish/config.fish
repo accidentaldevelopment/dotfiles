@@ -23,8 +23,8 @@ if status is-interactive
 
     alias sr='ssh -l root'
 
-    # source "$(brew --prefix asdf)/libexec/asdf.fish"
     # source "$(brew --prefix fzf)/shell/key-bindings.fish" && fzf_key_bindings
 
+    rtx activate fish | source
     starship init fish | source
 end
