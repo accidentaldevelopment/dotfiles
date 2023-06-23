@@ -16,33 +16,30 @@ return {
     end,
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v2.x',
-    cmd = 'Neotree',
+    'echasnovski/mini.files',
     keys = {
-      { '<leader>e', '<cmd>Neotree toggle<cr>', desc = 'Explorer' },
+      {
+        '<leader>e',
+        function()
+          require('mini.files').open()
+        end,
+        desc = 'Explorer',
+      },
     },
     dependencies = {
-      'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
     },
     init = function()
-      vim.g.neo_tree_remove_legacy_commands = 1
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          vim.keymap.set('n', '<ESC>', function()
+            require('mini.files').close()
+          end, { buffer = args.buf_id })
+        end,
+      })
     end,
-    opts = {
-      use_popups_for_input = false,
-      window = {
-        mappings = {
-          ['<space>'] = 'none',
-        },
-      },
-      default_component_configs = {
-        name = {
-          trailing_slash = true,
-        },
-      },
-    },
+    opts = {},
   },
   {
     'folke/flash.nvim',
