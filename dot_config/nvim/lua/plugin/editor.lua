@@ -47,22 +47,6 @@ return {
     ---@type Flash.Config
     keys = {
       {
-        'x',
-        mode = { 'n', 'x', 'o' },
-        function()
-          -- default options: exact mode, multi window, all directions, with a backdrop
-          require('flash').jump({
-            action = function(match, state)
-              vim.api.nvim_win_call(match.win, function()
-                vim.api.nvim_win_set_cursor(match.win, match.pos)
-                vim.diagnostic.open_float()
-                vim.api.nvim_win_set_cursor(match.win, state.pos)
-              end)
-            end,
-          })
-        end,
-      },
-      {
         's',
         mode = { 'n', 'x', 'o' },
         function()
