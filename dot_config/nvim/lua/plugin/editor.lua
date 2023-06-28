@@ -33,9 +33,27 @@ return {
       vim.api.nvim_create_autocmd('User', {
         pattern = 'MiniFilesBufferCreate',
         callback = function(args)
-          vim.keymap.set('n', '<ESC>', function()
-            require('mini.files').close()
-          end, { buffer = args.buf_id })
+          local MiniFiles = require('mini.files')
+          local buffer = args.data.buf_id
+
+          -- Even though we have the buffer number, it doesn't seem to exist yet at this point.
+          -- Using `vim.schedule` to make sure the buf exists by the time these commands run.
+          vim.schedule(function()
+            -- Neat trick to make it sync the filesystem on `:w`.
+            vim.api.nvim_set_option_value('buftype', 'acwrite', { buf = buffer })
+            vim.api.nvim_buf_set_name(buffer, MiniFiles.get_fs_entry(0, 1).path)
+            vim.api.nvim_create_autocmd('BufWriteCmd', {
+              buffer = buffer,
+              desc = 'synchronize file system changes',
+              callback = function()
+                MiniFiles.synchronize()
+              end,
+            })
+
+            vim.keymap.set('n', '<ESC>', function()
+              MiniFiles.close()
+            end, { buffer = buffer })
+          end)
         end,
       })
     end,
