@@ -47,10 +47,6 @@ return {
         lsp_doc_border = true,
       },
     },
-    config = function(_, opts)
-      print('noice loaded')
-      require('noice').setup(opts)
-    end,
   },
   {
     'petertriho/nvim-scrollbar',

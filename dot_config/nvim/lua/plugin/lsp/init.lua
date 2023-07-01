@@ -1,5 +1,5 @@
 --- `true` if this version of nvim can show inlay hints.
-local has_inlay_hints = vim.lsp.buf['inlay_hint'] ~= nil
+local has_inlay_hints = vim.lsp['inlay_hint'] ~= nil
 
 return {
   {
@@ -13,7 +13,7 @@ return {
       {
         'lvimuser/lsp-inlayhints.nvim',
         cond = function()
-          if has_inlay_hints and vim.version().prerelease ~= false then
+          if has_inlay_hints and vim.version().prerelease == false then
             vim.notify('nvim now supports inlay hints. Remove lsp-inlayhints and related checks.', vim.log.levels.WARN)
           end
           return not has_inlay_hints
@@ -51,7 +51,7 @@ return {
           require('plugin.lsp.keymaps').on_attach(client, bufnr)
           if has_inlay_hints then
             if client.server_capabilities.inlayHintProvider then
-              vim.lsp.buf.inlay_hint(0, true)
+              vim.lsp.inlay_hint(0, true)
             end
           else
             require('lsp-inlayhints').on_attach(client, bufnr, false)
