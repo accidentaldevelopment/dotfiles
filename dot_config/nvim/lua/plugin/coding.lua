@@ -65,6 +65,13 @@ return {
   {
     'saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
-    config = true,
+    opts = {
+      popup = {
+        border = 'rounded',
+      },
+      null_ls = {
+        enabled = true,
+      },
+    },
   },
 }

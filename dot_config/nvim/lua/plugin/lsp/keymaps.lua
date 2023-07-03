@@ -1,5 +1,16 @@
 local M = {}
 
+--- Show a documentation popup.
+--- Defaults to `vim.lsp.buf.hover` if there are higher priority popups available.
+local function show_docs()
+  local crates = package.loaded.crates
+  if crates ~= nil and crates.popup_available() then
+    crates.show_popup()
+  else
+    vim.lsp.buf.hover()
+  end
+end
+
 --- Attach LSP related key mappings `buffer`
 ---@param client any LSP Client object
 ---@param buffer number Buffer number
@@ -22,19 +33,6 @@ function M.on_attach(client, buffer)
         },
         { vim.lsp.buf.code_action, 'Code Action', mode = 'v' },
       },
-      -- f = {
-      --   {
-      --     '<cmd>Format<cr>',
-      --     'Format buffer',
-      --     cond = caps.documentFormattingProvider,
-      --   },
-      --   {
-      --     '<cmd>Format<cr>',
-      --     'Format range',
-      --     cond = caps.documentRangeFormattingProvider,
-      --     mode = 'v',
-      --   },
-      -- },
       d = { util.lazy(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },
@@ -53,7 +51,7 @@ function M.on_attach(client, buffer)
       t = { '<cmd>Telescope lsp_type_definitions<cr>', 'Goto Type Definition' },
     },
     ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Help', mode = { 'n', 'i' } },
-    K = { vim.lsp.buf.hover, 'Hover' },
+    K = { show_docs, 'Show docst' },
     ['[d'] = { util.lazy(vim.diagnostic.goto_prev, { border = 'rounded' }), 'Previous diagnostic' },
     [']d'] = { util.lazy(vim.diagnostic.goto_next, { border = 'rounded' }), 'Next diagnostic' },
     ['[e'] = {
