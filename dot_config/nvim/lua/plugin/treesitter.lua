@@ -8,7 +8,6 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         config = true,
       },
-      'HiPhish/nvim-ts-rainbow2',
       'andymass/vim-matchup',
     },
     opts = {
@@ -37,9 +36,6 @@ return {
       context_commentstring = {
         enable = true,
         enable_autocmd = false,
-      },
-      rainbow = {
-        enable = true,
       },
       matchup = {
         enable = true,

@@ -33,6 +33,14 @@ return {
         SLHelpFileName = { fg = colors.peach },
         SLGitBranch = { fg = colors.peach },
         SLScrollBar = { fg = colors.blue },
+
+        RainbowDelimiterRed = { link = 'TSRainbowRed' },
+        RainbowDelimiterYellow = { link = 'TSRainbowYellow' },
+        RainbowDelimiterBlue = { link = 'TSRainbowBlue' },
+        RainbowDelimiterOrange = { link = 'TSRainbowOrange' },
+        RainbowDelimiterGreen = { link = 'TSRainbowGreen' },
+        RainbowDelimiterViolet = { link = 'TSRainbowViolet' },
+        RainbowDelimiterCyan = { link = 'TSRainbowCyan' },
       }
     end,
     integrations = {

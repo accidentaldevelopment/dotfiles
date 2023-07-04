@@ -63,6 +63,10 @@ return {
     config = true,
   },
   {
+    'hiphish/rainbow-delimiters.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+  },
+  {
     'saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
     opts = {
