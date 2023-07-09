@@ -1,0 +1,11 @@
+#:schema https://rtx.pub/schema/rtx.json
+
+# This file is created by chezmoi, but otherwise ignored. Make all the local
+# changes you want!
+
+[tools]
+neovim = 'nightly'
+
+[settings]
+experimental = true
+asdf_compat = true
