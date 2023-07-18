@@ -20,6 +20,7 @@ config.initial_rows = 61
 config.initial_cols = 201
 config.window_decorations = 'RESIZE'
 config.color_scheme = 'Catppuccin Mocha'
+config.adjust_window_size_when_changing_font_size = false
 config.native_macos_fullscreen_mode = true
 
 -- config.use_fancy_tab_bar = false

@@ -9,6 +9,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
       'SmiteshP/nvim-navic',
+      'b0o/schemastore.nvim',
       'mason.nvim',
       {
         'lvimuser/lsp-inlayhints.nvim',
