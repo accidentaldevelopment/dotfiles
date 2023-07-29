@@ -50,6 +50,7 @@ return {
       lsp_trouble = false,
       markdown = true,
       mason = true,
+      mini = true,
       native_lsp = {
         enabled = true,
         virtual_text = {
