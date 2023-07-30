@@ -21,7 +21,15 @@ return {
       {
         '<leader>e',
         function()
-          require('mini.files').open()
+          local mf = require('mini.files')
+          if vim.bo.filetype == 'minifiles' then
+            mf.close()
+          else
+            local file = vim.api.nvim_buf_get_name(0)
+            local file_exists = vim.fn.filereadable(file) ~= 0
+            mf.open(file_exists and file or nil)
+            mf.reveal_cwd()
+          end
         end,
         desc = 'Explorer',
       },
