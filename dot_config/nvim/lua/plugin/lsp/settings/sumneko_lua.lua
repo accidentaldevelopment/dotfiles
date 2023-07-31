@@ -1,17 +1,9 @@
 return {
   settings = {
     Lua = {
-      format = {
-        enable = false,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
       workspace = {
-        library = {
-          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-          [vim.fn.stdpath('config') .. '/lua'] = true,
-        },
+        -- disable "do you need to configure your workspace as luassert" prompts
+        checkThirdParty = false,
       },
     },
   },

@@ -1,6 +1,81 @@
 --- `true` if this version of nvim can show inlay hints.
 local has_inlay_hints = vim.lsp['inlay_hint'] ~= nil
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  desc = 'Run when a language server is attached',
+  callback = function(args)
+    if not (args.data and args.data.client_id) then
+      vim.notify('unable to execute LSP on_attach', vim.log.levels.WARN)
+      return
+    end
+
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client and client.server_capabilities.documentSymbolProvider then
+      require('nvim-navic').attach(client, bufnr)
+    end
+
+    require('plugin.lsp.formatting').on_attach(client, bufnr)
+    require('plugin.lsp.keymaps').on_attach(client, bufnr)
+    if has_inlay_hints then
+      if client and client.server_capabilities.inlayHintProvider then
+        vim.lsp.inlay_hint(0, true)
+      end
+    else
+      require('lsp-inlayhints').on_attach(client, bufnr, false)
+    end
+  end,
+})
+
+local efmls = {
+  'creativenull/efmls-configs-nvim',
+  main = 'efmls-configs',
+  config = function(plugin, opts)
+    local efmls = require(plugin.main)
+    efmls.init({
+      init_options = {
+        documentFormatting = true,
+      },
+    })
+    efmls.setup(opts)
+  end,
+  opts = function(plugin)
+    local f = function(name)
+      return require(plugin.main .. '.formatters.' .. name)
+    end
+    local l = function(name)
+      return require(plugin.main .. '.linters.' .. name)
+    end
+
+    local js = {
+      -- maybe args = { '--prose-wrap=always', '$FILENAME' } }) ?
+      formatter = f('prettier_d'),
+      linter = l('eslint'),
+    }
+
+    return {
+      lua = {
+        formatter = vim.tbl_extend('force', f('stylua'), {
+          formatCommand = string.format(
+            '%s --search-parent-directories ${--range-start:charStart} ${--range-end:charEnd} --color Never -',
+            require('efmls-configs.fs').executable('stylua')
+          ),
+        }),
+      },
+      fish = {
+        formatter = f('fish_indent'),
+        linter = l('fish'),
+      },
+      javascript = js,
+      javascriptreact = js,
+      typescript = js,
+      typescriptreact = js,
+      markdown = { formatter = js.formatter },
+    }
+  end,
+}
+
 return {
   {
     'neovim/nvim-lspconfig',
@@ -11,6 +86,17 @@ return {
       'SmiteshP/nvim-navic',
       'b0o/schemastore.nvim',
       'mason.nvim',
+      -- neoconf must be loaded _before_ an lsp
+      {
+        'folke/neoconf.nvim',
+        opts = {
+          import = {
+            coc = false,
+            nlsp = false,
+          },
+        },
+      },
+      efmls,
       {
         'lvimuser/lsp-inlayhints.nvim',
         cond = function()
@@ -22,44 +108,7 @@ return {
         config = true,
       },
       { 'folke/neodev.nvim', config = true },
-      {
-        'folke/neoconf.nvim',
-        opts = {
-          import = {
-            coc = false,
-            nlsp = false,
-          },
-        },
-      },
     },
-    init = function()
-      vim.api.nvim_create_autocmd('LspAttach', {
-        desc = 'Attach LSP handler',
-        callback = function(args)
-          if not (args.data and args.data.client_id) then
-            vim.notify('unable to execute LSP on_attach', vim.log.levels.WARN)
-            return
-          end
-
-          local bufnr = args.buf
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-
-          if client.server_capabilities.documentSymbolProvider then
-            require('nvim-navic').attach(client, bufnr)
-          end
-
-          require('plugin.lsp.formatting').on_attach(client, bufnr)
-          require('plugin.lsp.keymaps').on_attach(client, bufnr)
-          if has_inlay_hints then
-            if client.server_capabilities.inlayHintProvider then
-              vim.lsp.inlay_hint(0, true)
-            end
-          else
-            require('lsp-inlayhints').on_attach(client, bufnr, false)
-          end
-        end,
-      })
-    end,
     config = function()
       vim.fn.sign_define({
         { name = 'DiagnosticSignError', text = '', texthl = 'DiagnosticSignError', numhl = '' },
@@ -90,28 +139,6 @@ return {
           end
         end,
       })
-    end,
-  },
-
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
-    opts = function()
-      local nls = require('null-ls')
-
-      return {
-        sources = {
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.formatting.prettierd.with({ args = { '--prose-wrap=always', '$FILENAME' } }),
-          nls.builtins.formatting.stylua,
-          -- diagnostics.cspell,
-          nls.builtins.diagnostics.eslint,
-          nls.builtins.diagnostics.fish,
-          nls.builtins.diagnostics.markdownlint,
-          nls.builtins.diagnostics.zsh,
-        },
-      }
     end,
   },
   {

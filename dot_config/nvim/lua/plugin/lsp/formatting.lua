@@ -40,16 +40,16 @@ end, {
 
 function M.format(bufnr)
   local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-  local have_nls = #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0
+  -- local have_nls = #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0
 
   vim.lsp.buf.format({
     bufnr = bufnr,
-    filter = function(client)
-      if have_nls then
-        return client.name == 'null-ls'
-      end
-      return client.name ~= 'null-ls'
-    end,
+    -- filter = function(client)
+    --   if have_nls then
+    --     return client.name == 'null-ls'
+    --   end
+    --   return client.name ~= 'null-ls'
+    -- end,
   })
 end
 
@@ -69,7 +69,7 @@ function M.on_attach(client, buf)
       ['<localleader>l'] = {
         f = {
           { '<cmd>Format<cr>', 'Format buffer', cond = caps.documentFormattingProvider },
-          { '<cmd>Format<cr>', 'Format range', cond = caps.documentRangeFormattingProvider, mode = 'v' },
+          { '<cmd>Format<cr>', 'Format range',  cond = caps.documentRangeFormattingProvider, mode = 'v' },
         },
       },
     })
