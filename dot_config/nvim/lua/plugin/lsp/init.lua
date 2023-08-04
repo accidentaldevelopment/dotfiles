@@ -151,18 +151,4 @@ return {
       },
     },
   },
-  {
-    url = 'https://git.sr.ht/~whynothugo/lsp_lines.nvim',
-    keys = {
-      {
-        '<leader>lL',
-        function()
-          require('lsp_lines').toggle()
-        end,
-        desc = 'Toggle lsp_lines',
-      },
-    },
-    -- TODO: Toggle current line and disable virtual_text if possible.
-    config = true,
-  },
 }
