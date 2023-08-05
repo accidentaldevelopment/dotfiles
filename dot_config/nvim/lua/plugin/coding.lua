@@ -73,9 +73,6 @@ return {
       popup = {
         border = 'rounded',
       },
-      null_ls = {
-        enabled = true,
-      },
     },
   },
 }
