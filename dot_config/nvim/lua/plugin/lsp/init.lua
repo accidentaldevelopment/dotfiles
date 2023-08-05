@@ -8,11 +8,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.notify('unable to execute LSP on_attach', vim.log.levels.WARN)
       return
     end
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      vim.notify('unable to get client', vim.log.levels.WARN)
+      return
+    end
 
     local bufnr = args.buf
-    local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client and client.server_capabilities.documentSymbolProvider then
+    if client.server_capabilities.documentSymbolProvider then
       require('nvim-navic').attach(client, bufnr)
     end
 
@@ -34,6 +38,22 @@ local efmls = {
   config = function(plugin, opts)
     local efmls = require(plugin.main)
     efmls.init({
+      --- @param client lsp.Client
+      --- @param buf number
+      on_attach = function(client, buf)
+        if client.name == 'efm' then
+          local ft = vim.bo[buf].filetype
+          local settings = client.config.settings.languages[ft]
+          if settings then
+            for _, v in pairs(settings) do
+              if v.formatCommand ~= nil then
+                vim.b[buf].has_efm_formatting = true
+                return
+              end
+            end
+          end
+        end
+      end,
       init_options = {
         documentFormatting = true,
       },

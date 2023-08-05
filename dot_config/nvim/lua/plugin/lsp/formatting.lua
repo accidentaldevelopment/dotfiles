@@ -39,22 +39,26 @@ end, {
 })
 
 function M.format(bufnr)
-  local ft = vim.api.nvim_buf_get_option(bufnr, 'filetype')
-  -- local have_nls = #require('null-ls.sources').get_available(ft, require('null-ls').methods.FORMATTING) > 0
+  local have_efm = vim.b[bufnr].has_efm_formatting == true
 
   vim.lsp.buf.format({
     bufnr = bufnr,
-    -- filter = function(client)
-    --   if have_nls then
-    --     return client.name == 'null-ls'
-    --   end
-    --   return client.name ~= 'null-ls'
-    -- end,
+    filter = function(client)
+      if have_efm then
+        return client.name == 'efm'
+      end
+      return client.name ~= 'efm'
+    end,
   })
 end
 
+--- @param client lsp.Client
+--- @param buf number
 function M.on_attach(client, buf)
   local caps = client.server_capabilities
+  if not caps then
+    return
+  end
 
   if caps.documentFormattingProvider then
     M.format_on_save('enable')
@@ -69,7 +73,7 @@ function M.on_attach(client, buf)
       ['<localleader>l'] = {
         f = {
           { '<cmd>Format<cr>', 'Format buffer', cond = caps.documentFormattingProvider },
-          { '<cmd>Format<cr>', 'Format range',  cond = caps.documentRangeFormattingProvider, mode = 'v' },
+          { '<cmd>Format<cr>', 'Format range', cond = caps.documentRangeFormattingProvider, mode = 'v' },
         },
       },
     })
