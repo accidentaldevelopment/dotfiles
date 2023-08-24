@@ -32,70 +32,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-local efmls = {
-  'creativenull/efmls-configs-nvim',
-  main = 'efmls-configs',
-  config = function(plugin, opts)
-    local efmls = require(plugin.main)
-    efmls.init({
-      --- @param client lsp.Client
-      --- @param buf number
-      on_attach = function(client, buf)
-        if client.name == 'efm' then
-          local ft = vim.bo[buf].filetype
-          local settings = client.config.settings.languages[ft]
-          if settings then
-            for _, v in pairs(settings) do
-              if v.formatCommand ~= nil then
-                vim.b[buf].has_efm_formatting = true
-                return
-              end
-            end
-          end
-        end
-      end,
-      init_options = {
-        documentFormatting = true,
-      },
-    })
-    efmls.setup(opts)
-  end,
-  opts = function(plugin)
-    local f = function(name)
-      return require(plugin.main .. '.formatters.' .. name)
-    end
-    local l = function(name)
-      return require(plugin.main .. '.linters.' .. name)
-    end
-
-    local js = {
-      -- maybe args = { '--prose-wrap=always', '$FILENAME' } }) ?
-      formatter = f('prettier_d'),
-      linter = l('eslint'),
-    }
-
-    return {
-      lua = {
-        formatter = vim.tbl_extend('force', f('stylua'), {
-          formatCommand = string.format(
-            '%s --search-parent-directories ${--range-start:charStart} ${--range-end:charEnd} --color Never -',
-            require('efmls-configs.fs').executable('stylua')
-          ),
-        }),
-      },
-      fish = {
-        formatter = f('fish_indent'),
-        linter = l('fish'),
-      },
-      javascript = js,
-      javascriptreact = js,
-      typescript = js,
-      typescriptreact = js,
-      markdown = { formatter = js.formatter },
-    }
-  end,
-}
-
 return {
   {
     'neovim/nvim-lspconfig',
@@ -116,7 +52,7 @@ return {
           },
         },
       },
-      efmls,
+      'creativenull/efmls-configs-nvim',
       {
         'lvimuser/lsp-inlayhints.nvim',
         cond = function()
