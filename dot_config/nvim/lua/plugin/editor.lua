@@ -125,12 +125,9 @@ return {
     end,
   },
   {
-    'RRethy/vim-illuminate',
+    'echasnovski/mini.cursorword',
     event = 'BufReadPost',
-    opts = { delay = 200 },
-    config = function(_, opts)
-      require('illuminate').configure(opts)
-    end,
+    config = true,
   },
   {
     'echasnovski/mini.bufremove',

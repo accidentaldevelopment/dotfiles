@@ -10,11 +10,15 @@ return {
       dark = 'mocha',
     },
     custom_highlights = function(colors)
+      local U = require('catppuccin.utils.colors')
+
       return {
-        TabLine = { fg = require('catppuccin.utils.colors').darken(colors.sky, 0.8), bg = colors.base },
+        TabLine = { fg = U.darken(colors.sky, 0.8), bg = colors.base },
         TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 
         Comment = { fg = colors.overlay1 },
+
+        MiniCursorwordCurrent = { bg = U.darken(colors.surface1, 0.7, colors.base) },
 
         SLOptionEnabled = { fg = colors.green },
         SLOptionDisabled = { fg = colors.subtext1 },
@@ -43,7 +47,7 @@ return {
       gitgutter = false,
       gitsigns = true,
       hop = false,
-      illuminate = true,
+      illuminate = false,
       indent_blankline = { enabled = true, colored_indent_levels = false },
       lightspeed = false,
       lsp_saga = false,
@@ -72,7 +76,6 @@ return {
       neogit = false,
       noice = true,
       notify = true,
-      nvimtree = { enabled = true, show_root = true, transparent_panel = false },
       rainbow_delimiters = true,
       symbols_outline = true,
       telekasten = true,
