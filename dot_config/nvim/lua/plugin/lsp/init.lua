@@ -87,11 +87,12 @@ return {
 
       require('mason-lspconfig').setup_handlers({
         function(server_name)
+          local setup = require('lspconfig')[server_name].setup
           local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
           if ok then
-            require('lspconfig')[server_name].setup(vim.tbl_deep_extend('force', opts, lsp_opts))
+            setup(vim.tbl_deep_extend('force', opts, lsp_opts))
           else
-            require('lspconfig')[server_name].setup(opts)
+            setup(opts)
           end
         end,
       })
