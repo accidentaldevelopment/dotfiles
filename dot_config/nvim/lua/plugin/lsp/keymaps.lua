@@ -22,6 +22,7 @@ function M.on_attach(client, buffer)
 
   require('which-key').register({
     buffer = buffer,
+    ['<leader>a'] = { '<cmd>SymbolsOutline<cr>', 'Show symbols outline' },
     ['<leader>l'] = {
       name = 'LSP',
       I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
