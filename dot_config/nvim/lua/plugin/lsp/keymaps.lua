@@ -12,13 +12,11 @@ local function show_docs()
 end
 
 --- Attach LSP related key mappings `buffer`
----@param client any LSP Client object
+---@param client lsp.Client LSP Client object
 ---@param buffer number Buffer number
 function M.on_attach(client, buffer)
   local trouble = require('trouble')
   local util = require('util')
-
-  local caps = client.server_capabilities
 
   require('which-key').register({
     buffer = buffer,
@@ -38,7 +36,7 @@ function M.on_attach(client, buffer)
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },
       q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
-      r = { vim.lsp.buf.rename, 'Rename', cond = caps.renameProvider },
+      r = { vim.lsp.buf.rename, 'Rename', cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) },
       s = { util.lazy_require('telescope.builtin', 'lsp_document_symbols'), 'Document Symbols' },
       w = { util.lazy(trouble.toggle, 'workspace_diagnostics'), 'Workspace Diagnostics' },
     },

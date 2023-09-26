@@ -55,12 +55,9 @@ end
 --- @param client lsp.Client
 --- @param buf number
 function M.on_attach(client, buf)
-  local caps = client.server_capabilities
-  if not caps then
-    return
-  end
+  local m = vim.lsp.protocol.Methods
 
-  if caps.documentFormattingProvider then
+  if client.supports_method(m.textDocument_formatting) then
     M.format_on_save('enable')
 
     vim.keymap.set('n', '<leader>tf', '<cmd>FormatOnSave toggle<cr>', { desc = 'Toggle format on Save' })
@@ -72,8 +69,13 @@ function M.on_attach(client, buf)
       buffer = buf,
       ['<localleader>l'] = {
         f = {
-          { '<cmd>Format<cr>', 'Format buffer', cond = caps.documentFormattingProvider },
-          { '<cmd>Format<cr>', 'Format range', cond = caps.documentRangeFormattingProvider, mode = 'v' },
+          { '<cmd>Format<cr>', 'Format buffer' },
+          {
+            '<cmd>Format<cr>',
+            'Format range',
+            cond = client.supports_method(m.textDocument_rangeFormatting),
+            mode = 'v',
+          },
         },
       },
     })
