@@ -1,16 +1,17 @@
 return {
   {
     'lukas-reineke/indent-blankline.nvim',
-    event = 'BufReadPre',
+    event = { 'BufReadPost', 'BufNewFile' },
+    main = 'ibl',
     opts = {
-      show_trailing_blankline_indent = false,
-      show_current_context = false,
-      -- show_current_context_start = true,
+      indent = { char = '│' },
+      scope = { enabled = false },
+      -- whitespace = { remove_blankline_trail = true },
     },
   },
   {
     'echasnovski/mini.indentscope',
-    event = 'BufReadPre',
+    event = { 'BufReadPre', 'BufNewFile' },
     opts = {
       symbol = '│',
       options = { try_as_border = true },
