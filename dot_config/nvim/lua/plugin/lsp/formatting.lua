@@ -39,15 +39,20 @@ end, {
 })
 
 function M.format(bufnr)
-  local have_efm = vim.b[bufnr].has_efm_formatting == true
+  local query = {
+    filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
+    methods = require('null-ls').methods.FORMATTING,
+  }
+  local have_nls = #require('null-ls').get_source(query) > 0
 
   vim.lsp.buf.format({
     bufnr = bufnr,
+    ---@param client lsp.Client
     filter = function(client)
-      if have_efm then
-        return client.name == 'efm'
+      if have_nls then
+        return client.name == 'null-ls'
       end
-      return client.name ~= 'efm'
+      return client.name ~= 'null-ls'
     end,
   })
 end

@@ -56,7 +56,6 @@ return {
           },
         },
       },
-      'creativenull/efmls-configs-nvim',
       {
         'lvimuser/lsp-inlayhints.nvim',
         cond = function()
@@ -111,5 +110,26 @@ return {
         border = 'rounded',
       },
     },
+  },
+  {
+    'nvimtools/none-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'mason.nvim' },
+    opts = function()
+      --- @type null
+      local nls = require('null-ls')
+      return {
+        -- root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+        border = 'rounded',
+        sources = {
+          nls.builtins.formatting.fish_indent,
+          nls.builtins.formatting.prettierd.with({ args = { '--prose-wrap=always', '$FILENAME' } }),
+          nls.builtins.formatting.stylua,
+
+          nls.builtins.diagnostics.eslint,
+          nls.builtins.diagnostics.fish,
+        },
+      }
+    end,
   },
 }
