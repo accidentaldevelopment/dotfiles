@@ -2,19 +2,27 @@ local conditions = require('heirline.conditions')
 
 local M = {}
 
+---@class LspActive
+---@field bufnr number The current buffer number
+---@field ft string The filetype for the current buffer
+
 --- Lists attached language server processes.
 M.LspActive = {
-  condition = conditions.lsp_attached,
+  condition = function(self)
+    return require('util').lang_tools.has_any(self.bufnr)
+  end,
   update = { 'LspAttach', 'LspDetach', 'BufEnter' },
   {
     { provider = ' [' },
     {
-      provider = function()
-        local names = {}
-        for _, server in ipairs(vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })) do
-          table.insert(names, server.name)
-        end
-        return table.concat(names, ' ')
+      ---@param self LspActive
+      init = function(self)
+        self.bufnr = vim.api.nvim_get_current_buf()
+        self.ft = vim.bo[self.bufnr].filetype
+      end,
+      ---@param self LspActive
+      provider = function(self)
+        return table.concat(require('util').lang_tools.get(self.bufnr), ' ')
       end,
     },
     { provider = ']' },

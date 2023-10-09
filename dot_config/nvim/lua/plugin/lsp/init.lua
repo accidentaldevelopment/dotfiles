@@ -17,6 +17,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufnr = args.buf
     local methods = vim.lsp.protocol.Methods
 
+    if client.name == 'null-ls' then
+      local ft = vim.bo[bufnr].filetype
+      for _, nls in ipairs(require('null-ls').get_source({ filetype = ft })) do
+        require('util').lang_tools.register(nls.name, bufnr)
+      end
+    else
+      require('util').lang_tools.register(client.name, bufnr)
+    end
+
     if client.supports_method(methods.textDocument_documentSymbol) then
       require('nvim-navic').attach(client, bufnr)
     end
@@ -116,7 +125,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
     opts = function()
-      --- @type null
       local nls = require('null-ls')
       return {
         -- root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),

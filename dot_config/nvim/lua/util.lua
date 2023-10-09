@@ -48,4 +48,28 @@ function M.toggle(option, silent, values)
   end
 end
 
+-- TODO: This really probably shouldn't live here.
+M.lang_tools = {
+  ---@param name string
+  ---@param bufnr number?
+  register = function(name, bufnr)
+    bufnr = bufnr or 0
+    local cur = vim.b[bufnr]._lang_tools or {}
+    table.insert(cur, name)
+    vim.b[bufnr]._lang_tools = cur
+  end,
+
+  ---@param bufnr number?
+  get = function(bufnr)
+    bufnr = bufnr or 0
+    return vim.b[bufnr]._lang_tools or {}
+  end,
+
+  ---@param bufnr number?
+  has_any = function(bufnr)
+    local cur = vim.b[bufnr or 0]._lang_tools or {}
+    return #cur > 0
+  end,
+}
+
 return M
