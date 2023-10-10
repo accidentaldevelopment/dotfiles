@@ -79,10 +79,20 @@ return {
   },
   {
     'saecki/crates.nvim',
+    dependencies = {
+      'nvim-cmp',
+    },
     event = { 'BufRead Cargo.toml' },
     opts = {
       popup = {
         border = 'rounded',
+      },
+      src = {
+        cmp = { enabled = true },
+      },
+      null_ls = {
+        enabled = true,
+        name = 'crates',
       },
     },
   },
