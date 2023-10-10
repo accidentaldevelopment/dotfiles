@@ -40,8 +40,8 @@ end, {
 
 function M.format(bufnr)
   local query = {
-    filetype = vim.api.nvim_buf_get_option(bufnr, 'filetype'),
-    methods = require('null-ls').methods.FORMATTING,
+    filetype = vim.bo[bufnr].filetype,
+    method = require('null-ls').methods.FORMATTING,
   }
   local have_nls = #require('null-ls').get_source(query) > 0
 
