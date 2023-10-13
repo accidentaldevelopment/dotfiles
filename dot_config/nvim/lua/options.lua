@@ -53,6 +53,7 @@ vim.opt.formatoptions:remove({ 'c', 'r', 'o' }) -- TODO: this doesn't seem to wo
 vim.filetype.add({
   filename = {
     ['tsconfig.json'] = 'jsonc',
+    ['Cargo.toml'] = 'toml.cargo',
   },
   pattern = {
     ['*.jsonc'] = 'jsonc',
