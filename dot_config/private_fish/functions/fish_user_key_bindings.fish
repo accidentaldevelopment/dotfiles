@@ -16,4 +16,9 @@ function fish_user_key_bindings -d 'set user-defined key bindings'
     bind -M insert \cj down-or-search
 
     bind -M insert \cn forward-word
+
+    bind -m goto g repaint-mode
+    bind -M goto w _worktrees
+    bind -M goto -m insert \e repaint-mode
+    bind -M goto -m insert \cc repaint-mode
 end
