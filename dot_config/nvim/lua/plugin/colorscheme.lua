@@ -77,8 +77,6 @@ return {
       noice = true,
       notify = true,
       rainbow_delimiters = true,
-      symbols_outline = true,
-      telekasten = true,
       telescope = true,
       treesitter = true,
       ts_rainbow = false,

@@ -28,6 +28,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client.supports_method(methods.textDocument_documentSymbol) then
       require('nvim-navic').attach(client, bufnr)
+      require('nvim-navbuddy').attach(client, bufnr)
     end
 
     require('plugin.lsp.formatting').on_attach(client, bufnr)
@@ -53,6 +54,7 @@ return {
       'williamboman/mason-lspconfig.nvim',
       'folke/trouble.nvim',
       'SmiteshP/nvim-navic',
+      'SmiteshP/nvim-navbuddy',
       'b0o/schemastore.nvim',
       'mason.nvim',
       -- neoconf must be loaded _before_ an lsp

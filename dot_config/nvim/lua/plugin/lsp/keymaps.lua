@@ -20,7 +20,6 @@ function M.on_attach(client, buffer)
 
   require('which-key').register({
     buffer = buffer,
-    ['<leader>a'] = { '<cmd>SymbolsOutline<cr>', 'Show symbols outline' },
     ['<leader>l'] = {
       name = 'LSP',
       I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
@@ -35,10 +34,14 @@ function M.on_attach(client, buffer)
       d = { util.lazy(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },
+      n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
       q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
       r = { vim.lsp.buf.rename, 'Rename', cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) },
       s = { util.lazy_require('telescope.builtin', 'lsp_document_symbols'), 'Document Symbols' },
       w = { util.lazy(trouble.toggle, 'workspace_diagnostics'), 'Workspace Diagnostics' },
+    },
+    ['<localleader>'] = {
+      n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
     },
     g = {
       name = '+goto',
