@@ -57,25 +57,6 @@ return {
     },
   },
   {
-    'echasnovski/mini.map',
-    event = 'BufReadPre',
-    enabled = false,
-    opts = function()
-      local map = require('mini.map')
-      return {
-        integrations = {
-          map.gen_integration.gitsigns(),
-          map.gen_integration.diagnostic(),
-        },
-        window = {
-          width = 2,
-          winblend = 100,
-          show_integration_count = false,
-        },
-      }
-    end,
-  },
-  {
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown', 'md' },
     build = function()
