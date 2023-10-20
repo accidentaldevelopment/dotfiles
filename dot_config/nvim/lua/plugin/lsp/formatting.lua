@@ -72,7 +72,18 @@ function M.on_attach(client, buf)
     end, {})
     require('which-key').register({
       buffer = buf,
-      ['<localleader>l'] = {
+      ['<leader>l'] = {
+        f = {
+          { '<cmd>Format<cr>', 'Format buffer' },
+          {
+            '<cmd>Format<cr>',
+            'Format range',
+            cond = client.supports_method(m.textDocument_rangeFormatting),
+            mode = 'v',
+          },
+        },
+      },
+      ['<localleader>'] = {
         f = {
           { '<cmd>Format<cr>', 'Format buffer' },
           {

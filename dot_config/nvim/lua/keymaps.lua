@@ -65,6 +65,18 @@ vim.keymap.set('n', '<leader>tc', function()
   util.toggle('conceallevel', false, { 0, conceallevel })
 end, { desc = 'Conceal' })
 
+-- localleader toggles
+vim.keymap.set('n', '<localleader>s', function()
+  util.toggle('spell')
+end, { desc = 'Spelling' })
+vim.keymap.set('n', '<localleader>r', function()
+  util.toggle('relativenumber', true)
+end, { desc = 'Line Numbers' })
+local conceallevel = vim.o.conceallevel > 0 and vim.o.conceallevel or 3
+vim.keymap.set('n', '<localleader>c', function()
+  util.toggle('conceallevel', false, { 0, conceallevel })
+end, { desc = 'Conceal' })
+
 vim.keymap.set('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
 vim.keymap.set('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
 vim.keymap.set('n', '<leader><tab>n', '<cmd>tabnew<cr>', { desc = 'New Tab' })

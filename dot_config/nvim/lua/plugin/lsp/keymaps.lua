@@ -42,6 +42,7 @@ function M.on_attach(client, buffer)
     },
     ['<localleader>'] = {
       n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
+      i = { '<cmd>LspInfo<cr>', 'Info' },
     },
     g = {
       name = '+goto',
