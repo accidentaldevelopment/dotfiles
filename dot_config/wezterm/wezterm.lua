@@ -36,16 +36,28 @@ config.window_padding = {
   bottom = 0,
 }
 config.font_size = 11
+-- config.line_height = 1.2
+-- config.font = wezterm.font({
+--   family = 'Fira Code',
+--   harfbuzz_features = {
+--     'zero', -- 0
+--     'ss02', -- <= >=
+--     'ss07', -- =~ !~
+--     'cv26', -- :-
+--     'ss06', -- \\
+--     'zero', -- 0
+--     'ss05', -- @
+--     'ss03', -- &
+--   },
+-- })
 config.font = wezterm.font({
-  family = 'Fira Code',
+  family = 'JetBrains Mono',
   harfbuzz_features = {
-    'ss02', -- <= >=
-    'ss07', -- =~ !~
-    'cv26', -- :-
-    'ss06', -- \\
+    'calt',
     'zero', -- 0
-    'ss05', -- @
-    'ss03', -- &
+    'cv07', -- W w
+    'cv12', -- u
+    'cv18', -- 2 6 9
   },
 })
 config.mouse_bindings = {
