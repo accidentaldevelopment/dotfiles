@@ -19,7 +19,7 @@ if status is-interactive
     fish_vi_key_bindings
 
     fish_add_path "$HOME/.cargo/bin"
-    fish_add_path "$(brew --prefix)/bin" "$(brew --prefix)/sbin"
+    fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
 
     alias sr='ssh -l root'
 
