@@ -53,7 +53,25 @@ return {
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'SmiteshP/nvim-navic',
-      'SmiteshP/nvim-navbuddy',
+      {
+        'SmiteshP/nvim-navbuddy',
+        opts = function()
+          local a = require('nvim-navbuddy.actions')
+          return {
+            mappings = {
+              ['/'] = a.telescope({
+                layout_config = {
+                  height = 0.60,
+                  width = 0.60,
+                  prompt_position = 'top',
+                  preview_width = 0.50,
+                },
+                layout_strategy = 'horizontal',
+              }),
+            },
+          }
+        end,
+      },
       'b0o/schemastore.nvim',
       'mason.nvim',
       -- neoconf must be loaded _before_ an lsp

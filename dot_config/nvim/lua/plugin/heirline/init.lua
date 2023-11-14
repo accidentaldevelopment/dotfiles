@@ -76,7 +76,7 @@ return {
       statusline = StatusLines,
       winbar = DefaultWinbar,
       tabline = require('plugin.heirline.bufferline'),
-      statuscolumn = statuscolumn,
+      -- statuscolumn = statuscolumn,
       opts = {
         disable_winbar_cb = function(args)
           local buf = args.buf
