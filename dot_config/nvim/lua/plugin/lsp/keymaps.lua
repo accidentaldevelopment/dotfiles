@@ -15,7 +15,6 @@ end
 ---@param client lsp.Client LSP Client object
 ---@param buffer number Buffer number
 function M.on_attach(client, buffer)
-  local trouble = require('trouble')
   local util = require('util')
 
   require('which-key').register({
@@ -31,14 +30,12 @@ function M.on_attach(client, buffer)
         },
         { vim.lsp.buf.code_action, 'Code Action', mode = 'v' },
       },
-      d = { util.lazy(trouble.toggle, 'document_diagnostics'), 'Document Diagnostics' },
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },
       n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
       q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
       r = { vim.lsp.buf.rename, 'Rename', cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) },
       s = { util.lazy_require('telescope.builtin', 'lsp_document_symbols'), 'Document Symbols' },
-      w = { util.lazy(trouble.toggle, 'workspace_diagnostics'), 'Workspace Diagnostics' },
     },
     ['<localleader>'] = {
       n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
@@ -48,7 +45,6 @@ function M.on_attach(client, buffer)
       name = '+goto',
       d = { '<cmd>Telescope lsp_definitions<cr>', 'Goto Definition' },
       r = { '<cmd>Telescope lsp_references<cr>', 'References' },
-      R = { util.lazy(trouble.toggle, 'lsp_references'), 'Trouble References' },
       D = { '<cmd>Telescope lsp_declarations<CR>', 'Goto Declaration' },
       I = { '<cmd>Telescope lsp_implementations<CR>', 'Goto Implementation' },
       t = { '<cmd>Telescope lsp_type_definitions<cr>', 'Goto Type Definition' },

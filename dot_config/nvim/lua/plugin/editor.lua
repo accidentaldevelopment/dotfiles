@@ -150,28 +150,26 @@ return {
       },
     },
   },
+  -- trouble
   {
-    'folke/trouble.nvim',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    cmd = { 'TroubleToggle', 'Trouble' },
-    opts = { use_diagnostic_signs = true },
-    keys = {
-      { '<leader>xx', '<cmd>TroubleToggle document_diagnostics<cr>', desc = 'Document Diagnostics (Trouble)' },
-      { '<leader>xX', '<cmd>TroubleToggle workspace_diagnostics<cr>', desc = 'Workspace Diagnostics (Trouble)' },
-    },
-  },
-  {
-    'folke/todo-comments.nvim',
-    cmd = { 'TodoTrouble', 'TodoTelescope' },
-    event = 'BufReadPost',
-    config = true,
-    -- stylua: ignore
-    keys = {
-      { ']t', function() require('todo-comments').jump_next() end, desc = 'Next todo comment', },
-      { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous todo comment', },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
-      { "<leader>xT", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
-    },
+    'echasnovski/mini.hipatterns',
+    event = { 'BufReadPost', 'BufNewFile' },
+    opts = function()
+      local hipatterns = require('mini.hipatterns')
+      return {
+        highlighters = {
+          -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+          fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
+          hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
+          todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
+          note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
+          safety = { pattern = '%f[%w]()SAFETY()%f[%W]', group = 'MiniHipatternsSafety' },
+
+          -- Highlight hex color strings (`#rrggbb`) using that color
+          hex_color = hipatterns.gen_highlighter.hex_color(),
+        },
+      }
+    end,
   },
   { 'mrjones2014/smart-splits.nvim', lazy = false },
   {

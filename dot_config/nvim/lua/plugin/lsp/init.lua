@@ -52,7 +52,6 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
-      'folke/trouble.nvim',
       'SmiteshP/nvim-navic',
       'SmiteshP/nvim-navbuddy',
       'b0o/schemastore.nvim',
