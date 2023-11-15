@@ -156,14 +156,33 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     opts = function()
       local hipatterns = require('mini.hipatterns')
+      ---@param words string[] Words
+      local function w(words)
+        return vim.tbl_map(function(v)
+          return '%f[%w]()' .. vim.pesc(v) .. '()%f[%W]'
+        end, words)
+      end
+
+      local function comment(group)
+        return function(bufnr, _, data)
+          local captures = vim
+            .iter(vim.treesitter.get_captures_at_pos(bufnr, data.line - 1, data.from_col - 1))
+            :map(function(v)
+              return v.capture
+            end)
+          if captures:find('comment') then
+            return group
+          end
+        end
+      end
+
       return {
         highlighters = {
-          -- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
-          fixme = { pattern = '%f[%w]()FIXME()%f[%W]', group = 'MiniHipatternsFixme' },
-          hack = { pattern = '%f[%w]()HACK()%f[%W]', group = 'MiniHipatternsHack' },
-          todo = { pattern = '%f[%w]()TODO()%f[%W]', group = 'MiniHipatternsTodo' },
-          note = { pattern = '%f[%w]()NOTE()%f[%W]', group = 'MiniHipatternsNote' },
-          safety = { pattern = '%f[%w]()SAFETY()%f[%W]', group = 'MiniHipatternsSafety' },
+          fixme = { pattern = w({ 'FIXME' }), group = comment('MiniHipatternsFixme') },
+          hack = { pattern = w({ 'HACK' }), group = comment('MiniHipatternsHack') },
+          todo = { pattern = w({ 'TODO' }), group = comment('MiniHipatternsTodo') },
+          note = { pattern = w({ 'NOTE' }), group = comment('MiniHipatternsNote') },
+          safety = { pattern = w({ 'SAFETY' }), group = comment('MiniHipatternsHack') },
 
           -- Highlight hex color strings (`#rrggbb`) using that color
           hex_color = hipatterns.gen_highlighter.hex_color(),
