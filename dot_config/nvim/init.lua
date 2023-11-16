@@ -17,9 +17,12 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.runtimepath:prepend(lazypath)
 
-require('lazy').setup('plugin', {
+require('lazy').setup({
   defaults = {
     lazy = true,
+  },
+  spec = {
+    { import = 'plugin' },
   },
   install = {
     colorscheme = { 'catppuccin' },
