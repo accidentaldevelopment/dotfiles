@@ -138,35 +138,4 @@ return {
       cmp.setup.cmdline({ '/', '?' }, opts.search)
     end,
   },
-  {
-    'saecki/crates.nvim',
-    ft = { 'toml.cargo' },
-    dependencies = {
-      'nvim-cmp',
-    },
-    opts = {
-      popup = {
-        border = 'rounded',
-      },
-      src = {
-        cmp = {
-          enabled = true,
-        },
-      },
-      null_ls = {
-        enabled = true,
-        name = 'crates',
-      },
-    },
-    config = function(_, opts)
-      require('crates').setup(opts)
-
-      require('cmp').setup.filetype('toml.cargo', {
-        sources = {
-          { name = 'crates' },
-          { name = 'path' },
-        },
-      })
-    end,
-  },
 }

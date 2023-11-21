@@ -131,6 +131,13 @@ return {
   },
   {
     'williamboman/mason.nvim',
+    dependencies = {
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+      optional = true,
+      opts = {
+        ensure_installed = {},
+      },
+    },
     cmd = 'Mason',
     keys = { { '<leader>M', '<cmd>Mason<cr>', desc = 'Show Mason' } },
     opts = {
