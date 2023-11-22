@@ -2,8 +2,7 @@ return {
   {
     'nvim-treesitter',
     opts = function(_, opts)
-      table.insert(opts.ensure_installed, 'rust')
-      table.insert(opts.ensure_installed, 'toml')
+      vim.list_extend(opts.ensure_installed, { 'rust', 'toml' })
     end,
   },
   {
