@@ -5,6 +5,12 @@
 
 [tools]
 neovim = 'nightly'
+{{ if .dev.web -}}
+node = 'latest'
+{{ end -}}
+{{ if .dev.go -}}
+go = 'latest'
+{{ end -}}
 
 [settings]
 experimental = true
