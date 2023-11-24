@@ -3,9 +3,7 @@
 {{ if .os.macos -}}
 brew bundle --no-upgrade --no-lock --file=- <<EOF
 tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
-tap "homebrew/core"
 # brew "dagger/tap/dagger"
 # brew "messense/macos-cross-toolchains/x86_64-unknown-linux-gnu"
 brew "bat"
