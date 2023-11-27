@@ -16,7 +16,7 @@ brew "gnupg"
 brew "htop"
 brew "jq"
 brew "lsd"
-{{ if .dev.podman -}}
+{{ if .dev.container.podman -}}
 brew "podman"
 {{ end -}}
 brew "ripgrep"
@@ -29,7 +29,7 @@ brew "yq"
 cask "1password-cli"
 cask "raycast"
 cask "wezterm"
-{{ if .dev.docker -}}
+{{ if .dev.container.docker -}}
 cask "docker"
 {{ end -}}
 cask "protonvpn"
@@ -43,6 +43,9 @@ pacman -Syu \
   fzf \
   lsd \
   neovim \
+{{ if .dev.container.podman -}}
+  podman \
+{{ end -}}
   ripgrep \
   starship \
   tmux

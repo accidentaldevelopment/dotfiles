@@ -21,7 +21,9 @@ arch = {{ and ($linux) (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.i
 
 [data.dev]
 rust = {{ $macos }}
-docker = {{ promptBoolOnce . "docker" "install docker" }}
-podman = {{ promptBoolOnce . "podman" "install podman" }}
 go = {{ and ($macos) (promptBoolOnce . "go" "are we writing go") }}
 web = {{ promptBoolOnce . "web" "are we doing web development" }}
+
+[data.dev.container]
+docker = {{ promptBoolOnce . "docker" "install docker" }}
+podman = {{ promptBoolOnce . "podman" "install podman" }}

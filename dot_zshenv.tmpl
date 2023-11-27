@@ -7,7 +7,7 @@ export CLICOLOR=1
 export EDITOR=nvim
 export READNULLCMD=less
 export MANPAGER='nvim +Man!'
-{{- if .dev.docker }}
+{{- if .dev.container.docker }}
 export DOCKER_BUILDKIT=1
 {{ end -}}
 export GPG_TTY=$(tty)
