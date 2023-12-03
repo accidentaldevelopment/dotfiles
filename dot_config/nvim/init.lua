@@ -25,6 +25,7 @@ require('lazy').setup({
     { import = 'plugin' },
     { import = 'plugin.dev.rust', enabled = true },
     { import = 'plugin.dev.web', enabled = true },
+    { import = 'plugin.dev.go', enabled = true },
   },
   install = {
     colorscheme = { 'catppuccin' },
