@@ -6,6 +6,19 @@
 {{- $linux := eq .chezmoi.os "linux" -}}
 {{- $linux_arch := and (hasKey .chezmoi.osRelease "id" ) (eq .chezmoi.osRelease.id "arch") -}}
 
+{{- $cpuCores := 0 }}
+{{- $cpuThreads := 0 }}
+{{- $memTotal := 0 }}
+{{- if eq .chezmoi.os "darwin" }}
+{{-   $cpuCores = (output "sysctl" "-n" "hw.physicalcpu_max") | trim | atoi }}
+{{-   $cpuThreads = (output "sysctl" "-n" "hw.logicalcpu_max") | trim | atoi }}
+{{-   $memTotal = (output "sysctl" "-n" "hw.memsize") | trim | atoi }}
+{{- else if eq .chezmoi.os "linux" }}
+{{-   $cpuCores = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | sort --field-separator=',' --key='2,4' --unique | wc --lines") | trim | atoi }}
+{{-   $cpuThreads = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | wc --lines") | trim | atoi }}
+{{-   $memTotal = (output "sh" "-c" "lsmem -r --noheadings --bytes | awk '{print $2}'") | trim | atoi }}
+{{- end }}
+
 [diff]
 command = "delta"
 
@@ -21,9 +34,16 @@ arch = {{ and ($linux) (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.i
 
 [data.dev]
 rust = {{ $macos }}
-go = {{ and ($macos) (promptBoolOnce . "go" "are we writing go") }}
-web = {{ promptBoolOnce . "web" "are we doing web development" }}
+go = {{ and ($macos) (promptBoolOnce .dev "go" "are we writing go") }}
+web = {{ promptBoolOnce .dev "web" "are we doing web development" }}
+
+[data.cpu]
+cores = {{ $cpuCores }}
+threads = {{ $cpuThreads }}
+
+[data.mem]
+totalGB =  {{ div $memTotal (mul 1024 1024 1024)  }}
 
 [data.dev.container]
-docker = {{ promptBoolOnce . "docker" "install docker" }}
-podman = {{ promptBoolOnce . "podman" "install podman" }}
+docker = {{ promptBoolOnce .dev.container "docker" "install docker" }}
+podman = {{ promptBoolOnce .dev.container "podman" "install podman" }}

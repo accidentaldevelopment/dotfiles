@@ -1,0 +1,9 @@
+[machine]
+cpus = {{ if (ge .cpu.threads 16) -}}
+6
+{{ else if (eq .cpu.threads 10) -}}
+4
+{{ else -}}
+{{ div .cpu.threads 3 }}
+{{ end -}}
+memory = {{ mul (div .mem.totalGB  4) 1024 }}
