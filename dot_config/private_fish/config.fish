@@ -25,6 +25,6 @@ if status is-interactive
 
     # source "$(brew --prefix fzf)/shell/key-bindings.fish" && fzf_key_bindings
 
-    rtx activate fish | source
+    mise activate fish | source
     starship init fish | source
 end
