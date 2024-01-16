@@ -20,9 +20,11 @@ return {
           enabled = true,
         },
       },
-      null_ls = {
+      lsp = {
         enabled = true,
         name = 'crates',
+        actions = true,
+        completion = true,
       },
     },
     config = function(_, opts)
