@@ -47,10 +47,12 @@ M.Diagnostics = {
   condition = conditions.lsp_attached,
   update = { 'DiagnosticChanged', 'BufEnter' },
   init = function(self)
-    self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
-    self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
-    self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-    self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+    local counts = vim.diagnostic.count(0)
+
+    self.errors = counts[vim.diagnostic.severity.ERROR] or 0
+    self.warnings = counts[vim.diagnostic.severity.WARN] or 0
+    self.hints = counts[vim.diagnostic.severity.HINT] or 0
+    self.info = counts[vim.diagnostic.severity.INFO] or 0
     return nil
   end,
   {
