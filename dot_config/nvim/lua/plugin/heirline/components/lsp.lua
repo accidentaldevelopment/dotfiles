@@ -22,7 +22,7 @@ M.LspActive = {
       end,
       ---@param self LspActive
       provider = function(self)
-        return table.concat(require('util').lang_tools.get(self.bufnr), ' ')
+        return table.concat(vim.tbl_keys(require('util').lang_tools.get(self.bufnr)), ' ')
       end,
     },
     { provider = ']' },

@@ -55,7 +55,19 @@ M.lang_tools = {
   register = function(name, bufnr)
     bufnr = bufnr or 0
     local cur = vim.b[bufnr]._lang_tools or {}
-    table.insert(cur, name)
+    cur[name] = true
+    vim.b[bufnr]._lang_tools = cur
+  end,
+
+  ---@param client_id number
+  ---@param bufnr number?
+  unregister = function(client_id, bufnr)
+    local client = vim.lsp.get_client_by_id(client_id)
+    if client == nil then
+      return
+    end
+    local cur = vim.b[bufnr]._lang_tools or {}
+    cur[client.name] = nil
     vim.b[bufnr]._lang_tools = cur
   end,
 
@@ -66,9 +78,14 @@ M.lang_tools = {
   end,
 
   ---@param bufnr number?
+  ---@return boolean `true` if there are any language tools attached.
   has_any = function(bufnr)
     local cur = vim.b[bufnr or 0]._lang_tools or {}
-    return #cur > 0
+    -- if there is anything in the set, we can immediately return true
+    for _ in pairs(cur) do
+      return true
+    end
+    return false
   end,
 }
 
