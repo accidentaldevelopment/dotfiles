@@ -142,11 +142,18 @@ return {
         desc = 'Force delete Buffer',
       },
       {
-        '<leader>c',
+        '<localleader>w',
         function()
           require('mini.bufremove').delete(0, false)
         end,
         desc = 'Delete Buffer',
+      },
+      {
+        '<localleader>W',
+        function()
+          require('mini.bufremove').delete(0, true)
+        end,
+        desc = 'Force Delete Buffer',
       },
     },
   },
