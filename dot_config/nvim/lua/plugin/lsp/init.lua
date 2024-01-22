@@ -116,6 +116,8 @@ return {
         capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
       }
 
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
+
       require('mason-lspconfig').setup_handlers({
         function(server_name)
           local setup = require('lspconfig')[server_name].setup
