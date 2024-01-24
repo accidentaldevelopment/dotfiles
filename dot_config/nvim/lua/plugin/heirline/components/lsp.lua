@@ -19,20 +19,18 @@ M.LspActive = {
       ---@param self LspActive
       provider = function(self)
         return vim
-          .iter(ipairs(vim.lsp.get_clients({ bufnr = 0 })))
+          .iter(vim.lsp.get_clients({ bufnr = 0 }))
           ---@param c lsp.Client
-          :map(function(_, c)
+          :map(function(c)
             local name = c.name
             if name == 'null-ls' then
-              return vim
-                .iter(ipairs(require('null-ls').get_source({ filetype = self.ft })))
-                :map(function(_, s)
-                  return s.name
-                end)
-                :join(' ')
+              return vim.iter.map(function(_, s)
+                return s.name
+              end, pairs(require('null-ls').get_source({ filetype = self.ft })))
             end
             return name
           end)
+          :flatten()
           :join(' ')
       end,
     },
