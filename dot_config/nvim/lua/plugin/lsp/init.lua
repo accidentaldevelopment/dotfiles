@@ -153,7 +153,7 @@ return {
           nls.builtins.formatting.prettierd.with({ args = { '--prose-wrap=always', '$FILENAME' } }),
           nls.builtins.formatting.stylua,
 
-          nls.builtins.diagnostics.eslint,
+          nls.builtins.diagnostics.eslint_d,
           nls.builtins.diagnostics.fish,
         },
       }

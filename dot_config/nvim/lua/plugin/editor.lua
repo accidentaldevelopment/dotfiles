@@ -165,7 +165,7 @@ return {
       local hipatterns = require('mini.hipatterns')
       ---@param words string[] Words
       local function w(words)
-        return vim.tbl_map(function(v)
+        return vim.iter.map(function(v)
           return '%f[%w]()' .. vim.pesc(v) .. '()%f[%W]'
         end, words)
       end
@@ -198,71 +198,4 @@ return {
     end,
   },
   { 'mrjones2014/smart-splits.nvim', lazy = false },
-  {
-    'echasnovski/mini.pick',
-    cmd = 'Pick',
-    opts = {
-      mappings = {
-        move_down = '<C-j>',
-        move_up = '<C-k>',
-        scroll_down = '<C-d>',
-        scroll_up = '<C-u>',
-      },
-      options = {
-        content_from_bottom = true,
-      },
-      window = {
-        config = function()
-          local height = math.floor(0.618 * vim.o.lines)
-          local width = math.floor(0.618 * vim.o.columns)
-          return {
-            anchor = 'NW',
-            height = height,
-            width = width,
-            row = math.floor(0.5 * (vim.o.lines - height)),
-            col = math.floor(0.5 * (vim.o.columns - width)),
-          }
-        end,
-      },
-    },
-    config = function(_, opts)
-      local Pick = require('mini.pick')
-      Pick.setup(opts)
-
-      local doc_symbols = function()
-        return vim.lsp.buf.document_symbol({
-          on_list = function(data)
-            local items = vim.tbl_map(function(item)
-              return vim.tbl_extend('force', item, { path = item.filename })
-            end, data.items)
-            return Pick.start({
-              source = {
-                items = items,
-                name = data.title,
-              },
-            })
-          end,
-        })
-      end
-
-      local workspace_symbols = function()
-        return vim.lsp.buf.workspace_symbol('', {
-          on_list = function(data)
-            local items = vim.tbl_map(function(item)
-              return vim.tbl_extend('force', item, { path = item.filename })
-            end, data.items)
-            return Pick.start({
-              source = {
-                items = items,
-                name = data.title,
-              },
-            })
-          end,
-        })
-      end
-
-      Pick.registry.document_symbols = doc_symbols
-      Pick.registry.workspace_symbols = workspace_symbols
-    end,
-  },
 }
