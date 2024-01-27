@@ -23,6 +23,9 @@ return {
         SLOptionEnabled = { fg = colors.green },
         SLOptionDisabled = { fg = colors.subtext1 },
 
+        SLFormattingEnabled = { link = 'Normal' },
+        SLFormattingDisabled = { fg = colors.overlay2 },
+
         -- highlights for statusline.
         SLViModeNormal = { fg = colors.red },
         SLViModeInsert = { fg = colors.green },

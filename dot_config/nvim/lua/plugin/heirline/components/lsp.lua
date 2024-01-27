@@ -38,15 +38,48 @@ M.LspActive = {
   },
 }
 
+---@class Format
+---@field formatters? conform.FormatterInfo[]
+---@field lsp_fallback? boolean
 M.Format = {
-  condition = conditions.lsp_attached,
+  ---@param self Format
+  condition = function(self)
+    local conform = require('conform')
+    local formatters = conform.list_formatters()
+    if formatters[1] ~= nil then
+      self.formatters = formatters
+      return true
+    elseif conform.will_fallback_lsp() then
+      self.lsp_fallback = true
+      return true
+    end
+    return false
+  end,
   update = { 'User', pattern = 'FormatOnSave' },
-  provider = '󰬍',
+
+  { provider = '𝑓(' },
+  {
+    ---@param self Format
+    provider = function(self)
+      if self.lsp_fallback then
+        return 'lsp'
+      else
+        return vim
+          .iter(ipairs(self.formatters))
+          :map(function(_, f)
+            return f.name
+          end)
+          :join(' ')
+      end
+    end,
+  },
+  { provider = ')' },
+
   hl = function()
-    if require('plugin.lsp.formatting').format_on_save() then
-      return 'SLOptionEnabled'
+    if require('formatting').format_on_save() then
+      return 'SLFormattingEnabled'
     else
-      return 'SLOptionDisabled'
+      return 'SLFormattingDisabled'
     end
   end,
 }

@@ -22,7 +22,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       require('nvim-navbuddy').attach(client, bufnr)
     end
 
-    require('plugin.lsp.formatting').on_attach(client, bufnr)
     require('plugin.lsp.keymaps').on_attach(client, bufnr)
     if has_inlay_hints then
       if client and client.supports_method(methods.textDocument_inlayHint) then
@@ -149,14 +148,30 @@ return {
         -- root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         border = 'rounded',
         sources = {
-          nls.builtins.formatting.fish_indent,
-          nls.builtins.formatting.prettierd.with({ args = { '--prose-wrap=always', '$FILENAME' } }),
-          nls.builtins.formatting.stylua,
-
           nls.builtins.diagnostics.eslint_d,
           nls.builtins.diagnostics.fish,
         },
       }
     end,
+  },
+  {
+    'stevearc/conform.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'mason.nvim' },
+    keys = {
+      { '<localleader>f', '<cmd>Format<cr>', desc = 'Format buffer' },
+      { '<localleader>F', '<cmd>FormatOnSave!<cr>', desc = 'Toggle format on save' },
+    },
+    opts = {
+      format_on_save = function()
+        require('formatting').format()
+      end,
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        fish = { 'fish_indent' },
+        javascript = { 'prettierd' },
+        typescript = { 'prettierd' },
+      },
+    },
   },
 }
