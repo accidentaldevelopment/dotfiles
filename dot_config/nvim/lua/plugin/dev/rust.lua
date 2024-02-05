@@ -25,6 +25,7 @@ return {
         name = 'crates',
         actions = true,
         completion = true,
+        hover = true,
       },
     },
     config = function(_, opts)
