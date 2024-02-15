@@ -109,7 +109,6 @@ return {
         ['['] = { name = 'prev' },
         ['<leader><tab>'] = { name = 'tabs' },
         ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
-        ['<leader>b'] = { name = 'buffer' },
         ['<leader>g'] = { name = 'git' },
         ['<leader>gh'] = { name = 'hunks' },
         ['<leader>o'] = { name = 'open' },
@@ -127,20 +126,6 @@ return {
   {
     'echasnovski/mini.bufremove',
     keys = {
-      {
-        '<leader>bd',
-        function()
-          require('mini.bufremove').delete(0, false)
-        end,
-        desc = 'Delete Buffer',
-      },
-      {
-        '<leader>bD',
-        function()
-          require('mini.bufremove').delete(0, true)
-        end,
-        desc = 'Force delete Buffer',
-      },
       {
         '<localleader>w',
         function()

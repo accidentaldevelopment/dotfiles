@@ -5,7 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
   },
   keys = {
-    { '<leader>bl', '<cmd>Telescope buffers<cr>', desc = 'Search buffers' },
+    { '<leader>b', '<cmd>Telescope buffers<cr>', desc = 'Search buffers' },
 
     -- require('telescope.themes').get_dropdown({ previewer = false }))
     { '<leader>f', '<cmd>Telescope find_files hidden=true<cr>', desc = 'Find files' },
