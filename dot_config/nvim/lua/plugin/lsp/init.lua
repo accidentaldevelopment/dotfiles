@@ -36,6 +36,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
+require('plugin.lsp.rename_handler')
+
 return {
   {
     'neovim/nvim-lspconfig',

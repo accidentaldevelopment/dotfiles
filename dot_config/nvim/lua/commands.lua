@@ -1,6 +1,6 @@
 vim.api.nvim_create_user_command('Logs', 'Telescope noice', { desc = 'Show notification history' })
 
-vim.api.nvim_create_user_command('BufTablet', function()
+vim.api.nvim_create_user_command('BufTable', function()
   local NuiTable = require('nui.table')
 
   local buf = vim.api.nvim_create_buf(false, true)
