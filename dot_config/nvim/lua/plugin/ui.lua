@@ -2,6 +2,7 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
+    cond = false,
     main = 'ibl',
     opts = {
       indent = { char = '│' },
@@ -12,9 +13,22 @@ return {
   {
     'echasnovski/mini.indentscope',
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = false,
     opts = {
       symbol = '│',
       options = { try_as_border = true },
+    },
+  },
+  {
+    'shellRaining/hlchunk.nvim',
+    event = { 'UIEnter' },
+    opts = {
+      line_num = {
+        enable = false,
+      },
+      blank = {
+        enable = false,
+      },
     },
   },
   {
