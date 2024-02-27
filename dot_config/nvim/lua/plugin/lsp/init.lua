@@ -150,7 +150,6 @@ return {
         -- root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
         border = 'rounded',
         sources = {
-          nls.builtins.diagnostics.eslint_d,
           nls.builtins.diagnostics.fish,
         },
       }
