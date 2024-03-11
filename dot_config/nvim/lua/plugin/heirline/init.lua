@@ -19,6 +19,7 @@ return {
       c.Space,
       c.Spell,
       c.Space,
+      c.RecordingMacro,
 
       c.Align,
 
@@ -30,6 +31,7 @@ return {
 
       c.Align,
 
+      c.Space,
       c.LazyInfo,
       c.Space,
       c.Git,

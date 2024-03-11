@@ -53,6 +53,25 @@ M.ScrollBar = {
   hl = 'SLScrollBar',
 }
 
+M.RecordingMacro = {
+  update = { 'RecordingEnter', 'RecordingLeave' },
+  fallthrough = false,
+  init = function(self)
+    self.reg = vim.fn.reg_recording()
+  end,
+  {
+    condition = function(self)
+      return self.reg ~= ''
+    end,
+    provider = function(self)
+      return string.format(' %s', self.reg)
+    end,
+  },
+  {
+    provider = '   ',
+  },
+}
+
 LazyStats = {
   init = function(self)
     local stats = require('lazy').stats()
