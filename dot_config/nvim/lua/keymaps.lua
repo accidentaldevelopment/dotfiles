@@ -30,10 +30,6 @@ vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
 vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>')
 vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>')
 
--- Move text up and down
-vim.keymap.set('n', '<A-j>', '<Esc>:m .+1<CR>==gi')
-vim.keymap.set('n', '<A-k>', '<Esc>:m .-2<CR>==gi')
-
 -- Insert --
 -- Press jk fast to enter
 vim.keymap.set('i', 'jk', '<ESC>')
