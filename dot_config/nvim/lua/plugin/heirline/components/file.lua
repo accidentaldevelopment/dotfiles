@@ -44,6 +44,12 @@ M.FileName = utils.insert(file_name, M.FileIcon, {
       return vim.fn.fnamemodify(self.filename, ':t')
     end,
   },
+  on_click = {
+    callback = function(self)
+      vim.fn.setreg('+', self.filename)
+    end,
+    name = '_copy_filepath',
+  },
 })
 
 --- File type
