@@ -1,7 +1,6 @@
 return {
   'rebelot/heirline.nvim',
   dependencies = {
-    'SmiteshP/nvim-navic',
     'nvim-tree/nvim-web-devicons',
   },
   event = 'VeryLazy',
@@ -20,6 +19,8 @@ return {
       c.Spell,
       c.Space,
       c.RecordingMacro,
+      c.Space,
+      c.Grapple,
 
       c.Align,
 

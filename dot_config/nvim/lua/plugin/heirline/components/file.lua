@@ -106,4 +106,13 @@ M.Indent = {
   end,
 }
 
+M.Grapple = {
+  condition = function()
+    return package.loaded.grapple and require('grapple').exists()
+  end,
+  provider = function()
+    return require('grapple').statusline({})
+  end,
+}
+
 return M

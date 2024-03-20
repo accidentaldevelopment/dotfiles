@@ -88,7 +88,16 @@ return {
         end,
       },
     },
-    config = true,
+    opts = {
+      modes = {
+        search = {
+          enabled = false,
+        },
+        char = {
+          keys = { 'f', 'F', 't', 'T' },
+        },
+      },
+    },
   },
   {
     'folke/which-key.nvim',
@@ -183,4 +192,22 @@ return {
     end,
   },
   { 'mrjones2014/smart-splits.nvim', lazy = false },
+  {
+    'cbochs/grapple.nvim',
+    keys = {
+      { ';', '<cmd>Grapple toggle_tags<cr>', desc = 'Toggle tags menu' },
+      { '<c-s>', '<cmd>Grapple toggle<cr>', desc = 'Toggle tag' },
+    },
+    cmd = 'Grapple',
+    opts = {
+      scope = 'git_branch',
+      win_opts = {
+        border = 'rounded',
+      },
+    },
+    config = function(_, opts)
+      require('telescope').load_extension('grapple')
+      require('grapple').setup(opts)
+    end,
+  },
 }

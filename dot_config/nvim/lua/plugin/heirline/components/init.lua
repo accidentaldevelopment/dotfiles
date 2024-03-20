@@ -10,6 +10,7 @@ M.FileIcon = file.FileIcon
 M.FileName = file.FileName
 M.FileType = file.FileType
 M.FileFlags = file.FileFlags
+M.Grapple = file.Grapple
 M.Spell = file.Spell
 M.Indent = file.Indent
 M.HelpFileName = file.HelpFileName
@@ -20,7 +21,7 @@ M.Format = lsp.Format
 --- LSP-derived breadcrumbs
 M.Navic = {
   condition = function()
-    return require('nvim-navic').is_available()
+    return package.loaded['nvim-navic'] and require('nvim-navic').is_available()
   end,
   provider = function()
     return require('nvim-navic').get_location({ highlight = true })
