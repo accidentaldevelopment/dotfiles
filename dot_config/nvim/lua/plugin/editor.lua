@@ -44,38 +44,6 @@ return {
     },
   },
   {
-    'folke/flash.nvim',
-    event = 'VeryLazy',
-    ---@type Flash.Config
-    keys = {
-      {
-        's',
-        mode = { 'n', 'x', 'o' },
-        function()
-          -- default options: exact mode, multi window, all directions, with a backdrop
-          require('flash').jump()
-        end,
-      },
-      {
-        'S',
-        mode = { 'o', 'x' },
-        function()
-          require('flash').treesitter()
-        end,
-      },
-    },
-    opts = {
-      modes = {
-        search = {
-          enabled = false,
-        },
-        char = {
-          keys = { 'f', 'F', 't', 'T' },
-        },
-      },
-    },
-  },
-  {
     'folke/which-key.nvim',
     event = 'VeryLazy',
     opts = {
@@ -89,7 +57,7 @@ return {
       wk.register({
         mode = { 'n', 'v' },
         g = { name = 'goto' },
-        gz = { name = 'surround' },
+        s = { name = 'surround' },
         [']'] = { name = 'next' },
         ['['] = { name = 'prev' },
         ['<leader><tab>'] = { name = 'tabs' },
