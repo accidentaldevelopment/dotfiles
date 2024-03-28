@@ -6,7 +6,7 @@ return {
     end,
   },
   {
-    'mason-tool-installer.nvim',
+    'williamboman/mason-lspconfig.nvim',
     opts = function(_, opts)
       table.insert(opts.ensure_installed, 'gopls')
     end,
