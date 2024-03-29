@@ -1,6 +1,22 @@
 --- `true` if this version of nvim can show inlay hints.
 local has_inlay_hints = vim.lsp['inlay_hint'] ~= nil
 
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN] = '',
+      [vim.diagnostic.severity.HINT] = '',
+      [vim.diagnostic.severity.INFO] = '',
+    },
+  },
+  float = {
+    border = 'rounded',
+  },
+  update_in_insert = true,
+  severity_sort = true,
+})
+
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Run when a language server is attached',
   callback = function(args)
@@ -89,21 +105,6 @@ return {
       { 'folke/neodev.nvim', config = true },
     },
     config = function()
-      vim.fn.sign_define({
-        { name = 'DiagnosticSignError', text = '', texthl = 'DiagnosticSignError', numhl = '' },
-        { name = 'DiagnosticSignWarn', text = '', texthl = 'DiagnosticSignWarn', numhl = '' },
-        { name = 'DiagnosticSignHint', text = '', texthl = 'DiagnosticSignHint', numhl = '' },
-        { name = 'DiagnosticSignInfo', text = '', texthl = 'DiagnosticSignInfo', numhl = '' },
-      })
-
-      vim.diagnostic.config({
-        float = {
-          border = 'rounded',
-        },
-        update_in_insert = true,
-        severity_sort = true,
-      })
-
       local opts = {
         capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
       }

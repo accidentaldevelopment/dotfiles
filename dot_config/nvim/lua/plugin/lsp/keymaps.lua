@@ -1,7 +1,7 @@
 local M = {}
 
 --- Attach LSP related key mappings `buffer`
----@param client lsp.Client LSP Client object
+---@param client vim.lsp.Client LSP Client object
 ---@param buffer number Buffer number
 function M.on_attach(client, buffer)
   local util = require('util')

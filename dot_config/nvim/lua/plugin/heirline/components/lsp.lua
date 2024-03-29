@@ -20,7 +20,7 @@ M.LspActive = {
       provider = function(self)
         return vim
           .iter(vim.lsp.get_clients({ bufnr = 0 }))
-          ---@param c lsp.Client
+          ---@param c vim.lsp.Client
           :map(function(c)
             local name = c.name
             if name == 'null-ls' then
@@ -88,6 +88,9 @@ M.Format = {
 M.Diagnostics = {
   condition = conditions.lsp_attached,
   update = { 'DiagnosticChanged', 'BufEnter' },
+  static = {
+    signs = vim.diagnostic.config().signs.text,
+  },
   init = function(self)
     local counts = vim.diagnostic.count(0)
 
@@ -99,29 +102,29 @@ M.Diagnostics = {
   end,
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined('DiagnosticSignError'))[1]
-      return (sign.text .. self.errors .. ' ')
+      local sign = self.signs[vim.diagnostic.severity.ERROR]
+      return (sign .. self.errors .. ' ')
     end,
     hl = 'DiagnosticError',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined('DiagnosticSignWarn'))[1]
-      return (sign.text .. self.warnings .. ' ')
+      local sign = self.signs[vim.diagnostic.severity.WARN]
+      return (sign .. self.warnings .. ' ')
     end,
     hl = 'DiagnosticWarn',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined('DiagnosticSignInfo'))[1]
-      return (sign.text .. self.info .. ' ')
+      local sign = self.signs[vim.diagnostic.severity.INFO]
+      return (sign .. self.info .. ' ')
     end,
     hl = 'DiagnosticInfo',
   },
   {
     provider = function(self)
-      local sign = (vim.fn.sign_getdefined('DiagnosticSignHint'))[1]
-      return (sign.text .. self.hints)
+      local sign = self.signs[vim.diagnostic.severity.HINT]
+      return (sign .. self.hints)
     end,
     hl = 'DiagnosticHint',
   },
