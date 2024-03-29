@@ -42,9 +42,9 @@ return {
     end,
   },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-tool-installer.nvim',
     opts = function(_, opts)
-      table.insert(opts.ensure_installed, 'rust_analyzer')
+      table.insert(opts.ensure_installed, 'rust-analyzer')
     end,
   },
 }

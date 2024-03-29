@@ -43,10 +43,7 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      {
-        'williamboman/mason-lspconfig.nvim',
-        opts = {},
-      },
+      'williamboman/mason-lspconfig.nvim',
       'SmiteshP/nvim-navic',
       {
         'SmiteshP/nvim-navbuddy',
@@ -129,7 +126,7 @@ return {
   {
     'williamboman/mason.nvim',
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
       optional = true,
       opts = {
         ensure_installed = {},
