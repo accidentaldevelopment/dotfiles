@@ -1,6 +1,3 @@
---- `true` if this version of nvim can show inlay hints.
-local has_inlay_hints = vim.lsp['inlay_hint'] ~= nil
-
 vim.diagnostic.config({
   signs = {
     text = {
@@ -39,15 +36,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 
     require('plugin.lsp.keymaps').on_attach(client, bufnr)
-    if has_inlay_hints then
-      if client and client.supports_method(methods.textDocument_inlayHint) then
-        -- For some reason, inlay hints don't show up for me until InsertEnter. This defer resolves that.
-        vim.defer_fn(function()
-          vim.lsp.inlay_hint.enable(0, true)
-        end, 500)
-      end
-    else
-      require('lsp-inlayhints').on_attach(client, bufnr, false)
+    if client.supports_method(methods.textDocument_inlayHint) then
+      -- For some reason, inlay hints don't show up for me until InsertEnter. This defer resolves that.
+      vim.defer_fn(function()
+        vim.lsp.inlay_hint.enable(0, true)
+      end, 500)
     end
   end,
 })
@@ -91,16 +84,6 @@ return {
             nlsp = false,
           },
         },
-      },
-      {
-        'lvimuser/lsp-inlayhints.nvim',
-        cond = function()
-          if has_inlay_hints and vim.version().prerelease == false then
-            vim.notify('nvim now supports inlay hints. Remove lsp-inlayhints and related checks.', vim.log.levels.WARN)
-          end
-          return not has_inlay_hints
-        end,
-        config = true,
       },
       { 'folke/neodev.nvim', config = true },
     },
