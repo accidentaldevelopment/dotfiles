@@ -41,14 +41,16 @@ vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_rename] = function(err, r
     end
   end
 
-  vim.notify(vim.inspect(should_write), vim.log.levels.INFO, { title = 'buffers to autosave' })
-
   rename_handler(err, result, ctx, config)
 
-  -- TODO: test a little before actually enabling this
-  -- for _, buf in ipairs(should_write) do
-  --   vim.api.nvim_buf_call(buf, function()
-  --     vim.cmd.update()
-  --   end)
-  -- end
+  if vim.g.autosave_on_rename then
+    vim.notify(vim.inspect(should_write), vim.log.levels.INFO, { title = 'autosaving buffers' })
+    for _, buf in ipairs(should_write) do
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd.update()
+      end)
+    end
+  else
+    vim.notify(vim.inspect(should_write), vim.log.levels.INFO, { title = 'autosave disabled' })
+  end
 end
