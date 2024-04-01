@@ -52,7 +52,6 @@ return {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
       'SmiteshP/nvim-navic',
       {
         'SmiteshP/nvim-navbuddy',
@@ -85,26 +84,30 @@ return {
           },
         },
       },
+      {
+        'williamboman/mason-lspconfig.nvim',
+        config = function()
+          local opts = {
+            capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+          }
+
+          require('mason-lspconfig').setup_handlers({
+            function(server_name)
+              local setup = require('lspconfig')[server_name].setup
+              local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
+              if ok then
+                setup(vim.tbl_deep_extend('force', opts, lsp_opts))
+              else
+                setup(opts)
+              end
+            end,
+          })
+        end,
+      },
       { 'folke/neodev.nvim', config = true },
     },
     config = function()
-      local opts = {
-        capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-      }
-
       require('lspconfig.ui.windows').default_options.border = 'rounded'
-
-      require('mason-lspconfig').setup_handlers({
-        function(server_name)
-          local setup = require('lspconfig')[server_name].setup
-          local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
-          if ok then
-            setup(vim.tbl_deep_extend('force', opts, lsp_opts))
-          else
-            setup(opts)
-          end
-        end,
-      })
     end,
   },
   {
