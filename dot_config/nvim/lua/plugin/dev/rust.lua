@@ -28,18 +28,6 @@ return {
         hover = true,
       },
     },
-    config = function(_, opts)
-      require('crates').setup(opts)
-
-      require('cmp').setup.filetype('toml', {
-        sources = {
-          { name = 'nvim_lsp' },
-          { name = 'nvim_lsp_signature_help' },
-          { name = 'crates' },
-          { name = 'path' },
-        },
-      })
-    end,
   },
   {
     'mason-tool-installer.nvim',

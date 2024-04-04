@@ -24,41 +24,11 @@ local kind_icons = {
   Event = '',
   Operator = '󰆕',
   TypeParameter = '󰊄',
-}
 
-local format = {
-  function(entry, vim_item)
-    if entry.source.name == 'path' then
-      local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
-      if icon then
-        vim_item.kind = icon
-        vim_item.kind_hl_group = hl_group
-        return vim_item
-      end
-    end
-  end,
-  function(entry, vim_item)
-    if entry.source.name == 'crates' then
-      vim_item.kind = ''
-      return vim_item
-    end
-  end,
-  function(_, vim_item)
-    vim_item.kind = kind_icons[vim_item.kind]
-    return vim_item
-  end,
+  -- cargo stuff
+  Version = 'v',
+  Feature = 'f',
 }
-
-setmetatable(format, {
-  __call = function(me, entry, vim_item)
-    for _, f in ipairs(me) do
-      local r = f(entry, vim_item)
-      if r then
-        return r
-      end
-    end
-  end,
-})
 
 ---@class CmpConfigs
 ---@field global cmp.ConfigSchema
@@ -100,7 +70,19 @@ return {
           }),
           formatting = {
             fields = { 'kind', 'abbr', 'menu' },
-            format = format,
+            ---@param entry cmp.Entry
+            ---@param vim_item vim.CompletedItem
+            ---@return vim.CompletedItem
+            format = function(entry, vim_item)
+              local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+              if icon then
+                vim_item.kind = icon
+                vim_item.kind_hl_group = hl_group
+              else
+                vim_item.kind = kind_icons[vim_item.kind] or vim_item.kind
+              end
+              return vim_item
+            end,
           },
           sources = {
             { name = 'nvim_lsp' },

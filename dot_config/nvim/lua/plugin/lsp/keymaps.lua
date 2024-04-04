@@ -39,7 +39,6 @@ function M.on_attach(client, buffer)
       t = { '<cmd>Telescope lsp_type_definitions<cr>', 'Goto Type Definition' },
     },
     ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Help', mode = { 'n', 'i' } },
-    K = { vim.lsp.buf.hover, 'Show hover' },
     ['[d'] = { util.lazy(vim.diagnostic.goto_prev, { border = 'rounded' }), 'Previous diagnostic' },
     [']d'] = { util.lazy(vim.diagnostic.goto_next, { border = 'rounded' }), 'Next diagnostic' },
     ['[e'] = {
