@@ -114,6 +114,11 @@ return {
             documentation = cmp.config.window.bordered(),
           },
           experimental = { ghost_text = true },
+          view = {
+            entries = {
+              follow_cursor = true,
+            },
+          },
         },
         search = {
           sources = {
