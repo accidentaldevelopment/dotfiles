@@ -103,28 +103,28 @@ M.Diagnostics = {
   {
     provider = function(self)
       local sign = self.signs[vim.diagnostic.severity.ERROR]
-      return (sign .. self.errors .. ' ')
+      return string.format('%s %d ', sign, self.errors)
     end,
     hl = 'DiagnosticError',
   },
   {
     provider = function(self)
       local sign = self.signs[vim.diagnostic.severity.WARN]
-      return (sign .. self.warnings .. ' ')
+      return string.format('%s %d ', sign, self.warnings)
     end,
     hl = 'DiagnosticWarn',
   },
   {
     provider = function(self)
       local sign = self.signs[vim.diagnostic.severity.INFO]
-      return (sign .. self.info .. ' ')
+      return string.format('%s %d ', sign, self.info)
     end,
     hl = 'DiagnosticInfo',
   },
   {
     provider = function(self)
       local sign = self.signs[vim.diagnostic.severity.HINT]
-      return (sign .. self.hints)
+      return string.format('%s %d', sign, self.hints)
     end,
     hl = 'DiagnosticHint',
   },
