@@ -85,47 +85,55 @@ return {
         },
       },
       {
+        'williamboman/mason.nvim',
+        dependencies = {
+          'WhoIsSethDaniel/mason-tool-installer.nvim',
+          optional = true,
+          opts = {
+            ensure_installed = {},
+          },
+        },
+        cmd = 'Mason',
+        keys = { { '<leader>M', '<cmd>Mason<cr>', desc = 'Show Mason' } },
+        opts = {
+          ui = {
+            border = 'rounded',
+          },
+        },
+      },
+      {
         'williamboman/mason-lspconfig.nvim',
-        config = function()
-          local opts = {
-            capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-          }
-
-          require('mason-lspconfig').setup_handlers({
-            function(server_name)
-              local setup = require('lspconfig')[server_name].setup
-              local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
-              if ok then
-                setup(vim.tbl_deep_extend('force', opts, lsp_opts))
-              else
-                setup(opts)
-              end
-            end,
-          })
-        end,
       },
       { 'folke/neodev.nvim', config = true },
     },
-    config = function()
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
+    opts = function()
+      local capabilities = vim.tbl_deep_extend(
+        'force',
+        {},
+        vim.lsp.protocol.make_client_capabilities(),
+        require('cmp_nvim_lsp').default_capabilities()
+      )
+
+      return {
+        handlers = {},
+        capabilities = capabilities,
+      }
     end,
-  },
-  {
-    'williamboman/mason.nvim',
-    dependencies = {
-      'WhoIsSethDaniel/mason-tool-installer.nvim',
-      optional = true,
-      opts = {
-        ensure_installed = {},
-      },
-    },
-    cmd = 'Mason',
-    keys = { { '<leader>M', '<cmd>Mason<cr>', desc = 'Show Mason' } },
-    opts = {
-      ui = {
-        border = 'rounded',
-      },
-    },
+    config = function(_, opts)
+      table.insert(opts.handlers, 1, function(server_name)
+        local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
+        local opts = vim.tbl_deep_extend('force', opts, {
+          capabilities = opts.capabilities,
+        }, ok and lsp_opts or {})
+
+        require('lspconfig')[server_name].setup(opts)
+      end)
+      require('lspconfig.ui.windows').default_options.border = 'rounded'
+
+      require('mason-lspconfig').setup({
+        handlers = opts.handlers,
+      })
+    end,
   },
   {
     'nvimtools/none-ls.nvim',
