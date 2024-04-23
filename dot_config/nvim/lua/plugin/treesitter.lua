@@ -4,10 +4,6 @@ return {
     build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
-      {
-        'nvim-treesitter/nvim-treesitter-context',
-        config = true,
-      },
       'andymass/vim-matchup',
     },
     opts = {
