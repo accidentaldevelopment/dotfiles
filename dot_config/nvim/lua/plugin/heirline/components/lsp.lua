@@ -24,9 +24,12 @@ M.LspActive = {
           :map(function(c)
             local name = c.name
             if name == 'null-ls' then
-              return vim.iter.map(function(_, s)
-                return s.name
-              end, pairs(require('null-ls').get_source({ filetype = self.ft })))
+              return vim
+                .iter(pairs(require('null-ls').get_source({ filetype = self.ft })))
+                :map(function(_, s)
+                  return s.name
+                end)
+                :totable()
             end
             return name
           end)

@@ -39,7 +39,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     if client.supports_method(methods.textDocument_inlayHint) then
       -- For some reason, inlay hints don't show up for me until InsertEnter. This defer resolves that.
       vim.defer_fn(function()
-        vim.lsp.inlay_hint.enable(0, true)
+        vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
       end, 500)
     end
   end,

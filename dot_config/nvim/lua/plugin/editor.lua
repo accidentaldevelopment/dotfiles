@@ -103,9 +103,12 @@ return {
       local hipatterns = require('mini.hipatterns')
       ---@param words string[] Words
       local function w(words)
-        return vim.iter.map(function(v)
-          return '%f[%w]()' .. vim.pesc(v) .. '()%f[%W]'
-        end, words)
+        return vim
+          .iter(ipairs(words))
+          :map(function(_, v)
+            return '%f[%w]()' .. vim.pesc(v) .. '()%f[%W]'
+          end)
+          :totable()
       end
 
       local function comment(group)
