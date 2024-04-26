@@ -5,6 +5,12 @@ return {
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'andymass/vim-matchup',
+      {
+        'JoosepAlviste/nvim-ts-context-commentstring',
+        init = function()
+          vim.g.skip_ts_context_commentstring_module = true
+        end,
+      },
     },
     opts = {
       ensure_installed = {
@@ -25,10 +31,6 @@ return {
         enable = true,
       },
       indent = { enable = true, disable = { 'yaml' } },
-      context_commentstring = {
-        enable = true,
-        enable_autocmd = false,
-      },
       matchup = {
         enable = true,
         include_match_words = true,
