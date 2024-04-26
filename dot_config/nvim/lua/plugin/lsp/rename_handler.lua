@@ -1,9 +1,7 @@
 ---@param b number buffer number
 ---@return boolean true if the buffer should auto write
 local function buffer_should_autowrite(b)
-  return not vim.api.nvim_get_option_value('modified', { buf = b })
-    and vim.api.nvim_get_option_value('buftype', { buf = b }) == ''
-    and vim.api.nvim_get_option_value('buflisted', { buf = b })
+  return not vim.bo[b].modified and vim.bo[b].buftype == '' and vim.bo[b].buflisted
 end
 
 --- @return number[]
