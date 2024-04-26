@@ -19,8 +19,14 @@ return {
     },
   },
   {
+    'windwp/nvim-autopairs',
+    event = 'VeryLazy',
+    config = true,
+  },
+  {
     'echasnovski/mini.pairs',
     event = 'VeryLazy',
+    cond = false,
     opts = {
       -- mappings = {
       --   -- disable if a matching character is in an adjacent position (eg. fixes
