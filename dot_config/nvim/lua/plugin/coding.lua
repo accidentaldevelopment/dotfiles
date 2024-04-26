@@ -69,4 +69,15 @@ return {
     'hiphish/rainbow-delimiters.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
   },
+  {
+    'sindrets/diffview.nvim',
+    cmd = {
+      'DiffviewOpen',
+      'DiffviewClose',
+      'DiffviewToggleFiles',
+      'DiffviewFocusFiles',
+      'DiffviewRefresh',
+    },
+    config = true,
+  },
 }
