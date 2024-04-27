@@ -6,7 +6,7 @@ local setup_done = false
 --- Sends event 'User FormatOnSave' when the option is changed.
 ---@param op? boolean
 ---@return boolean `true` if format-on-save is enabled
-function M.format_on_save(op)
+ function M.format_on_save(op)
   vim.validate({ op = { op, 'boolean', true } })
   if op ~= nil then
     vim.b.disable_format_on_save = not op
@@ -16,8 +16,11 @@ function M.format_on_save(op)
 end
 
 --- Format the current buffer if enabled.
-function M.format()
-  require('conform').format({ timeout_ms = 500, lsp_fallback = true })
+--- @param force? boolean If `true` then always format.
+function M.format(force)
+  if force or not vim.b.disable_format_on_save then
+    require('conform').format({ timeout_ms = 500, lsp_fallback = true })
+  end
 end
 
 function M.any_formatter_available()
@@ -54,8 +57,11 @@ local function setup()
     end,
   })
 
-  vim.api.nvim_create_user_command('Format', M.format, {
+  vim.api.nvim_create_user_command('Format', function(cmd)
+    M.format(cmd.bang)
+  end, {
     desc = 'Format the current buffer',
+    bang = true,
   })
 end
 

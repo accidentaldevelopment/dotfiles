@@ -155,7 +155,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
     keys = {
-      { '<localleader>f', '<cmd>Format<cr>', desc = 'Format buffer' },
+      { '<localleader>f', '<cmd>Format!<cr>', desc = 'Format buffer (force)' },
       { '<localleader>F', '<cmd>FormatOnSave!<cr>', desc = 'Toggle format on save' },
     },
     opts = {
