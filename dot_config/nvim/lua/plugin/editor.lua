@@ -56,6 +56,7 @@ return {
       wk.setup(opts)
       wk.register({
         mode = { 'n', 'v' },
+        cr = { name = 'refactor' },
         g = { name = 'goto' },
         s = { name = 'surround' },
         [']'] = { name = 'next' },
@@ -143,7 +144,7 @@ return {
     'cbochs/grapple.nvim',
     keys = {
       { ';', '<cmd>Grapple toggle_tags<cr>', desc = 'Toggle tags menu' },
-      { '<c-s>', '<cmd>Grapple toggle<cr>', desc = 'Toggle tag' },
+      { '<localleader>g', '<cmd>Grapple toggle<cr>', desc = 'Toggle tag' },
     },
     cmd = 'Grapple',
     opts = {

@@ -169,7 +169,7 @@ return {
         typescript = { 'prettierd' },
         javascriptreact = { 'prettierd' },
         typescriptreact = { 'prettierd' },
-        markdown = { 'prettierd' },
+        markdown = { 'prettierd', 'injected' },
       },
     },
   },
