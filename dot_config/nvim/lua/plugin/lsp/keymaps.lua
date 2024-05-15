@@ -6,25 +6,37 @@ local M = {}
 function M.on_attach(client, buffer)
   local util = require('util')
 
+  local function a(i) end
+
   require('which-key').register({
     buffer = buffer,
     ['<leader>l'] = {
       name = 'LSP',
       I = { '<cmd>LspInstallInfo<cr>', 'Installer Info' },
       S = { util.lazy_require('telescope.builtin', 'lsp_dynamic_workspace_symbols'), 'Workspace Symbols' },
-      -- a = {
-      --   {
-      --     vim.lsp.buf.code_action,
-      --     'Code Action',
-      --   },
-      --   { vim.lsp.buf.code_action, 'Code Action', mode = 'v' },
-      -- },
       i = { '<cmd>LspInfo<cr>', 'Info' },
       l = { vim.lsp.codelens.run, 'CodeLens Action' },
       n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
       q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
-      -- r = { vim.lsp.buf.rename, 'Rename', cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) },
       s = { util.lazy_require('telescope.builtin', 'lsp_document_symbols'), 'Document Symbols' },
+    },
+    ['<leader>c'] = {
+      name = 'Code Actions',
+      a = { vim.lsp.buf.code_action, 'Code Action', mode = { 'n', 'v' } },
+      A = {
+        function()
+          vim.lsp.buf.code_action({
+            context = {
+              only = {
+                'source',
+              },
+              diagnostics = {},
+            },
+          })
+        end,
+        'Source Action',
+      },
+      r = { vim.lsp.buf.rename, 'Rename', cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_rename) },
     },
     ['<localleader>'] = {
       n = { '<cmd>Navbuddy<cr>', 'Show Navbuddy' },
@@ -38,7 +50,12 @@ function M.on_attach(client, buffer)
       I = { '<cmd>Telescope lsp_implementations<CR>', 'Goto Implementation' },
       t = { '<cmd>Telescope lsp_type_definitions<cr>', 'Goto Type Definition' },
     },
-    -- ['<C-k>'] = { vim.lsp.buf.signature_help, 'Signature Help', mode = { 'n', 'i' } },
+    ['<C-s>'] = {
+      vim.lsp.buf.signature_help,
+      'Signature Help',
+      cond = client.supports_method(vim.lsp.protocol.Methods.textDocument_signatureHelp),
+      mode = { 'n', 'i' },
+    },
     ['[d'] = { util.lazy(vim.diagnostic.goto_prev), 'Previous diagnostic' },
     [']d'] = { util.lazy(vim.diagnostic.goto_next), 'Next diagnostic' },
     ['[e'] = {
