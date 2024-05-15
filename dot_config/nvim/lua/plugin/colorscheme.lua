@@ -51,7 +51,7 @@ return {
       gitsigns = true,
       hop = false,
       illuminate = false,
-      indent_blankline = { enabled = true, colored_indent_levels = false },
+      indent_blankline = { enabled = false },
       lightspeed = false,
       lsp_saga = false,
       lsp_trouble = false,
