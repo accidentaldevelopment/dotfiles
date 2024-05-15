@@ -6,6 +6,7 @@ local M = {}
 ---@field ft string The filetype for the current buffer
 
 --- Lists attached language server processes.
+-- TODO: make this work with nvim-lint
 M.LspActive = {
   condition = conditions.lsp_attached,
   update = { 'LspAttach', 'LspDetach', 'BufEnter' },
@@ -47,14 +48,16 @@ M.LspActive = {
 M.Format = {
   ---@param self Format
   condition = function(self)
-    local conform = require('conform')
-    local formatters = conform.list_formatters()
-    if formatters[1] ~= nil then
-      self.formatters = formatters
-      return true
-    elseif conform.will_fallback_lsp() then
-      self.lsp_fallback = true
-      return true
+    local conform = package.loaded.conform
+    if conform then
+      local formatters = conform.list_formatters()
+      if formatters[1] ~= nil then
+        self.formatters = formatters
+        return true
+      elseif conform.will_fallback_lsp() then
+        self.lsp_fallback = true
+        return true
+      end
     end
     return false
   end,

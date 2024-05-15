@@ -137,6 +137,7 @@ return {
   },
   {
     'nvimtools/none-ls.nvim',
+    cond = false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
     opts = function()
@@ -152,8 +153,11 @@ return {
   },
   {
     'stevearc/conform.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'mason.nvim' },
+    ---@param p LazyPlugin
+    ft = function(p)
+      return vim.tbl_keys(p.opts.formatters_by_ft)
+    end,
     keys = {
       { '<localleader>f', '<cmd>Format!<cr>', desc = 'Format buffer (force)' },
       { '<localleader>F', '<cmd>FormatOnSave!<cr>', desc = 'Toggle format on save' },
@@ -172,5 +176,36 @@ return {
         markdown = { 'prettierd', 'injected' },
       },
     },
+  },
+
+  {
+    'mfussenegger/nvim-lint',
+    dependencies = { 'mason.nvim' },
+    ---@param p LazyPlugin
+    ft = function(p)
+      return vim.tbl_keys(p.opts.linters_by_ft)
+    end,
+    ---@param p LazyPlugin
+    init = function(p)
+      local linters = p.opts.linters_by_ft
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        callback = function(args)
+          local ft = vim.bo[args.buf].ft
+
+          if linters[ft] then
+            require('lint').try_lint()
+          end
+        end,
+      })
+    end,
+    opts = {
+      linters_by_ft = {
+        fish = { 'fish' },
+      },
+    },
+    config = function(_, opts)
+      require('lint').linters_by_ft = opts.linters_by_ft
+    end,
   },
 }
