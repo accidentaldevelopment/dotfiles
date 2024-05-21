@@ -15,8 +15,11 @@ return {
       popup = {
         border = 'rounded',
       },
-      src = {
+      completion = {
         cmp = {
+          enabled = true,
+        },
+        crates = {
           enabled = true,
         },
       },
