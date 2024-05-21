@@ -69,6 +69,17 @@ return {
     { key = 'p', mods = 'LEADER', action = w.action.ActivateTabRelative(-1) },
     { key = 'n', mods = 'LEADER', action = w.action.ActivateTabRelative(1) },
 
+    { key = '1', mods = 'SUPER', action = w.action.ActivateTab(0) },
+    { key = '2', mods = 'SUPER', action = w.action.ActivateTab(1) },
+    { key = '3', mods = 'SUPER', action = w.action.ActivateTab(2) },
+    { key = '4', mods = 'SUPER', action = w.action.ActivateTab(3) },
+    { key = '5', mods = 'SUPER', action = w.action.ActivateTab(4) },
+    { key = '6', mods = 'SUPER', action = w.action.ActivateTab(5) },
+    { key = '7', mods = 'SUPER', action = w.action.ActivateTab(6) },
+    { key = '8', mods = 'SUPER', action = w.action.ActivateTab(7) },
+    { key = '9', mods = 'SUPER', action = w.action.ActivateTab(8) },
+    { key = '0', mods = 'SUPER', action = w.action.ActivateTab(9) },
+
     { key = '-', mods = 'SUPER', action = w.action.DecreaseFontSize },
     { key = '0', mods = 'SUPER', action = w.action.ResetFontSize },
     { key = '=', mods = 'SUPER', action = w.action.IncreaseFontSize },
@@ -93,5 +104,8 @@ return {
     { key = 'q', mods = 'CMD', action = action.QuitApplication },
     { key = 'w', mods = 'CMD', action = action.CloseCurrentTab({ confirm = false }) },
     { key = 'x', mods = 'CTRL|SHIFT', action = action.ActivateCopyMode },
+
+    { key = 'p', mods = 'CMD|SHIFT', action = action.ActivateCommandPalette },
+    { key = 'p', mods = 'CTRL|SHIFT', action = action.ActivateCommandPalette },
   },
 }
