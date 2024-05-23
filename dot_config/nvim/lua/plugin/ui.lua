@@ -46,8 +46,23 @@ return {
   {
     'petertriho/nvim-scrollbar',
     event = 'BufReadPre',
+    cond = false,
     opts = {
       handlers = { gitsigns = true },
+    },
+  },
+  {
+    'dstein64/nvim-scrollview',
+    event = 'BufReadPre',
+    opts = {
+      always_show = true,
+      signs_max_per_row = 1,
+      signs_on_startup = {
+        'cursor',
+        'diagnostics',
+        'marks',
+        'search',
+      },
     },
   },
   {
