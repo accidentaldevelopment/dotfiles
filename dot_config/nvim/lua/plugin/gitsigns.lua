@@ -53,7 +53,7 @@ return {
   },
   {
     'echasnovski/mini-git',
-    name = 'mini.git',
+    main = 'mini.git',
     event = 'BufReadPre',
     opts = {},
   },

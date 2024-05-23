@@ -3,11 +3,11 @@ return {
     'shellRaining/hlchunk.nvim',
     event = { 'UIEnter' },
     opts = {
-      line_num = {
-        enable = false,
+      chunk = {
+        enable = true,
       },
-      blank = {
-        enable = false,
+      indent = {
+        enable = true,
       },
     },
   },
