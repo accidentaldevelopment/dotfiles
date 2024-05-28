@@ -54,16 +54,29 @@ return {
   {
     'dstein64/nvim-scrollview',
     event = 'BufReadPre',
+    ---@type {builtin: any, gitsigns:any}
     opts = {
-      always_show = true,
-      signs_max_per_row = 1,
-      signs_on_startup = {
-        'cursor',
-        'diagnostics',
-        'marks',
-        'search',
+      builtin = {
+        always_show = true,
+        signs_max_per_row = 1,
+        signs_on_startup = {
+          'cursor',
+          'diagnostics',
+          'marks',
+          'search',
+        },
+      },
+      gitsigns = {
+
+        add_symbol = '+',
+        change_symbol = '=',
+        delete_symbol = '-',
       },
     },
+    config = function(_, opts)
+      require('scrollview.contrib.gitsigns').setup(opts.gitsigns)
+      require('scrollview').setup(opts.builtin)
+    end,
   },
   {
     'iamcco/markdown-preview.nvim',

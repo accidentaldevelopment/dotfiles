@@ -18,11 +18,7 @@ return {
   {
     'nvim-tree/nvim-web-devicons',
     dependencies = 'DaikyXendo/nvim-material-icon',
-    opts = function()
-      return {
-        override = require('nvim-material-icon').get_icons(),
-      }
-    end,
+    opts = {},
   },
   {
     'echasnovski/mini.files',
