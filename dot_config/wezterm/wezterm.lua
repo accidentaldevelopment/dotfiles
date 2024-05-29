@@ -1,6 +1,5 @@
 local wezterm = require('wezterm')
 local action = wezterm.action
-
 local search_mode = wezterm.gui.default_key_tables().search_mode
 
 local keymaps = require('keymaps')
@@ -70,5 +69,13 @@ config.keys = keymaps.keys
 config.key_tables = {
   search_mode = search_mode,
 }
+
+wezterm.plugin.require('https://github.com/mrjones2014/smart-splits.nvim').apply_to_config(config, {
+  direction_keys = { 'h', 'j', 'k', 'l' },
+  modifiers = {
+    move = 'LEADER',
+    resize = 'META',
+  },
+})
 
 return config
