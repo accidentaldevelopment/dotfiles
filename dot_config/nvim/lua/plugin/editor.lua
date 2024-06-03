@@ -1,21 +1,5 @@
 return {
   {
-    'alker0/chezmoi.vim',
-    priority = 9900,
-    lazy = false,
-    cond = false,
-    --- @param plugin LazyPlugin
-    init = function(plugin)
-      for _, a in ipairs(vim.fn.argv()) do
-        if a:find('chezmoi-edit', 1, true) ~= nil then
-          vim.notify('enabling chezmoi', vim.log.levels.INFO)
-          plugin.cond = true
-          return nil
-        end
-      end
-    end,
-  },
-  {
     'nvim-tree/nvim-web-devicons',
     dependencies = 'DaikyXendo/nvim-material-icon',
     opts = {},

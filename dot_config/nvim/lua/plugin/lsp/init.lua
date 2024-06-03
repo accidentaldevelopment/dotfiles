@@ -147,22 +147,6 @@ return {
     },
   },
   {
-    'nvimtools/none-ls.nvim',
-    cond = false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'mason.nvim' },
-    opts = function()
-      local nls = require('null-ls')
-      return {
-        -- root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
-        border = 'rounded',
-        sources = {
-          nls.builtins.diagnostics.fish,
-        },
-      }
-    end,
-  },
-  {
     'stevearc/conform.nvim',
     dependencies = { 'mason.nvim' },
     event = { 'BufReadPre', 'BufNewFile' },
@@ -185,7 +169,6 @@ return {
       },
     },
   },
-
   {
     'mfussenegger/nvim-lint',
     dependencies = { 'mason.nvim' },

@@ -44,14 +44,6 @@ return {
     },
   },
   {
-    'petertriho/nvim-scrollbar',
-    event = 'BufReadPre',
-    cond = false,
-    opts = {
-      handlers = { gitsigns = true },
-    },
-  },
-  {
     'dstein64/nvim-scrollview',
     event = 'BufReadPre',
     ---@type {builtin: any, gitsigns:any}
