@@ -104,7 +104,6 @@ return {
       {
         'williamboman/mason-lspconfig.nvim',
       },
-      { 'folke/neodev.nvim', config = true },
     },
     opts = function()
       local capabilities = vim.tbl_deep_extend(
@@ -134,6 +133,18 @@ return {
         handlers = opts.handlers,
       })
     end,
+  },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    dependencies = {
+      'Bilal2453/luvit-meta',
+    },
+    opts = {
+      library = {
+        'luvit-meta/library',
+      },
+    },
   },
   {
     'nvimtools/none-ls.nvim',

@@ -71,10 +71,8 @@ config.key_tables = {
 }
 
 wezterm.plugin.require('https://github.com/mrjones2014/smart-splits.nvim').apply_to_config(config, {
-  direction_keys = { 'h', 'j', 'k', 'l' },
   modifiers = {
     move = 'LEADER',
-    resize = 'META',
   },
 })
 
