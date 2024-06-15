@@ -1,9 +1,4 @@
-[".config/zsh/fast-syntax-highlighting"]
-    type = "git-repo"
-    url = "https://github.com/zdharma-continuum/fast-syntax-highlighting.git"
-    refreshPeriod = "168h"
-
-[".config/zsh/zsh-autosuggestions"]
-    type = "git-repo"
-    url = "https://github.com/zsh-users/zsh-autosuggestions.git"
-    refreshPeriod = "168h"
+[".config/bat/themes/catppuccin-mocha.tmTheme"]
+type = 'file'
+url = 'https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme'
+refreshPeriod = "168h"
