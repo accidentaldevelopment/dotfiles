@@ -41,6 +41,11 @@ config.font = wezterm.font({
     'CLIK=1',
   },
 })
+
+config.set_environment_variables = {
+  XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
+}
+
 config.mouse_bindings = {
   {
     event = { Up = { streak = 1, button = 'Left' } },
