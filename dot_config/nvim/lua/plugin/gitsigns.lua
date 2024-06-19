@@ -6,12 +6,7 @@ return {
     current_line_blame_opts = {
       virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
     },
-    current_line_blame_formatter_opts = {
-      relative_time = false,
-    },
-    yadm = {
-      enable = false,
-    },
+    current_line_blame_formatter = ' <author>, <author_time> - <summary> ',
     on_attach = function(buffer)
       local wk = require('which-key')
 

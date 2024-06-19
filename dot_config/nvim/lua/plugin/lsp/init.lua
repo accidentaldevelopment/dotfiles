@@ -10,6 +10,9 @@ vim.diagnostic.config({
   float = {
     border = 'rounded',
   },
+  jump = {
+    float = true,
+  },
   update_in_insert = true,
   severity_sort = true,
 })
