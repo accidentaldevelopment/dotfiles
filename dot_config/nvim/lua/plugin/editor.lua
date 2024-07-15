@@ -35,31 +35,26 @@ return {
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
+    --- @type wk.Opts
     opts = {
-      window = {
+      preset = 'helix',
+      win = {
         border = 'rounded',
       },
-    },
-    config = function(_, opts)
-      local wk = require('which-key')
-      wk.setup(opts)
-      wk.register({
+      spec = {
         mode = { 'n', 'v' },
-        cr = { name = 'refactor' },
-        g = { name = 'goto' },
-        s = { name = 'surround' },
-        [']'] = { name = 'next' },
-        ['['] = { name = 'prev' },
-        ['<leader><tab>'] = { name = 'tabs' },
-        ['<leader>L'] = { require('lazy').home, 'Show Lazy' },
-        ['<leader>g'] = { name = 'git' },
-        ['<leader>gh'] = { name = 'hunks' },
-        ['<leader>o'] = { name = 'open' },
-        ['<leader>s'] = { name = 'search' },
-        ['<leader>t'] = { name = 'toggle' },
-        ['<leader>x'] = { name = 'diagnostics/quickfix' },
-      })
-    end,
+        { '<leader><tab>', group = 'tabs' },
+        { '<leader>L', '<cmd>Lazy<cr>', desc = 'Show Lazy' },
+        { '<leader>g', group = 'git' },
+        { '<leader>o', group = 'open' },
+        { '<leader>s', group = 'search' },
+        { '<leader>t', group = 'toggle' },
+        { 'g', group = 'goto' },
+        { 's', group = 'surround' },
+        { ']', group = 'next' },
+        { '[', group = 'prev' },
+      },
+    },
   },
   {
     'echasnovski/mini.cursorword',

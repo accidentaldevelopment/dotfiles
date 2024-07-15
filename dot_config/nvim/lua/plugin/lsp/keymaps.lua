@@ -4,55 +4,53 @@ local M = {}
 ---@param client vim.lsp.Client LSP Client object
 ---@param buffer number Buffer number
 function M.on_attach(client, buffer)
-  require('which-key').register({
+  require('which-key').add({
     buffer = buffer,
-    ['<leader>l'] = {
-      name = 'LSP',
-      I = { '<CMD>LspInstallInfo<CR>', 'Installer Info' },
-      S = { '<CMD>Telescope lsp_dynamic_workspace_symbols<CR>', 'Workspace Symbols' },
-      i = { '<CMD>LspInfo<CR>', 'Info' },
-      l = { vim.lsp.codelens.run, 'CodeLens Action' },
-      n = { '<CMD>Navbuddy<CR>', 'Show Navbuddy' },
-      q = { vim.lsp.diagnostic.set_loclist, 'Quickfix' },
-      s = { '<CMD>Telescope lsp_document_symbols<CR>', 'Document Symbols' },
-    },
-    ['<localleader>'] = {
-      n = { '<CMD>Navbuddy<cr>', 'Show Navbuddy' },
-      i = { '<CMD>LspInfo<cr>', 'Info' },
-    },
-    g = {
-      name = '+goto',
-      d = { '<CMD>Telescope lsp_definitions<CR>', 'Goto Definition' },
-      D = { '<CMD>Telescope lsp_declarations<CR>', 'Goto Declaration' },
-      I = { '<CMD>Telescope lsp_implementations<CR>', 'Goto Implementation' },
-      t = { '<CMD>Telescope lsp_type_definitions<CR>', 'Goto Type Definition' },
-    },
-    gr = {
-      r = { '<CMD>Telescope lsp_references<CR>', 'LSP References' },
-    },
-    ['[e'] = {
+    { '<leader>l', group = 'LSP' },
+    { '<leader>lI', '<CMD>LspInstallInfo<CR>', desc = 'Installer Info' },
+    { '<leader>lS', '<CMD>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
+    { '<leader>li', '<CMD>LspInfo<CR>', desc = 'Info' },
+    { '<leader>ll', vim.lsp.codelens.run, desc = 'CodeLens Action' },
+    { '<leader>ln', '<CMD>Navbuddy<CR>', desc = 'Show Navbuddy' },
+    { '<leader>lq', vim.lsp.diagnostic.set_loclist, desc = 'Quickfix' },
+    { '<leader>ls', '<CMD>Telescope lsp_document_symbols<CR>', desc = 'Document Symbols' },
+
+    { '<localleader>n', '<CMD>Navbuddy<cr>', desc = 'Show Navbuddy' },
+    { '<localleader>i', '<CMD>LspInfo<cr>', desc = 'Info' },
+
+    { 'gd', '<CMD>Telescope lsp_definitions<CR>', desc = 'Goto Definition' },
+    { 'gD', '<CMD>Telescope lsp_declarations<CR>', desc = 'Goto Declaration' },
+    { 'gI', '<CMD>Telescope lsp_implementations<CR>', desc = 'Goto Implementation' },
+    { 'gt', '<CMD>Telescope lsp_type_definitions<CR>', desc = 'Goto Type Definition' },
+
+    {
+      '[e',
       function()
         vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
       end,
-      'Previous Error',
+      desc = 'Previous Error',
     },
-    [']e'] = {
+    {
+      ']e',
       function()
         vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
       end,
-      'Next Error',
+      desc = 'Next Error',
     },
-    ['[w'] = {
+
+    {
+      '[w',
       function()
         vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.WARN })
       end,
-      'Previous Warning',
+      desc = 'Previous Warning',
     },
-    [']w'] = {
+    {
+      ']w',
       function()
         vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.WARN })
       end,
-      'Next Warning',
+      desc = 'Next Warning',
     },
   })
 end
