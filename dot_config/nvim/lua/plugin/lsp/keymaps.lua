@@ -23,6 +23,10 @@ function M.on_attach(client, buffer)
     { 'gI', '<CMD>Telescope lsp_implementations<CR>', desc = 'Goto Implementation' },
     { 'gt', '<CMD>Telescope lsp_type_definitions<CR>', desc = 'Goto Type Definition' },
 
+    { 'gra', desc = 'Code Actions' },
+    { 'grn', desc = 'Rename' },
+    { 'grr', '<CMD>Telescope lsp_references<CR>', desc = 'References' },
+
     {
       '[e',
       function()
