@@ -161,6 +161,9 @@ return {
       format_on_save = function()
         require('formatting').format()
       end,
+      default_format_opts = {
+        lsp_format = 'prefer',
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         fish = { 'fish_indent' },

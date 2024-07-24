@@ -48,16 +48,15 @@ M.LspActive = {
 M.Format = {
   ---@param self Format
   condition = function(self)
-    local conform = package.loaded.conform
-    if conform then
-      local formatters = conform.list_formatters()
-      if formatters[1] ~= nil then
-        self.formatters = formatters
-        return true
-      elseif conform.will_fallback_lsp() then
-        self.lsp_fallback = true
-        return true
-      end
+    -- next two lines are some annoyance to get LazyDev to know conform types.
+    if package.loaded.conform then
+      local conform = require('conform')
+
+      -- TODO: figure out why `lsp_fallback` doesn't work
+      local formatters, lsp_fallback = conform.list_formatters()
+      self.formatters = formatters
+      self.lsp_fallback = lsp_fallback
+      return true
     end
     return false
   end,
