@@ -162,7 +162,7 @@ return {
         require('formatting').format()
       end,
       default_format_opts = {
-        lsp_format = 'prefer',
+        lsp_format = 'fallback',
       },
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -182,20 +182,6 @@ return {
     ft = function(p)
       return vim.tbl_keys(p.opts.linters_by_ft)
     end,
-    ---@param p LazyPlugin
-    init = function(p)
-      local linters = p.opts.linters_by_ft
-
-      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-        callback = function(args)
-          local ft = vim.bo[args.buf].ft
-
-          if linters[ft] then
-            require('lint').try_lint()
-          end
-        end,
-      })
-    end,
     opts = {
       linters_by_ft = {
         fish = { 'fish' },
@@ -203,6 +189,17 @@ return {
     },
     config = function(_, opts)
       require('lint').linters_by_ft = opts.linters_by_ft
+
+      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+        group = vim.api.nvim_create_augroup('Linting', { clear = true }),
+        callback = function(args)
+          local ft = vim.bo[args.buf].ft
+
+          if opts.linters_by_ft[ft] then
+            require('lint').try_lint()
+          end
+        end,
+      })
     end,
   },
 }
