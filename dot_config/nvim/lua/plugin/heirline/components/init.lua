@@ -14,9 +14,9 @@ M.Grapple = file.Grapple
 M.Spell = file.Spell
 M.Indent = file.Indent
 M.HelpFileName = file.HelpFileName
-M.LspActive = lsp.LspActive
 M.Diagnostics = lsp.Diagnostics
 M.Format = lsp.Format
+M.Thing = lsp.Thing
 
 --- LSP-derived breadcrumbs
 M.Navic = {

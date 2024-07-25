@@ -1,44 +1,83 @@
 local conditions = require('heirline.conditions')
 
+local C = require('plugin.heirline.colors')
+
 local M = {}
 
----@class LspActive
----@field ft string The filetype for the current buffer
+local L = ''
+local R = ''
 
---- Lists attached language server processes.
--- TODO: make this work with nvim-lint
-M.LspActive = {
+M.Diagnostics = {
+  static = {
+    signs = vim.diagnostic.config().signs.text,
+  },
   condition = conditions.lsp_attached,
-  update = { 'LspAttach', 'LspDetach', 'BufEnter' },
+  update = { 'DiagnosticChanged', 'BufEnter' },
+  init = function(self)
+    local counts = vim.diagnostic.count(0)
+
+    self.errors = counts[vim.diagnostic.severity.ERROR] or 0
+    self.warnings = counts[vim.diagnostic.severity.WARN] or 0
+    self.hints = counts[vim.diagnostic.severity.HINT] or 0
+    self.info = counts[vim.diagnostic.severity.INFO] or 0
+    return nil
+  end,
+  hl = { bg = C.lsp.bg },
+
   {
-    { provider = ' [' },
+    provider = L,
+    hl = { fg = C.lsp_name.bg, bg = '' },
+  },
+  {
+    provider = '  ',
+    hl = { fg = C.lsp_name.fg, bg = C.lsp_name.bg, bold = true },
     {
-      ---@param self LspActive
-      init = function(self)
-        self.ft = vim.o.filetype
-      end,
-      ---@param self LspActive
-      provider = function(self)
+      provider = function()
         return vim
           .iter(vim.lsp.get_clients({ bufnr = 0 }))
           ---@param c vim.lsp.Client
           :map(function(c)
-            local name = c.name
-            if name == 'null-ls' then
-              return vim
-                .iter(pairs(require('null-ls').get_source({ filetype = self.ft })))
-                :map(function(_, s)
-                  return s.name
-                end)
-                :totable()
-            end
-            return name
+            return c.name
           end)
-          :flatten()
           :join(' ')
       end,
     },
-    { provider = ']' },
+    { provider = ' ' },
+  },
+  {
+    provider = L,
+    hl = { fg = C.lsp.bg, bg = C.lsp_name.bg },
+  },
+  {
+    provider = function(self)
+      return string.format('%s %d', self.signs[vim.diagnostic.severity.ERROR], self.errors)
+    end,
+    hl = { fg = C.diag.err.fg },
+  },
+  { provider = ' ' },
+  {
+    provider = function(self)
+      return string.format('%s %d', self.signs[vim.diagnostic.severity.WARN], self.warnings)
+    end,
+    hl = { fg = C.diag.warn.fg },
+  },
+  { provider = ' ' },
+  {
+    provider = function(self)
+      return string.format('%s %d', self.signs[vim.diagnostic.severity.INFO], self.info)
+    end,
+    hl = { fg = C.diag.info.fg },
+  },
+  { provider = ' ' },
+  {
+    provider = function(self)
+      return string.format('%s %d', self.signs[vim.diagnostic.severity.HINT], self.hints)
+    end,
+    hl = { fg = C.diag.hint.fg },
+  },
+  {
+    provider = R,
+    hl = { fg = C.lsp.bg, bg = '' },
   },
 }
 
@@ -87,52 +126,6 @@ M.Format = {
       return 'SLFormattingDisabled'
     end
   end,
-}
-
---- Diagnostic stats for all attached language servers.
-M.Diagnostics = {
-  condition = conditions.lsp_attached,
-  update = { 'DiagnosticChanged', 'BufEnter' },
-  static = {
-    signs = vim.diagnostic.config().signs.text,
-  },
-  init = function(self)
-    local counts = vim.diagnostic.count(0)
-
-    self.errors = counts[vim.diagnostic.severity.ERROR] or 0
-    self.warnings = counts[vim.diagnostic.severity.WARN] or 0
-    self.hints = counts[vim.diagnostic.severity.HINT] or 0
-    self.info = counts[vim.diagnostic.severity.INFO] or 0
-    return nil
-  end,
-  {
-    provider = function(self)
-      local sign = self.signs[vim.diagnostic.severity.ERROR]
-      return string.format('%s %d ', sign, self.errors)
-    end,
-    hl = 'DiagnosticError',
-  },
-  {
-    provider = function(self)
-      local sign = self.signs[vim.diagnostic.severity.WARN]
-      return string.format('%s %d ', sign, self.warnings)
-    end,
-    hl = 'DiagnosticWarn',
-  },
-  {
-    provider = function(self)
-      local sign = self.signs[vim.diagnostic.severity.INFO]
-      return string.format('%s %d ', sign, self.info)
-    end,
-    hl = 'DiagnosticInfo',
-  },
-  {
-    provider = function(self)
-      local sign = self.signs[vim.diagnostic.severity.HINT]
-      return string.format('%s %d', sign, self.hints)
-    end,
-    hl = 'DiagnosticHint',
-  },
 }
 
 return M
