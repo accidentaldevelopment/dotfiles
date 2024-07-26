@@ -28,7 +28,7 @@ end
 return {
   'rebelot/heirline.nvim',
   dependencies = {
-    'nvim-tree/nvim-web-devicons',
+    'mini.icons',
   },
   event = 'VeryLazy',
   config = function()

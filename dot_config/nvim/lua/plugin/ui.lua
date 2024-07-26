@@ -1,5 +1,12 @@
 return {
   {
+    'echasnovski/mini.icons',
+    opts = {},
+    init = function()
+      return require('mini.icons').mock_nvim_web_devicons()
+    end,
+  },
+  {
     'shellRaining/hlchunk.nvim',
     event = { 'UIEnter' },
     opts = {

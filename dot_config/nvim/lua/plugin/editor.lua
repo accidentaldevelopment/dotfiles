@@ -1,10 +1,5 @@
 return {
   {
-    'nvim-tree/nvim-web-devicons',
-    dependencies = 'DaikyXendo/nvim-material-icon',
-    opts = {},
-  },
-  {
     'echasnovski/mini.files',
     keys = {
       {
@@ -24,7 +19,7 @@ return {
       },
     },
     dependencies = {
-      'nvim-tree/nvim-web-devicons',
+      'mini.icons',
     },
     opts = {
       mappings = {
