@@ -150,10 +150,6 @@ return {
     cmd = {
       'RenderMarkdown',
     },
-    opts = {
-      anti_conceal = {
-        enabled = false,
-      },
-    },
+    opts = {},
   },
 }
