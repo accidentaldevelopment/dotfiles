@@ -70,11 +70,4 @@ return {
       require('scrollview').setup(opts.builtin)
     end,
   },
-  {
-    'iamcco/markdown-preview.nvim',
-    ft = { 'markdown', 'md' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
-  },
 }

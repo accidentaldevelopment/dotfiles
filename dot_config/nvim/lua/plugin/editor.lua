@@ -142,4 +142,18 @@ return {
       require('grapple').setup(opts)
     end,
   },
+  {
+    'MeanderingProgrammer/markdown.nvim',
+    main = 'render-markdown',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    ft = 'markdown',
+    cmd = {
+      'RenderMarkdown',
+    },
+    opts = {
+      anti_conceal = {
+        enabled = false,
+      },
+    },
+  },
 }
