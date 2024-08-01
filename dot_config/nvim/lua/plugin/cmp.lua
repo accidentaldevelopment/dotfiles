@@ -1,34 +1,13 @@
-local kind_icons = {
-  Text = '󰉿',
-  Method = 'm',
-  Function = '󰡱',
-  Constructor = '',
-  Field = '',
-  Variable = '󰆧',
-  Class = '󰌗',
-  Interface = '',
-  Module = '',
-  Property = '',
-  Unit = '',
-  Value = '󰎠',
-  Enum = '',
-  Keyword = '󰌋',
-  Snippet = '',
-  Color = '󰏘',
-  File = '󰈙',
-  Reference = '',
-  Folder = '󰉋',
-  EnumMember = '',
-  Constant = '󰇽',
-  Struct = '',
-  Event = '',
-  Operator = '󰆕',
-  TypeParameter = '󰊄',
-
+local kind_icons = setmetatable({
   -- cargo stuff
-  Version = 'v',
-  Feature = 'f',
-}
+  -- Version = 'v',
+  -- Feature = 'f',
+}, {
+  __index = function(t, k)
+    t[k] = string.format('%s ', require('mini.icons').get('lsp', vim.lsp.protocol.CompletionItemKind[k]))
+    return t[k]
+  end,
+})
 
 ---@class CmpConfigs
 ---@field global cmp.ConfigSchema
@@ -69,18 +48,11 @@ return {
             ['<CR>'] = cmp.mapping.confirm({ select = true }),
           }),
           formatting = {
-            fields = { 'kind', 'abbr', 'menu' },
             ---@param entry cmp.Entry
             ---@param vim_item vim.CompletedItem
             ---@return vim.CompletedItem
             format = function(entry, vim_item)
-              local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
-              if icon then
-                vim_item.kind = icon
-                vim_item.kind_hl_group = hl_group
-              else
-                vim_item.kind = kind_icons[vim_item.kind] or vim_item.kind
-              end
+              vim_item.kind = kind_icons[entry:get_kind()]
               return vim_item
             end,
           },
