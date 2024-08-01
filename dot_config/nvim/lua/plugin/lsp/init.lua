@@ -118,18 +118,24 @@ return {
 
       return {
         handlers = {},
+        settings = {},
         capabilities = capabilities,
       }
     end,
     config = function(_, opts)
       table.insert(opts.handlers, 1, function(server_name)
-        local ok, lsp_opts = pcall(require, 'plugin.lsp.settings.' .. server_name)
-        local opts = vim.tbl_deep_extend('force', opts, {
+        local lsp_setup = {
+          settings = opts.settings or {},
           capabilities = opts.capabilities,
-        }, ok and lsp_opts or {})
+        }
 
-        require('lspconfig')[server_name].setup(opts)
+        local ok, file_settings = pcall(require, 'plugin.lsp.settings.' .. server_name)
+
+        lsp_setup = vim.tbl_extend('force', lsp_setup, ok and file_settings or {})
+
+        require('lspconfig')[server_name].setup(lsp_setup)
       end)
+
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
       require('mason-lspconfig').setup({
