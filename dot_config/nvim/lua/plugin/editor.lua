@@ -145,6 +145,24 @@ return {
     cmd = {
       'RenderMarkdown',
     },
-    opts = {},
+    opts = {
+      overrides = {
+        buftype = {
+          -- Chances are nofile is just for reading, so don't ever anti-conceal
+          nofile = {
+            win_options = {
+              concealcursor = {
+                default = 'nvic',
+                rendered = 'nvic',
+              },
+            },
+            anti_conceal = {
+              enabled = false,
+            },
+            sign = { enabled = false },
+          },
+        },
+      },
+    },
   },
 }
