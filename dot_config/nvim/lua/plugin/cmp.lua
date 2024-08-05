@@ -24,7 +24,6 @@ return {
       'hrsh7th/cmp-cmdline',
       'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
-      'saadparwaiz1/cmp_luasnip',
     },
     opts = function()
       local cmp = require('cmp')
@@ -32,7 +31,7 @@ return {
         global = {
           snippet = {
             expand = function(args)
-              require('luasnip').lsp_expand(args.body)
+              vim.snippet.expand(args.body)
             end,
           },
           mapping = cmp.mapping.preset.insert({
@@ -59,7 +58,6 @@ return {
           sources = {
             { name = 'nvim_lsp' },
             { name = 'nvim_lsp_signature_help' },
-            { name = 'luasnip' },
             { name = 'buffer' },
             { name = 'path' },
           },
