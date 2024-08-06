@@ -30,7 +30,7 @@ return {
   dependencies = {
     'mini.icons',
   },
-  event = 'VeryLazy',
+  lazy = false,
   config = function()
     local utils = require('heirline.utils')
     local conditions = require('heirline.conditions')
@@ -68,7 +68,14 @@ return {
       c.ScrollBar,
     }
 
-    local DefaultWinbar = { c.Navic }
+    local DefaultWinbar = {
+      c.Space,
+      c.ShortFileName,
+      c.Space,
+      c.FileFlags,
+      c.Space,
+      c.Navic,
+    }
 
     local SpecialStatusLine = utils.insert({
       condition = function()
@@ -103,7 +110,7 @@ return {
     require('heirline').setup({
       statusline = StatusLines,
       winbar = DefaultWinbar,
-      tabline = require('plugin.heirline.bufferline'),
+      -- tabline = require('plugin.heirline.bufferline'),
       -- statuscolumn = statuscolumn,
       opts = {
         colors = setup_colors,

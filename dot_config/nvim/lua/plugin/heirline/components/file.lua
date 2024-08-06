@@ -52,6 +52,19 @@ M.FileName = utils.insert(file_name, M.FileIcon, {
   },
 })
 
+--- Name of current file
+M.ShortFileName = utils.insert(file_name, M.FileIcon, {
+  {
+    provider = function(self)
+      return vim.fn.fnamemodify(self.filename, ':t')
+    end,
+  },
+  on_click = {
+    -- defined in Filename
+    callback = '_copy_filepath',
+  },
+})
+
 --- File type
 M.FileType = {
   provider = function()
@@ -80,7 +93,7 @@ M.FileFlags = {
     condition = function()
       return vim.bo.modified
     end,
-    provider = '',
+    provider = '●',
     hl = 'SLFileFlagsModified',
   },
   {

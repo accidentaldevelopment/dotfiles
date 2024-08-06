@@ -26,10 +26,6 @@ vim.keymap.set('n', '<C-j>', require('smart-splits').move_cursor_down)
 vim.keymap.set('n', '<C-k>', require('smart-splits').move_cursor_up)
 vim.keymap.set('n', '<C-l>', require('smart-splits').move_cursor_right)
 
--- Navigate buffers
-vim.keymap.set('n', '<S-l>', '<cmd>bnext<CR>')
-vim.keymap.set('n', '<S-h>', '<cmd>bprevious<CR>')
-
 -- Insert --
 -- Press jk fast to enter
 vim.keymap.set('i', 'jk', '<ESC>')

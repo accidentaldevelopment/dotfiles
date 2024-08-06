@@ -8,6 +8,7 @@ M.Git = require('plugin.heirline.components.git')
 
 M.FileIcon = file.FileIcon
 M.FileName = file.FileName
+M.ShortFileName = file.ShortFileName
 M.FileType = file.FileType
 M.FileFlags = file.FileFlags
 M.Grapple = file.Grapple

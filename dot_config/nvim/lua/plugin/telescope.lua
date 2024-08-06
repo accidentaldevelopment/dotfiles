@@ -6,6 +6,7 @@ return {
   },
   keys = {
     { '<leader>b', '<cmd>Telescope buffers<cr>', desc = 'Search buffers' },
+    { '<tab>', '<cmd>Telescope buffers<cr>', desc = 'Search buffers' },
 
     -- require('telescope.themes').get_dropdown({ previewer = false }))
     { '<leader>f', '<cmd>Telescope find_files hidden=true<cr>', desc = 'Find files' },
