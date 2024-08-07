@@ -138,8 +138,7 @@ return {
     end,
   },
   {
-    'MeanderingProgrammer/markdown.nvim',
-    main = 'render-markdown',
+    'MeanderingProgrammer/render-markdown.nvim',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     ft = 'markdown',
     cmd = {
