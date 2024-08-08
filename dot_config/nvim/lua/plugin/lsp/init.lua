@@ -17,12 +17,6 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-vim.lsp.handlers[vim.lsp.protocol.Methods.textDocument_hover] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = 'rounded',
-  width = math.ceil(vim.o.columns * 0.50),
-  max_width = math.ceil(vim.o.columns * 0.75),
-})
-
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Run when a language server is attached',
   callback = function(args)
