@@ -34,13 +34,34 @@ config.window_padding = {
   top = '0.5cell',
   bottom = 0,
 }
-config.font = wezterm.font({
-  family = 'Iosevka Term',
-  harfbuzz_features = {
-    'calt=0',
-    'CLIK=1',
-  },
-})
+
+-- config.font = wezterm.font({
+--   family = 'Iosevka Term',
+--   harfbuzz_features = {
+--     'calt=0',
+--     'CLIK=1',
+--   },
+-- })
+
+do
+  local features = { 'ss01', 'ss03', 'ss06', 'ss07' }
+
+  config.font = wezterm.font({
+    family = 'Victor Mono',
+    harfbuzz_features = features,
+  })
+
+  config.font_rules = {
+    {
+      italic = true,
+      font = wezterm.font({
+        family = 'Victor Mono',
+        style = 'Oblique',
+        harfbuzz_features = features,
+      }),
+    },
+  }
+end
 
 config.set_environment_variables = {
   XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
