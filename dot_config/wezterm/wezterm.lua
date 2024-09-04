@@ -35,6 +35,8 @@ config.window_padding = {
   bottom = 0,
 }
 
+config.font_size = 11
+
 -- config.font = wezterm.font({
 --   family = 'Iosevka Term',
 --   harfbuzz_features = {
