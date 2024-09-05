@@ -6,6 +6,8 @@ return {
     bg = 'lsp_bg',
   },
 
+  formating_toggle_on = 'green',
+
   --- @enum LSPNameColors
   lsp_name = {
     fg = 'lsp_name_fg',

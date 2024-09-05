@@ -11,6 +11,8 @@ local function setup_colors()
     [C.lsp.fg] = palette.text,
     [C.lsp.bg] = palette.surface1,
 
+    [C.formating_toggle_on] = palette.green,
+
     [C.lsp_name.fg] = palette.surface0,
     [C.lsp_name.bg] = palette.lavender,
 

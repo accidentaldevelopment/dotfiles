@@ -23,6 +23,30 @@ function M.format(force)
   end
 end
 
+--- @param bufnr? number Buffer to collect formatters for. If nil or 0 will use the current buffer.
+--- @return string[]
+function M.get_formatters_for_buffer(bufnr)
+  local formatters, lsp_fallback = require('conform').list_formatters_to_run(bufnr)
+
+  if lsp_fallback then
+    return vim
+      .iter(ipairs(vim.lsp.get_clients({ bufnr = bufnr, method = vim.lsp.protocol.Methods.textDocument_formatting })))
+      --- @param c vim.lsp.Client
+      :map(function(_, c)
+        return c.name
+      end)
+      :totable()
+  end
+
+  return vim
+    .iter(ipairs(formatters))
+    --- @param f conform.FormatterInfo
+    :map(function(_, f)
+      return f.name
+    end)
+    :totable()
+end
+
 local function setup()
   if setup_done then
     vim.notify('formatting setup has already run', vim.log.levels.ERROR)

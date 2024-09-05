@@ -1,4 +1,5 @@
 local conditions = require('heirline.conditions')
+local colors = require('plugin.heirline.colors')
 
 local C = require('plugin.heirline.colors')
 
@@ -82,50 +83,62 @@ M.Diagnostics = {
 }
 
 ---@class Format
----@field formatters? conform.FormatterInfo[]
----@field lsp_fallback? boolean
-M.Format = {
-  ---@param self Format
-  condition = function(self)
-    -- next two lines are some annoyance to get LazyDev to know conform types.
-    if package.loaded.conform then
-      local conform = require('conform')
+---@field formatters_names string
+---@field enabled boolean
 
-      -- TODO: figure out why `lsp_fallback` doesn't work
-      local formatters, lsp_fallback = conform.list_formatters()
-      self.formatters = formatters
-      self.lsp_fallback = lsp_fallback
-      return true
-    end
-    return false
-  end,
-  update = { 'User', pattern = 'FormatOnSave' },
-
-  { provider = '𝑓(' },
+local FormattingEnabled = {
+  hl = 'SLFormattingEnabled',
+  {
+    provider = ' 󰔡  ',
+    hl = { fg = colors.formating_toggle_on },
+  },
   {
     ---@param self Format
     provider = function(self)
-      if self.lsp_fallback then
-        return 'lsp'
-      else
-        return vim
-          .iter(ipairs(self.formatters))
-          :map(function(_, f)
-            return f.name
-          end)
-          :join(' ')
-      end
+      return self.formatters_names
     end,
   },
-  { provider = ')' },
+}
 
-  hl = function()
-    if require('formatting').format_on_save() then
-      return 'SLFormattingEnabled'
-    else
-      return 'SLFormattingDisabled'
-    end
+local FormattingDisabled = {
+  hl = 'SLFormattingDisabled',
+  {
+    provider = ' 󰔢  ',
+    hl = { fg = colors.formating_toggle_off },
+  },
+  {
+    ---@param self Format
+    provider = function(self)
+      return self.formatters_names
+    end,
+  },
+}
+
+-- TODO: This whole thing is pretty pug fugly. There must be a better way!
+M.Format = {
+  condition = function()
+    return package.loaded.conform ~= nil
   end,
+  {
+    ---@param self Format
+    init = function(self)
+      self.formatters_names = table.concat(require('formatting').get_formatters_for_buffer(), '  ')
+      self.enabled = require('formatting').format_on_save()
+    end,
+
+    {
+      fallthrough = false,
+      {
+        ---@param self Format
+        condition = function(self)
+          return self.enabled
+        end,
+        FormattingEnabled,
+      },
+
+      FormattingDisabled,
+    },
+  },
 }
 
 return M
