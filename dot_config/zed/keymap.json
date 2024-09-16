@@ -1,0 +1,54 @@
+[
+  {
+    "bindings": {
+      "ctrl-k": "menu::SelectPrev",
+      "ctrl-j": "menu::SelectNext",
+      "cmd-shift-enter": "zed::ToggleFullScreen",
+
+      "ctrl-b -": "pane::SplitHorizontal",
+      "ctrl-b |": "pane::SplitVertical"
+    }
+  },
+  {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-w h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-w l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-w k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-w j": ["workspace::ActivatePaneInDirection", "Down"]
+      // ... or other keybindings
+    }
+  },
+  {
+    "context": "Editor && (showing_code_actions || showing_completions)",
+    "bindings": {
+      "ctrl-k": "editor::ContextMenuPrev",
+      "ctrl-j": "editor::ContextMenuNext"
+    }
+  },
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      "shift-h": "pane::ActivatePrevItem",
+      "shift-l": "pane::ActivateNextItem"
+    }
+  },
+  {
+    "context": "VimControl && !menu",
+    "bindings": {
+      // g r commands
+      "g r a": "editor::ToggleCodeActions",
+      "g r r": "editor::FindAllReferences",
+      "g r n": "editor::Rename",
+
+      // local leader
+      "\\ w": "pane::CloseActiveItem"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "s a": ["vim::PushOperator", { "AddSurrounds": {} }]
+    }
+  }
+]
