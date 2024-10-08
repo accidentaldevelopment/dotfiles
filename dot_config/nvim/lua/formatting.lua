@@ -30,7 +30,7 @@ function M.get_formatters_for_buffer(bufnr)
 
   if lsp_fallback then
     return vim
-      .iter(ipairs(vim.lsp.get_clients({ bufnr = bufnr, method = vim.lsp.protocol.Methods.textDocument_formatting })))
+      .iter(ipairs(vim.lsp.get_clients({ bufnr = bufnr or 0, method = vim.lsp.protocol.Methods.textDocument_formatting })))
       --- @param c vim.lsp.Client
       :map(function(_, c)
         return c.name
