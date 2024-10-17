@@ -31,6 +31,7 @@ M.Diagnostics = {
   },
   {
     provider = '  ',
+    update = 'LspAttach',
     hl = { fg = C.lsp_name.fg, bg = C.lsp_name.bg, bold = true },
     {
       provider = function()

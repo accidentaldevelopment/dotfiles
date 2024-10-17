@@ -9,12 +9,42 @@ local kind_icons = setmetatable({
   end,
 })
 
+---@module "cmp"
 ---@class CmpConfigs
 ---@field global cmp.ConfigSchema
 ---@field search cmp.ConfigSchema
 ---@field ex cmp.ConfigSchema
 
+--- @module "lazy.nvim"
+--- @type LazyPluginSpec[]
 return {
+  {
+    'saghen/blink.cmp',
+    event = 'VeryLazy',
+    version = 'v0.*',
+    --- @module "blink.cmp"
+    --- @type blink.cmp.Config
+    --- @diagnostic disable: missing-fields
+    opts = {
+      keymap = {
+        accept = { '<cr>', '<tab>' },
+        select_prev = { '<Up>', '<C-k>' },
+        select_next = { '<Down>', '<C-j>' },
+      },
+      windows = {
+        autocomplete = {
+          border = 'rounded',
+        },
+        documentation = {
+          border = 'rounded',
+        },
+      },
+      highlight = {
+        use_nvim_cmp_as_default = true,
+      },
+    },
+    --- @diagnostic enable: missing-fields
+  },
   {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
@@ -55,12 +85,12 @@ return {
               return vim_item
             end,
           },
-          sources = {
-            { name = 'nvim_lsp' },
-            { name = 'nvim_lsp_signature_help' },
-            { name = 'buffer' },
-            { name = 'path' },
-          },
+          -- sources = {
+          --   { name = 'nvim_lsp' },
+          --   { name = 'nvim_lsp_signature_help' },
+          --   { name = 'buffer' },
+          --   { name = 'path' },
+          -- },
           window = {
             completion = cmp.config.window.bordered(),
             documentation = cmp.config.window.bordered(),
@@ -88,11 +118,11 @@ return {
     config = function(_, opts)
       local cmp = require('cmp')
 
-      cmp.setup(opts.global)
+      -- cmp.setup(opts.global)
 
-      cmp.setup.cmdline(':', opts.ex)
+      cmp.setup.cmdline(':', vim.tbl_deep_extend('force', opts.global, opts.ex))
 
-      cmp.setup.cmdline({ '/', '?' }, opts.search)
+      cmp.setup.cmdline({ '/', '?' }, vim.tbl_deep_extend('force', opts.global, opts.search))
     end,
   },
 }
