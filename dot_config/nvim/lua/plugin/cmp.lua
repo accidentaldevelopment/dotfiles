@@ -15,7 +15,7 @@ local kind_icons = setmetatable({
 ---@field search cmp.ConfigSchema
 ---@field ex cmp.ConfigSchema
 
---- @module "lazy.nvim"
+--- @module "lazy"
 --- @type LazyPluginSpec[]
 return {
   {
@@ -24,12 +24,33 @@ return {
     version = 'v0.*',
     --- @module "blink.cmp"
     --- @type blink.cmp.Config
-    --- @diagnostic disable: missing-fields
     opts = {
       keymap = {
-        accept = { '<cr>', '<tab>' },
-        select_prev = { '<Up>', '<C-k>' },
-        select_next = { '<Down>', '<C-j>' },
+        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+        ['<C-e>'] = { 'hide' },
+        ['<C-y>'] = { 'select_and_accept' },
+        ['<cr>'] = { 'select_and_accept', 'fallback' },
+
+        ['<Tab>'] = {
+          function(cmp)
+            if cmp.is_in_snippet() then
+              return cmp.accept()
+            else
+              return cmp.select_and_accept()
+            end
+          end,
+          'snippet_forward',
+          'fallback',
+        },
+        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+
+        ['<Up>'] = { 'select_prev', 'fallback' },
+        ['<Down>'] = { 'select_next', 'fallback' },
+        ['<C-k>'] = { 'select_prev', 'fallback' },
+        ['<C-j>'] = { 'select_next', 'fallback' },
+
+        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
       },
       windows = {
         autocomplete = {
@@ -38,12 +59,11 @@ return {
         documentation = {
           border = 'rounded',
         },
-      },
-      highlight = {
-        use_nvim_cmp_as_default = true,
+        ghost_text = {
+          enabled = true,
+        },
       },
     },
-    --- @diagnostic enable: missing-fields
   },
   {
     'hrsh7th/nvim-cmp',
@@ -74,7 +94,7 @@ return {
             }),
             -- Accept currently selected item. If none selected, `select` first item.
             -- Set `select` to `false` to only confirm explicitly selected items.
-            ['<CR>'] = cmp.mapping.confirm({ select = true }),
+            -- ['<CR>'] = cmp.mapping.confirm({ select = true }),
           }),
           formatting = {
             ---@param entry cmp.Entry

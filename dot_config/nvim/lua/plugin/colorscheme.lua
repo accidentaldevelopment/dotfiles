@@ -16,8 +16,6 @@ return {
         TabLine = { fg = U.darken(colors.sky, 0.8), bg = colors.base },
         TabLineSel = { fg = colors.sky, bg = colors.base, bold = true },
 
-        Comment = { fg = colors.overlay1 },
-
         MiniCursorwordCurrent = { bg = U.darken(colors.surface1, 0.7, colors.base) },
 
         SLOptionEnabled = { fg = colors.green },
@@ -44,6 +42,7 @@ return {
     end,
     integrations = {
       barbar = false,
+      blink_cmp = true,
       cmp = true,
       dashboard = false,
       fern = false,
