@@ -2,6 +2,19 @@ local ra_config = {
   check = {
     command = 'clippy',
   },
+  semanticHighlighting = {
+    nonStandardTokens = false,
+    punctuation = {
+      separate = {
+        macro = {
+          bang = true,
+        },
+      },
+    },
+    strings = {
+      enable = false,
+    },
+  },
   inlayHints = {
     bindingModeHints = { enable = true },
     closureReturnTypeHints = { enable = true },
