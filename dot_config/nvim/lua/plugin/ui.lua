@@ -1,3 +1,5 @@
+--- @module "lazy"
+--- @type LazyPluginSpec[]
 return {
   {
     'echasnovski/mini.icons',
@@ -23,7 +25,7 @@ return {
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
+      'folke/snacks.nvim',
     },
     opts = {
       views = {

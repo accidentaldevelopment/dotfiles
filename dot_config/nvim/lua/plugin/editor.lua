@@ -1,3 +1,5 @@
+--- @module "lazy"
+--- @type LazyPluginSpec[]
 return {
   {
     'echasnovski/mini.files',
@@ -30,6 +32,7 @@ return {
   {
     'folke/which-key.nvim',
     event = 'VeryLazy',
+    --- @module "which-key"
     --- @type wk.Opts
     opts = {
       preset = 'helix',
@@ -56,26 +59,6 @@ return {
     event = 'BufReadPost',
     config = true,
   },
-  {
-    'echasnovski/mini.bufremove',
-    keys = {
-      {
-        '<localleader>w',
-        function()
-          require('mini.bufremove').delete(0, false)
-        end,
-        desc = 'Delete Buffer',
-      },
-      {
-        '<localleader>W',
-        function()
-          require('mini.bufremove').delete(0, true)
-        end,
-        desc = 'Force Delete Buffer',
-      },
-    },
-  },
-  -- trouble
   {
     'echasnovski/mini.hipatterns',
     event = { 'BufReadPost', 'BufNewFile' },
@@ -136,6 +119,27 @@ return {
       require('telescope').load_extension('grapple')
       require('grapple').setup(opts)
     end,
+  },
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    keys = {
+      {
+        '<localleader>w',
+        function()
+          require('snacks').bufdelete.delete(0)
+        end,
+        desc = 'Delete Buffer',
+      },
+    },
+    --- @module "snacks"
+    --- @type snacks.Config
+    opts = {
+      --- @type snacks.statuscolumn.Config
+      -- maybe use this if we can figure out what it does
+      statuscolumn = { enabled = false },
+    },
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
