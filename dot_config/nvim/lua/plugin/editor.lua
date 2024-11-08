@@ -140,6 +140,11 @@ return {
       -- maybe use this if we can figure out what it does
       statuscolumn = { enabled = false },
     },
+    init = function()
+      local snacks = require('snacks')
+
+      snacks.toggle.option('spell', { name = 'Spell Check' }):map('<localleader>s')
+    end,
   },
   {
     'MeanderingProgrammer/render-markdown.nvim',
