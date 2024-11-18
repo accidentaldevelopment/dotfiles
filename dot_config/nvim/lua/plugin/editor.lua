@@ -136,9 +136,12 @@ return {
     --- @module "snacks"
     --- @type snacks.Config
     opts = {
-      --- @type snacks.statuscolumn.Config
+      bigfile = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
       -- maybe use this if we can figure out what it does
       statuscolumn = { enabled = false },
+      words = { enabled = true },
     },
     init = function()
       local snacks = require('snacks')
