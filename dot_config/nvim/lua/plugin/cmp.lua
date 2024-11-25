@@ -22,48 +22,40 @@ return {
     'saghen/blink.cmp',
     event = 'VeryLazy',
     version = 'v0.*',
-    --- @module "blink.cmp"
-    --- @type blink.cmp.Config
-    opts = {
-      keymap = {
-        ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
-        ['<C-e>'] = { 'hide' },
-        ['<C-y>'] = { 'select_and_accept' },
-        ['<cr>'] = { 'select_and_accept', 'fallback' },
-
-        ['<Tab>'] = {
-          function(cmp)
-            if cmp.is_in_snippet() then
-              return cmp.accept()
-            else
-              return cmp.select_and_accept()
-            end
-          end,
-          'snippet_forward',
-          'fallback',
-        },
-        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
-
-        ['<Up>'] = { 'select_prev', 'fallback' },
-        ['<Down>'] = { 'select_next', 'fallback' },
-        ['<C-k>'] = { 'select_prev', 'fallback' },
-        ['<C-j>'] = { 'select_next', 'fallback' },
-
-        ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-        ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-      },
-      windows = {
-        autocomplete = {
-          border = 'rounded',
-        },
-        documentation = {
-          border = 'rounded',
-        },
-        ghost_text = {
-          enabled = true,
-        },
-      },
+    dependencies = {
+      'echasnovski/mini.icons',
     },
+    opts = function()
+      local mi = require('mini.icons')
+
+      --- @module "blink.cmp"
+      --- @type blink.cmp.Config
+      return {
+        keymap = {
+          preset = 'enter',
+          ['<C-k>'] = { 'select_prev', 'fallback' },
+          ['<C-j>'] = { 'select_next', 'fallback' },
+          ['<C-y>'] = { 'select_and_accept' },
+        },
+        windows = {
+          autocomplete = {
+            border = 'rounded',
+          },
+          documentation = {
+            border = 'rounded',
+            auto_show = true,
+          },
+          ghost_text = {
+            enabled = true,
+          },
+        },
+        kind_icons = vim.iter(ipairs(vim.lsp.protocol.CompletionItemKind)):fold({}, function(acc, _, k)
+          local i = mi.get('lsp', k)
+          acc[k] = i
+          return acc
+        end),
+      }
+    end,
   },
   {
     'hrsh7th/nvim-cmp',
