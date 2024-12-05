@@ -3,7 +3,6 @@ local ra_config = {
     command = 'clippy',
   },
   semanticHighlighting = {
-    nonStandardTokens = false,
     punctuation = {
       separate = {
         macro = {
@@ -34,6 +33,7 @@ return {
     'neovim/nvim-lspconfig',
     opts = function(_, opts)
       opts.settings['rust-analyzer'] = ra_config
+      -- opts.handlers['rust-analyzer'] = ra_config
     end,
   },
   {

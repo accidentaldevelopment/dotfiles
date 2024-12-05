@@ -37,23 +37,27 @@ return {
           ['<C-j>'] = { 'select_next', 'fallback' },
           ['<C-y>'] = { 'select_and_accept' },
         },
-        windows = {
-          autocomplete = {
+        completion = {
+          menu = {
             border = 'rounded',
           },
           documentation = {
-            border = 'rounded',
             auto_show = true,
+            window = {
+              border = 'rounded',
+            },
           },
           ghost_text = {
             enabled = true,
           },
         },
-        kind_icons = vim.iter(ipairs(vim.lsp.protocol.CompletionItemKind)):fold({}, function(acc, _, k)
-          local i = mi.get('lsp', k)
-          acc[k] = i
-          return acc
-        end),
+        appearance = {
+          kind_icons = vim.iter(ipairs(vim.lsp.protocol.CompletionItemKind)):fold({}, function(acc, _, k)
+            local i = mi.get('lsp', k)
+            acc[k] = i
+            return acc
+          end),
+        },
       }
     end,
   },
