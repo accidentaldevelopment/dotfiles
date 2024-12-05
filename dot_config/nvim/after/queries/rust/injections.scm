@@ -1,13 +1,19 @@
 ; extends
 
-; Inject a SQL parser into `sqlx` macros that expect SQL.
-(macro_invocation
-  macro: [(scoped_identifier
-            name: (_) @_macro_name)
-          (identifier) @_macro_name]
-  (token_tree
-    (_ (string_content) @injection.content))
-  (#any-of? @_macro_name "query" "query_as")
+; Inject a SQL parser into `sqlx` macros/functions that expect SQL.
+([(macro_invocation
+    macro: [(scoped_identifier
+      name: (_) @_name)
+        (identifier) @_name]
+      (token_tree
+        (_ (string_content) @injection.content)))
+  (call_expression
+    function: (scoped_identifier
+      path: (identifier)
+      name: (identifier) @_func)
+    arguments: (arguments
+      (_ (string_content) @injection.content)))]
+  (#any-of? @_name "query" "query_as")
   (#set! injection.language "sql"))
 
 ; Mark parser injection points with with a `lang=$lang` comment.
