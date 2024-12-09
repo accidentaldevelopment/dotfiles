@@ -126,6 +126,22 @@ return {
     lazy = false,
     keys = {
       {
+        ']]',
+        function()
+          Snacks.words.jump(vim.v.count1)
+        end,
+        desc = 'Next Reference',
+        mode = { 'n', 't' },
+      },
+      {
+        '[[',
+        function()
+          Snacks.words.jump(-vim.v.count1)
+        end,
+        desc = 'Prev Reference',
+        mode = { 'n', 't' },
+      },
+      {
         '<localleader>w',
         function()
           require('snacks').bufdelete.delete(0)
@@ -139,14 +155,16 @@ return {
       bigfile = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
-      -- maybe use this if we can figure out what it does
-      statuscolumn = { enabled = false },
+      statuscolumn = { enabled = true },
       words = { enabled = true },
     },
     init = function()
-      local snacks = require('snacks')
-
-      snacks.toggle.option('spell', { name = 'Spell Check' }):map('<localleader>s')
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'VeryLazy',
+        callback = function()
+          Snacks.toggle.option('spell', { name = 'Spell Check' }):map('<localleader>s')
+        end,
+      })
     end,
   },
   {

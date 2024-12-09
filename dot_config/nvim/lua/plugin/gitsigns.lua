@@ -16,6 +16,7 @@ return {
         { ']H', '<cmd>Gitsigns nav_hunk last<cr>', desc = 'Last hunk' },
         { '[h', '<cmd>Gitsigns nav_hunk prev<cr>', desc = 'Previous hunk' },
         { '[H', '<cmd>Gitsigns nav_hunk first<cr>', desc = 'First hunk' },
+        { '<leader>gl', '<cmd>Gitsigns toggle_current_line_blame', desc = 'Toggle line blame' },
         { '<leader>gh', group = 'hunk' },
         { '<leader>ghr', '<cmd>Gitsigns reset_hunk<cr>', desc = 'Reset Hunk' },
         {

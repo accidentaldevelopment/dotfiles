@@ -67,12 +67,11 @@ return {
           'search',
         },
       },
-      gitsigns = {
-
-        add_symbol = '+',
-        change_symbol = '=',
-        delete_symbol = '-',
-      },
+      -- gitsigns = {
+      -- add_symbol = '+',
+      -- change_symbol = '=',
+      -- delete_symbol = '-',
+      -- },
     },
     config = function(_, opts)
       require('scrollview.contrib.gitsigns').setup(opts.gitsigns)
