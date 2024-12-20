@@ -9,18 +9,6 @@ return {
     end,
   },
   {
-    'shellRaining/hlchunk.nvim',
-    event = { 'UIEnter' },
-    opts = {
-      chunk = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-      },
-    },
-  },
-  {
     'folke/noice.nvim',
     event = 'VeryLazy',
     dependencies = {

@@ -153,6 +153,15 @@ return {
     --- @type snacks.Config
     opts = {
       bigfile = { enabled = true },
+      indent = {
+        chunk = {
+          enabled = true,
+          char = {
+            corner_top = '╭',
+            corner_bottom = '╰',
+          },
+        },
+      },
       notifier = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },

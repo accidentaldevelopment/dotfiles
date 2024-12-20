@@ -79,6 +79,7 @@ return {
       noice = true,
       notify = true,
       rainbow_delimiters = true,
+      snacks = true,
       telescope = true,
       treesitter = true,
       ts_rainbow = false,
