@@ -30,6 +30,7 @@ return {
 
       --- @module "blink.cmp"
       --- @type blink.cmp.Config
+      ---@diagnostic disable: missing-fields
       return {
         keymap = {
           preset = 'enter',
@@ -40,6 +41,9 @@ return {
         completion = {
           menu = {
             border = 'rounded',
+          },
+          trigger = {
+            show_on_insert_on_trigger_character = false,
           },
           documentation = {
             auto_show = true,
@@ -59,6 +63,7 @@ return {
           end),
         },
       }
+      ---@diagnostic enable: missing-fields
     end,
   },
   {
