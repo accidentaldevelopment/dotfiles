@@ -7,6 +7,7 @@ return {
     version = 'v0.*',
     dependencies = {
       'folke/snacks.nvim',
+      'folke/lazydev.nvim',
     },
     opts = function()
       --- @type blink.cmp.Config
@@ -35,6 +36,19 @@ return {
           },
           ghost_text = {
             enabled = true,
+          },
+        },
+        sources = {
+          per_filetype = {
+            lua = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+          },
+          providers = {
+            lazydev = {
+              name = 'LazyDev',
+              module = 'lazydev.integrations.blink',
+              -- make lazydev completions top priority (see `:h blink.cmp`)
+              score_offset = 100,
+            },
           },
         },
         appearance = {
