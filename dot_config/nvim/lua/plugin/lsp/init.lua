@@ -138,6 +138,10 @@ return {
       end)
 
       require('lspconfig.ui.windows').default_options.border = 'rounded'
+      -- TODO: Handle this correctly (probably via vim.lsp.config)
+      require('lspconfig').denols.setup(vim.tbl_extend('force', {
+        capabilities = opts.capabilities,
+      }, require('plugin.lsp.settings.denols')))
 
       require('mason-lspconfig').setup({
         handlers = opts.handlers,
