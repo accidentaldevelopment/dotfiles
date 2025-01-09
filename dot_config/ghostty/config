@@ -1,0 +1,31 @@
+font-family = Victor Mono
+font-family-italic = Victor Mono Oblique
+font-family-bold-italic = Victor Mono Oblique
+font-feature = ss01
+font-feature = ss03
+font-feature = ss06
+font-feature = ss07
+font-size = 11
+
+copy-on-select = true
+
+quit-after-last-window-closed = true
+
+theme = catppuccin-mocha
+
+auto-update-channel = tip
+
+keybind = shift+cmd+`=toggle_quick_terminal
+
+keybind = ctrl+b>shift+\=new_split:right
+keybind = ctrl+b>-=new_split:down
+keybind = ctrl+b>c=new_tab
+
+keybind = ctrl+b>p=previous_tab
+keybind = ctrl+b>n=next_tab
+
+keybind = alt+h=resize_split:left,10
+keybind = alt+j=resize_split:down,10
+keybind = alt+k=resize_split:up,10
+keybind = alt+l=resize_split:right,10
+
