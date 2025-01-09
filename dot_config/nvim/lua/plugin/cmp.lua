@@ -10,6 +10,7 @@ return {
       'folke/lazydev.nvim',
     },
     opts = function()
+      --- @module "blink"
       --- @type blink.cmp.Config
       return {
         keymap = {
@@ -23,7 +24,7 @@ return {
             border = 'rounded',
           },
           list = {
-            selection = 'manual',
+            selection = { preselect = false },
           },
           trigger = {
             show_on_insert_on_trigger_character = false,
