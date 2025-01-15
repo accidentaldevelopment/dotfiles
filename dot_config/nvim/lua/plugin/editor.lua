@@ -162,9 +162,12 @@ return {
           },
         },
       },
+      input = { enabled = true },
       notifier = { enabled = true },
+      picker = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
+      styles = { input = { relative = 'cursor' } },
       words = { enabled = true },
     },
     init = function()
