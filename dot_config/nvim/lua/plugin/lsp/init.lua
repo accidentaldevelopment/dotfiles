@@ -58,22 +58,7 @@ return {
       'SmiteshP/nvim-navic',
       {
         'SmiteshP/nvim-navbuddy',
-        opts = function()
-          local a = require('nvim-navbuddy.actions')
-          return {
-            mappings = {
-              ['/'] = a.telescope({
-                layout_config = {
-                  height = 0.60,
-                  width = 0.60,
-                  prompt_position = 'top',
-                  preview_width = 0.50,
-                },
-                layout_strategy = 'horizontal',
-              }),
-            },
-          }
-        end,
+        opts = {},
       },
       'b0o/schemastore.nvim',
       'mason.nvim',

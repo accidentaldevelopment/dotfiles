@@ -2,7 +2,9 @@ return {
   {
     'windwp/nvim-autopairs',
     event = 'VeryLazy',
-    opts = {},
+    opts = {
+      disable_filetype = { 'snacks_picker_input' },
+    },
   },
   {
     'numToStr/Comment.nvim',

@@ -80,7 +80,7 @@ return {
       notify = true,
       rainbow_delimiters = true,
       snacks = true,
-      telescope = true,
+      telescope = false,
       treesitter = true,
       ts_rainbow = false,
       ts_rainbow2 = false,

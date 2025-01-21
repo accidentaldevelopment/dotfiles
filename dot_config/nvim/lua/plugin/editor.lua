@@ -45,7 +45,6 @@ return {
         { '<leader>L', '<cmd>Lazy<cr>', desc = 'Show Lazy' },
         { '<leader>g', group = 'git' },
         { '<leader>o', group = 'open' },
-        { '<leader>s', group = 'search' },
         { '<leader>t', group = 'toggle' },
         { 'g', group = 'goto' },
         { 's', group = 'surround' },
@@ -106,30 +105,18 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    -- stylua: ignore
     keys = {
-      {
-        ']]',
-        function()
-          Snacks.words.jump(vim.v.count1)
-        end,
-        desc = 'Next Reference',
-        mode = { 'n', 't' },
-      },
-      {
-        '[[',
-        function()
-          Snacks.words.jump(-vim.v.count1)
-        end,
-        desc = 'Prev Reference',
-        mode = { 'n', 't' },
-      },
-      {
-        '<localleader>w',
-        function()
-          require('snacks').bufdelete.delete(0)
-        end,
-        desc = 'Delete Buffer',
-      },
+      { ']]', function() Snacks.words.jump(vim.v.count1) end, desc = 'Next Reference', mode = { 'n', 't' } },
+      { '[[', function() Snacks.words.jump(-vim.v.count1) end, desc = 'Prev Reference', mode = { 'n', 't' } },
+
+      { '<localleader>w', function() require('snacks').bufdelete.delete(0) end, desc = 'Delete Buffer' },
+
+      -- pickers
+      { '<leader>b', function() Snacks.picker.buffers() end, desc = 'Search buffers' },
+      { '<tab>', function() Snacks.picker.buffers() end, desc = 'Search buffers' },
+      { '<leader>f', function() Snacks.picker.files() end, desc = 'Find files' },
+      { '<leader>/', function() Snacks.picker.grep({layout = 'ivy'}) end, desc = 'Search' },
     },
     --- @module "snacks"
     --- @type snacks.Config
@@ -146,7 +133,20 @@ return {
       },
       input = { enabled = true },
       notifier = { enabled = true },
-      picker = { enabled = true },
+      picker = {
+        formatters = {
+          file = {
+            filename_first = true,
+          },
+        },
+        layouts = {
+          ivy = {
+            layout = {
+              border = 'rounded',
+            },
+          },
+        },
+      },
       quickfile = { enabled = true },
       statuscolumn = { enabled = true },
       styles = { input = { relative = 'cursor' } },

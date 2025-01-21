@@ -1,3 +1,4 @@
+--- @module "snacks"
 local M = {}
 
 --- Attach LSP related key mappings `buffer`
@@ -8,24 +9,30 @@ function M.on_attach(client, buffer)
     buffer = buffer,
     { '<leader>l', group = 'LSP' },
     { '<leader>lI', '<CMD>LspInstallInfo<CR>', desc = 'Installer Info' },
-    { '<leader>lS', '<CMD>Telescope lsp_dynamic_workspace_symbols<CR>', desc = 'Workspace Symbols' },
+    {
+      '<leader>lS',
+      function()
+        Snacks.picker.lsp_workspace_symbols({ hierarchy = true })
+      end,
+      desc = 'Workspace Symbols',
+    },
     { '<leader>li', '<CMD>LspInfo<CR>', desc = 'Info' },
     { '<leader>ll', vim.lsp.codelens.run, desc = 'CodeLens Action' },
     { '<leader>ln', '<CMD>Navbuddy<CR>', desc = 'Show Navbuddy' },
     { '<leader>lq', vim.lsp.diagnostic.set_loclist, desc = 'Quickfix' },
-    { '<leader>ls', '<CMD>Telescope lsp_document_symbols<CR>', desc = 'Document Symbols' },
+    { '<leader>ls', Snacks.picker.lsp_symbols, desc = 'Document Symbols' },
 
     { '<localleader>n', '<CMD>Navbuddy<cr>', desc = 'Show Navbuddy' },
     { '<localleader>i', '<CMD>LspInfo<cr>', desc = 'Info' },
 
-    { 'gd', '<CMD>Telescope lsp_definitions<CR>', desc = 'Goto Definition' },
-    { 'gD', '<CMD>Telescope lsp_declarations<CR>', desc = 'Goto Declaration' },
-    { 'gI', '<CMD>Telescope lsp_implementations<CR>', desc = 'Goto Implementation' },
-    { 'gt', '<CMD>Telescope lsp_type_definitions<CR>', desc = 'Goto Type Definition' },
+    { 'gd', Snacks.picker.lsp_definitions, desc = 'Goto Definition' },
+    { 'gD', Snacks.picker.lsp_declarations, desc = 'Goto Declaration' },
+    { 'gI', Snacks.picker.lsp_implementations, desc = 'Goto Implementation' },
+    { 'gt', Snacks.picker.lsp_type_definitions, desc = 'Goto Type Definition' },
 
     { 'gra', desc = 'Code Actions' },
     { 'grn', desc = 'Rename' },
-    { 'grr', '<CMD>Telescope lsp_references<CR>', desc = 'References' },
+    { 'grr', Snacks.picker.lsp_references, desc = 'References' },
 
     {
       '[e',
