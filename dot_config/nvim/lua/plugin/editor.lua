@@ -103,24 +103,6 @@ return {
   },
   { 'mrjones2014/smart-splits.nvim', lazy = false },
   {
-    'cbochs/grapple.nvim',
-    keys = {
-      { ';', '<cmd>Grapple toggle_tags<cr>', desc = 'Toggle tags menu' },
-      { '<localleader>g', '<cmd>Grapple toggle<cr>', desc = 'Toggle tag' },
-    },
-    cmd = 'Grapple',
-    opts = {
-      scope = 'git_branch',
-      win_opts = {
-        border = 'rounded',
-      },
-    },
-    config = function(_, opts)
-      require('telescope').load_extension('grapple')
-      require('grapple').setup(opts)
-    end,
-  },
-  {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,

@@ -49,7 +49,6 @@ return {
       c.Space,
       c.RecordingMacro,
       c.Space,
-      c.Grapple,
 
       c.Align,
 

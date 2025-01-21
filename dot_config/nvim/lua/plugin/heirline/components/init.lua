@@ -11,7 +11,6 @@ M.FileName = file.FileName
 M.ShortFileName = file.ShortFileName
 M.FileType = file.FileType
 M.FileFlags = file.FileFlags
-M.Grapple = file.Grapple
 M.Spell = file.Spell
 M.Indent = file.Indent
 M.HelpFileName = file.HelpFileName
