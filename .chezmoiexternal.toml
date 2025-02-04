@@ -2,3 +2,8 @@
 type = 'file'
 url = 'https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme'
 refreshPeriod = "168h"
+
+[".config/fish/themes/catppuccin_mocha.theme"]
+type = 'file'
+url = 'https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme'
+refreshPeriod = "168h"
