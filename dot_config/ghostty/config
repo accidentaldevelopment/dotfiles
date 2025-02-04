@@ -7,13 +7,11 @@ font-feature = ss06
 font-feature = ss07
 font-size = 11
 
-copy-on-select = true
+copy-on-select = clipboard
 
 quit-after-last-window-closed = true
 
 theme = catppuccin-mocha
-
-auto-update-channel = tip
 
 keybind = shift+cmd+`=toggle_quick_terminal
 

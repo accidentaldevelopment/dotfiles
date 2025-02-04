@@ -2,9 +2,6 @@
 
 {{ if .os.macos -}}
 brew bundle --no-upgrade --no-lock --file=- <<EOF
-tap "homebrew/bundle"
-# brew "dagger/tap/dagger"
-# brew "messense/macos-cross-toolchains/x86_64-unknown-linux-gnu"
 brew "bat"
 brew "editorconfig"
 brew "fd"
@@ -26,6 +23,7 @@ brew "tokei"
 brew "yq"
 cask "1password-cli"
 cask "font-iosevka"
+cask "ghostty"
 cask "raycast"
 cask "wezterm"
 {{ if .dev.container.docker -}}
