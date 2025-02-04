@@ -34,8 +34,8 @@ arch = {{ and ($linux) (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.i
 
 [data.dev]
 rust = {{ $macos }}
-go = {{ and ($macos) (promptBoolOnce .dev "go" "are we writing go") }}
-web = {{ promptBoolOnce .dev "web" "are we doing web development" }}
+go = {{ and ($macos) (promptBoolOnce . "go" "are we writing go") }}
+web = {{ promptBoolOnce . "web" "are we doing web development" }}
 
 [data.cpu]
 cores = {{ $cpuCores }}
@@ -45,5 +45,5 @@ threads = {{ $cpuThreads }}
 totalGB =  {{ div $memTotal (mul 1024 1024 1024)  }}
 
 [data.dev.container]
-docker = {{ promptBoolOnce .dev.container "docker" "install docker" }}
-podman = {{ promptBoolOnce .dev.container "podman" "install podman" }}
+docker = {{ promptBoolOnce . "docker" "install docker" }}
+podman = {{ promptBoolOnce . "podman" "install podman" }}
