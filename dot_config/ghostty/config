@@ -11,6 +11,8 @@ copy-on-select = clipboard
 
 quit-after-last-window-closed = true
 
+shell-integration-features = no-cursor
+
 theme = catppuccin-mocha
 
 keybind = shift+cmd+`=toggle_quick_terminal

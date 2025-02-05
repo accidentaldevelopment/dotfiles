@@ -5,7 +5,10 @@ set -x EDITOR nvim
 # set -x PAGER less
 set -x MANPAGER 'nvim +Man!'
 set -x HOMEBREW_NO_ANALYTICS 1
-set -x SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+
+if test -e "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    set -x SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+end
 
 set -x XDG_CONFIG_HOME "$HOME/.config"
 set -x XDG_STATE_HOME "$HOME/.local/state"
@@ -21,6 +24,24 @@ set -x LESS_TERMCAP_se (tput rmso; tput sgr0) # begin standout-mode - info box
 
 if status is-interactive
     fish_vi_key_bindings
+
+    # Current fish_cursor_* settings think they don't work for ghostty or
+    # wezterm. But they do, so set this and hope the upstream check eventually
+    # includes them.
+    if contains $TERM xterm-{ghostty,wezterm} wezterm
+        set fish_vi_force_cursor 1
+    end
+
+    set fish_cursor_default block
+    set fish_cursor_insert line
+    set fish_cursor_replace_one underscore
+    set fish_cursor_replace underscore
+    # Set the external cursor to a line. The external cursor appears when a command is started.
+    # The cursor shape takes the value of fish_cursor_default when fish_cursor_external is not specified.
+    set fish_cursor_external line
+    # The following variable can be used to configure cursor shape in
+    # visual mode, but due to fish_cursor_default, is redundant here
+    set fish_cursor_visual block
 
     fish_add_path "$HOME/.cargo/bin"
     fish_add_path /opt/homebrew/bin /opt/homebrew/sbin
