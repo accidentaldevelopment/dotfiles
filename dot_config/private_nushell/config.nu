@@ -113,10 +113,14 @@ let dark_theme = {
 }
 
 $env.EDITOR = 'nvim'
-$env.config.filesize.metric = true
+$env.PROMPT_INDICATOR_VI_NORMAL = ''
+$env.PROMPT_INDICATOR_VI_INSERT = ''
+$env.config.filesize.unit = 'metric'
+# Show _all_ the decimal places!
+$env.config.filesize.precision = null
 $env.config.table.mode = 'compact'
 $env.config.history.file_format = 'sqlite'
-$env.config.show_banner = false
+$env.config.show_banner = 'short'
 $env.config.use_kitty_protocol = true
 $env.config.datetime_format.normal = "%y-%m-%d %I:%M:%S%p"
 $env.config.edit_mode = "vi"
