@@ -15,6 +15,7 @@ vim.diagnostic.config({
   },
   update_in_insert = true,
   severity_sort = true,
+  virtual_text = true,
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -33,13 +34,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local bufnr = args.buf
     local methods = vim.lsp.protocol.Methods
 
-    if client.supports_method(methods.textDocument_documentSymbol) then
+    if client:supports_method(methods.textDocument_documentSymbol) then
       require('nvim-navic').attach(client, bufnr)
       require('nvim-navbuddy').attach(client, bufnr)
     end
 
     require('plugin.lsp.keymaps').on_attach(client, bufnr)
-    if client.supports_method(methods.textDocument_inlayHint) then
+    if client:supports_method(methods.textDocument_inlayHint) then
       -- For some reason, inlay hints don't show up for me until InsertEnter. This defer resolves that.
       vim.defer_fn(function()
         vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
