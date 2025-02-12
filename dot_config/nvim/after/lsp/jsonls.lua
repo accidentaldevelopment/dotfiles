@@ -1,4 +1,4 @@
-return {
+vim.lsp.config('jsonls', {
   settings = {
     json = {
       schemas = require('schemastore').json.schemas(),
@@ -13,4 +13,4 @@ return {
       },
     },
   },
-}
+})

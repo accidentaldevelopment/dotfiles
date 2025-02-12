@@ -94,43 +94,14 @@ return {
         'williamboman/mason-lspconfig.nvim',
       },
     },
-    opts = function()
-      local capabilities = vim.tbl_deep_extend(
-        'force',
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        -- require('cmp_nvim_lsp').default_capabilities()
-        require('blink.cmp').get_lsp_capabilities()
-      )
-
-      return {
-        handlers = {},
-        settings = {},
-        capabilities = capabilities,
-      }
-    end,
-    config = function(_, opts)
-      table.insert(opts.handlers, 1, function(server_name)
-        local lsp_setup = {
-          settings = opts.settings or {},
-          capabilities = opts.capabilities,
-        }
-
-        local ok, file_settings = pcall(require, 'plugin.lsp.settings.' .. server_name)
-
-        lsp_setup = vim.tbl_extend('force', lsp_setup, ok and file_settings or {})
-
-        require('lspconfig')[server_name].setup(lsp_setup)
-      end)
-
+    config = function()
       require('lspconfig.ui.windows').default_options.border = 'rounded'
-      -- TODO: Handle this correctly (probably via vim.lsp.config)
-      require('lspconfig').denols.setup(vim.tbl_extend('force', {
-        capabilities = opts.capabilities,
-      }, require('plugin.lsp.settings.denols')))
 
-      require('mason-lspconfig').setup({
-        handlers = opts.handlers,
+      require('mason-lspconfig').setup()
+      require('mason-lspconfig').setup_handlers({
+        function(server_name)
+          require('lspconfig')[server_name].setup(vim.lsp.config[server_name])
+        end,
       })
     end,
   },

@@ -1,41 +1,4 @@
-local ra_config = {
-  check = {
-    command = 'clippy',
-  },
-  semanticHighlighting = {
-    punctuation = {
-      separate = {
-        macro = {
-          bang = true,
-        },
-      },
-    },
-    strings = {
-      enable = false,
-    },
-  },
-  inlayHints = {
-    bindingModeHints = { enable = true },
-    closureReturnTypeHints = { enable = true },
-    expressionAdjustmentHints = {
-      enable = true,
-      hideOutsideUnsafe = true,
-    },
-    lifetimeElisionHints = {
-      enable = 'always',
-      useParameterNames = true,
-    },
-  },
-}
-
 return {
-  {
-    'neovim/nvim-lspconfig',
-    opts = function(_, opts)
-      opts.settings['rust-analyzer'] = ra_config
-      -- opts.handlers['rust-analyzer'] = ra_config
-    end,
-  },
   {
     'nvim-treesitter',
     opts = function(_, opts)
