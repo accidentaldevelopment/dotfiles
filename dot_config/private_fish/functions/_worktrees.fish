@@ -11,16 +11,6 @@ function _worktrees --description 'Show worktrees for a git repo and cd into the
 
     test -n "$dir"; or set dir (pwd)
 
-    set -l raw_data (command git -C $dir worktree list | command awk '{print $1 "\n" $3}' | command tr -d '[]' | string split '\n')
-    set -l len (count $raw_data)
-    # Fish really needs associative arrays.
-    set -l vals $raw_data[(seq 1 2 $len)]
-    set -l keys $raw_data[(seq 2 2 $len)]
-
-    set -l selected (printf (string join '\n' $keys) | command fzf --border bold --border-label worktrees --margin 10%)
-    if test -n $selected
-        if set -l index (contains -i -- $selected $keys)
-            cd $vals[$index]
-        end
-    end
+    set -l selected (command git -C $dir worktree list | command tr -d '[]' | command fzf --border bold --border-label worktrees --margin 10% --with-nth 3 --accept-nth 1)
+    cd $selected
 end
