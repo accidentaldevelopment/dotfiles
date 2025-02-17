@@ -10,7 +10,7 @@ return {
       'folke/lazydev.nvim',
     },
     opts = function()
-      --- @module "blink"
+      --- @module "blink.cmp"
       --- @type blink.cmp.Config
       return {
         keymap = {
@@ -18,6 +18,14 @@ return {
           ['<C-k>'] = { 'select_prev', 'fallback' },
           ['<C-j>'] = { 'select_next', 'fallback' },
           ['<C-y>'] = { 'select_and_accept' },
+        },
+        cmdline = {
+          keymap = {
+            preset = 'enter',
+            ['<C-k>'] = { 'select_prev', 'fallback' },
+            ['<C-j>'] = { 'select_next', 'fallback' },
+            ['<C-y>'] = { 'select_and_accept' },
+          },
         },
         completion = {
           menu = {
