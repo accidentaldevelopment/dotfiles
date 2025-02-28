@@ -20,8 +20,12 @@ return {
           ['<C-y>'] = { 'select_and_accept' },
         },
         cmdline = {
+          completion = {
+            menu = {
+              auto_show = true,
+            },
+          },
           keymap = {
-            preset = 'enter',
             ['<C-k>'] = { 'select_prev', 'fallback' },
             ['<C-j>'] = { 'select_next', 'fallback' },
             ['<C-y>'] = { 'select_and_accept' },
