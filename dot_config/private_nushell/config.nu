@@ -115,6 +115,12 @@ let dark_theme = {
 $env.EDITOR = 'nvim'
 $env.PROMPT_INDICATOR_VI_NORMAL = ''
 $env.PROMPT_INDICATOR_VI_INSERT = ''
+
+$env.XDG_CONFIG_HOME = '/Users/brian/.config'
+$env.XDG_STATE_HOME = '/Users/brian/.local/state'
+$env.XDG_DATA_HOME = '/Users/brian/.local/share'
+$env.JJ_CONFIG = $env.XDG_CONFIG_HOME | path join jj config.toml
+
 $env.config.filesize.unit = 'metric'
 # Show _all_ the decimal places!
 $env.config.filesize.precision = null

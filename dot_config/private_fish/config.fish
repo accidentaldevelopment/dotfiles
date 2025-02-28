@@ -13,6 +13,7 @@ end
 set -x XDG_CONFIG_HOME "$HOME/.config"
 set -x XDG_STATE_HOME "$HOME/.local/state"
 set -x XDG_DATA_HOME "$HOME/.local/share"
+set -x JJ_CONFIG "$XDG_CONFIG_HOME/jj/config.toml"
 
 set -x LESS_TERMCAP_mb (tput bold; tput setaf red) # begin bold
 set -x LESS_TERMCAP_md (tput setaf 74) # begin bold
