@@ -97,6 +97,11 @@ return {
     config = function()
       require('lspconfig.ui.windows').default_options.border = 'rounded'
 
+      -- Language servers that aren't installed via mason.
+      for _, ls in ipairs({ 'denols', 'nushell' }) do
+        require('lspconfig')[ls].setup(vim.lsp.config[ls])
+      end
+
       require('mason-lspconfig').setup()
       require('mason-lspconfig').setup_handlers({
         function(server_name)

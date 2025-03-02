@@ -1,4 +1,5 @@
 vim.lsp.config('denols', {
-  cmd = { 'deno', 'lsp' },
-  root_dir = require('lspconfig').util.root_pattern('deno.json', 'deno.jsonc'),
+  root_dir = function(_, bufnr)
+    return vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc', 'deno.lock' })
+  end,
 })
