@@ -31,7 +31,7 @@ M.Diagnostics = {
   },
   {
     provider = '  ',
-    update = 'LspAttach',
+    update = { 'LspAttach', 'LspDetach', 'LspNotify' },
     hl = { fg = C.lsp_name.fg, bg = C.lsp_name.bg, bold = true },
     {
       provider = function()
