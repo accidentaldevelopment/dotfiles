@@ -1,4 +1,4 @@
-vim.lsp.config('ts_ls', {
+return {
   root_dir = function(_, bufnr)
     local package_json = vim.fs.root(bufnr, 'package.json')
     local deno = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc', 'deno.lock' })
@@ -29,4 +29,4 @@ vim.lsp.config('ts_ls', {
       },
     },
   },
-})
+}

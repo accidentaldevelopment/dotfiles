@@ -1,9 +1,7 @@
-vim.lsp.config('jsonls', {
-  --- @module "neoconf"
-  --- @type neoconf.
+return {
   settings = {
     json = {
       schemas = require('schemastore').json.schemas(),
     },
   },
-})
+}

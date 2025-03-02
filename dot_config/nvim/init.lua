@@ -1,5 +1,6 @@
 vim.loader.enable()
 
+-- This must be loaded before lazy, for leader keys.
 require('options')
 
 -- Automatically verify or install packer

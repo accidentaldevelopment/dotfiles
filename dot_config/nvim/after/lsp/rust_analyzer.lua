@@ -1,7 +1,6 @@
-vim.lsp.config('rust_analyzer', {
+return {
   settings = {
     ['rust-analyzer'] = {
-
       check = {
         command = 'clippy',
       },
@@ -31,4 +30,4 @@ vim.lsp.config('rust_analyzer', {
       },
     },
   },
-})
+}
