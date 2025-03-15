@@ -133,3 +133,4 @@ $env.config.edit_mode = "vi"
 
 use ~/.cache/starship/init.nu
 #use mise.nu
+use ($nu.default-config-dir | path join mise.nu)
