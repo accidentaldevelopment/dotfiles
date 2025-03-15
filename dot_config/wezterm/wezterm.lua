@@ -17,15 +17,12 @@ local config = wezterm.config_builder()
 
 config.initial_rows = 61
 config.initial_cols = 201
-config.window_decorations = 'RESIZE'
 config.color_scheme = 'Catppuccin Mocha'
 config.adjust_window_size_when_changing_font_size = false
 config.native_macos_fullscreen_mode = true
 
--- config.use_fancy_tab_bar = false
 config.tab_max_width = 36
 config.tab_bar_at_bottom = true
-config.hide_tab_bar_if_only_one_tab = false
 
 config.term = 'wezterm'
 config.window_padding = {
@@ -64,6 +61,8 @@ do
     },
   }
 end
+
+config.default_prog = { '/opt/homebrew/bin/nu', '-l' }
 
 config.set_environment_variables = {
   XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
