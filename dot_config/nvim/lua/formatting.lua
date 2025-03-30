@@ -7,7 +7,7 @@ local setup_done = false
 ---@param op? boolean
 ---@return boolean `true` if format-on-save is enabled
 function M.format_on_save(op)
-  vim.validate({ op = { op, 'boolean', true } })
+  vim.validate('op', op, 'boolean', true)
   if op ~= nil then
     vim.b.disable_format_on_save = not op
     vim.cmd.doautocmd('User FormatOnSave')
