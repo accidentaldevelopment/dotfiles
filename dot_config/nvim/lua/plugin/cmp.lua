@@ -4,7 +4,7 @@ return {
   {
     'saghen/blink.cmp',
     event = 'VeryLazy',
-    version = 'v0.*',
+    version = 'v1.*',
     dependencies = {
       'folke/snacks.nvim',
       'folke/lazydev.nvim',
