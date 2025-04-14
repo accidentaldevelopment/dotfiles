@@ -99,15 +99,13 @@ return {
 
       -- Language servers that aren't installed via mason.
       for _, ls in ipairs({ 'denols', 'nushell' }) do
-        vim.lsp.config(ls, {})
-        require('lspconfig')[ls].setup(vim.lsp.config[ls])
+        vim.lsp.enable(ls)
       end
 
       require('mason-lspconfig').setup()
       require('mason-lspconfig').setup_handlers({
         function(server_name)
-          vim.lsp.config(server_name, {})
-          require('lspconfig')[server_name].setup(vim.lsp.config[server_name])
+          vim.lsp.enable(server_name)
         end,
       })
     end,
