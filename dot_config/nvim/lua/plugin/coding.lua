@@ -1,3 +1,4 @@
+--- @type LazyPluginSpec[]
 return {
   {
     'windwp/nvim-autopairs',
@@ -34,6 +35,7 @@ return {
   {
     'hiphish/rainbow-delimiters.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    submodules = false,
   },
   {
     'sindrets/diffview.nvim',
