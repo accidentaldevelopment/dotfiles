@@ -24,9 +24,9 @@ require('lazy').setup({
   },
   spec = {
     { import = 'plugin' },
-    { import = 'plugin.dev.rust', enabled = true },
+    { import = 'plugin.dev.rust', enabled = vim.system({ 'which', 'cargo' }):wait().code == 0 },
     { import = 'plugin.dev.web', enabled = true },
-    { import = 'plugin.dev.go', enabled = true },
+    { import = 'plugin.dev.go', enabled = vim.system({ 'which', 'go' }):wait().code == 0 },
   },
   install = {
     colorscheme = { 'catppuccin' },
