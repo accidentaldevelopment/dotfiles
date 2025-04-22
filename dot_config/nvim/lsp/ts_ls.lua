@@ -1,8 +1,11 @@
+--- @type vim.lsp.Config
 return {
-  root_dir = function(_, bufnr)
+  root_dir = function(bufnr, cb)
     local package_json = vim.fs.root(bufnr, 'package.json')
     local deno = vim.fs.root(bufnr, { 'deno.json', 'deno.jsonc', 'deno.lock' })
-    return package_json and not deno
+    if package_json and not deno then
+      cb(package_json)
+    end
   end,
   single_file_support = false,
   settings = {
