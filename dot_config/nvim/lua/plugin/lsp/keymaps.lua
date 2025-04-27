@@ -1,9 +1,9 @@
---- @module "snacks"
 local M = {}
 
 --- Attach LSP related key mappings `buffer`
 ---@param client vim.lsp.Client LSP Client object
 ---@param buffer number Buffer number
+---@diagnostic disable-next-line: unused-local
 function M.on_attach(client, buffer)
   require('which-key').add({
     buffer = buffer,
@@ -16,14 +16,11 @@ function M.on_attach(client, buffer)
       end,
       desc = 'Workspace Symbols',
     },
-    { '<leader>li', '<CMD>LspInfo<CR>', desc = 'Info' },
     { '<leader>ll', vim.lsp.codelens.run, desc = 'CodeLens Action' },
-    { '<leader>ln', '<CMD>Navbuddy<CR>', desc = 'Show Navbuddy' },
     { '<leader>lq', vim.lsp.diagnostic.set_loclist, desc = 'Quickfix' },
-    { '<leader>ls', Snacks.picker.lsp_symbols, desc = 'Document Symbols' },
 
-    { '<localleader>n', '<CMD>Navbuddy<cr>', desc = 'Show Navbuddy' },
-    { '<localleader>i', '<CMD>LspInfo<cr>', desc = 'Info' },
+    { '<localleader>n', Snacks.picker.lsp_symbols, desc = 'Document Symbols' },
+    { '<localleader>i', '<CMD>LspInfo<cr>', desc = 'LSP Info' },
 
     { 'gd', Snacks.picker.lsp_definitions, desc = 'Goto Definition' },
     { 'gD', Snacks.picker.lsp_declarations, desc = 'Goto Declaration' },

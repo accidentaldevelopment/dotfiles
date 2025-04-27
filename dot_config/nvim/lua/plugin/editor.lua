@@ -59,46 +59,26 @@ return {
     config = true,
   },
   {
-    'echasnovski/mini.hipatterns',
+    'folke/todo-comments.nvim',
     event = { 'BufReadPost', 'BufNewFile' },
-    opts = function()
-      local hipatterns = require('mini.hipatterns')
-      ---@param words string[] Words
-      local function w(words)
-        return vim
-          .iter(ipairs(words))
-          :map(function(_, v)
-            return '%f[%w]()' .. vim.pesc(v) .. '()%f[%W]'
-          end)
-          :totable()
-      end
-
-      local function comment(group)
-        return function(bufnr, _, data)
-          local captures = vim
-            .iter(vim.treesitter.get_captures_at_pos(bufnr, data.line - 1, data.from_col - 1))
-            :map(function(v)
-              return v.capture
-            end)
-          if captures:find('comment') then
-            return group
-          end
-        end
-      end
-
-      return {
-        highlighters = {
-          fixme = { pattern = w({ 'FIXME' }), group = comment('MiniHipatternsFixme') },
-          hack = { pattern = w({ 'HACK' }), group = comment('MiniHipatternsHack') },
-          todo = { pattern = w({ 'TODO' }), group = comment('MiniHipatternsTodo') },
-          note = { pattern = w({ 'NOTE' }), group = comment('MiniHipatternsNote') },
-          safety = { pattern = w({ 'SAFETY' }), group = comment('MiniHipatternsHack') },
-
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-        },
-      }
-    end,
+    keys = {
+      {
+        '[t',
+        function()
+          require('todo-comments').jump_prev()
+        end,
+        desc = 'Previous todo comment',
+      },
+      {
+        ']t',
+        function()
+          require('todo-comments').jump_next()
+        end,
+        desc = 'Next todo comment',
+      },
+    },
+    -- dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
   },
   { 'mrjones2014/smart-splits.nvim', lazy = false },
   {
