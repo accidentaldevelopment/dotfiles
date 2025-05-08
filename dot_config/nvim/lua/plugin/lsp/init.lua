@@ -98,22 +98,17 @@ return {
       },
       {
         'williamboman/mason-lspconfig.nvim',
+        opts = {
+          automatic_enable = true,
+        },
       },
     },
     config = function()
-      require('lspconfig.ui.windows').default_options.border = 'rounded'
-
       -- Language servers that aren't installed via mason.
-      for _, ls in ipairs({ 'denols', 'nushell' }) do
-        vim.lsp.enable(ls)
-      end
+      vim.lsp.enable({ 'denols', 'nushell' })
 
+      -- Why is this required?
       require('mason-lspconfig').setup()
-      require('mason-lspconfig').setup_handlers({
-        function(server_name)
-          vim.lsp.enable(server_name)
-        end,
-      })
     end,
   },
   {
