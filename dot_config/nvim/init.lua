@@ -62,6 +62,5 @@ vim.api.nvim_create_autocmd('User', {
   desc = 'Last minute loading of some files',
   callback = function()
     require('keymaps')
-    require('commands')
   end,
 })

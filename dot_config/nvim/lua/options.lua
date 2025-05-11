@@ -33,6 +33,7 @@ vim.o.wrap = false -- display lines as one long line
 vim.o.scrolloff = 8 -- is one of my fav
 vim.o.sidescrolloff = 8
 vim.o.laststatus = 3
+vim.o.winborder = 'rounded'
 
 vim.opt.shortmess:append('c')
 

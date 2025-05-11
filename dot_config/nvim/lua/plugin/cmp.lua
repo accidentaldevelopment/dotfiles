@@ -32,9 +32,6 @@ return {
           },
         },
         completion = {
-          menu = {
-            border = 'rounded',
-          },
           list = {
             selection = { preselect = false },
           },
@@ -43,9 +40,6 @@ return {
           },
           documentation = {
             auto_show = true,
-            window = {
-              border = 'rounded',
-            },
           },
           ghost_text = {
             enabled = true,

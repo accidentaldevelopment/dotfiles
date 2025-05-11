@@ -7,9 +7,6 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.INFO] = '',
     },
   },
-  float = {
-    border = 'rounded',
-  },
   jump = {
     float = true,
   },
@@ -68,7 +65,6 @@ return {
         opts = {},
       },
       'b0o/schemastore.nvim',
-      'mason.nvim',
       -- neoconf must be loaded _before_ an lsp
       {
         'folke/neoconf.nvim',
@@ -80,7 +76,7 @@ return {
         },
       },
       {
-        'williamboman/mason.nvim',
+        'mason-org/mason.nvim',
         dependencies = {
           'WhoIsSethDaniel/mason-tool-installer.nvim',
           optional = true,
@@ -90,24 +86,16 @@ return {
         },
         cmd = 'Mason',
         keys = { { '<leader>M', '<cmd>Mason<cr>', desc = 'Show Mason' } },
-        opts = {
-          ui = {
-            border = 'rounded',
-          },
-        },
+        opts = {},
       },
       {
-        'williamboman/mason-lspconfig.nvim',
-        opts = {
-          automatic_enable = true,
-        },
+        'mason-org/mason-lspconfig.nvim',
       },
     },
     config = function()
       -- Language servers that aren't installed via mason.
       vim.lsp.enable({ 'denols', 'nushell' })
 
-      -- Why is this required?
       require('mason-lspconfig').setup()
     end,
   },

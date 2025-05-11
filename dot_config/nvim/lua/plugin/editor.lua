@@ -36,9 +36,7 @@ return {
     --- @type wk.Opts
     opts = {
       preset = 'helix',
-      win = {
-        border = 'rounded',
-      },
+      show_help = false,
       spec = {
         mode = { 'n', 'v' },
         { '<leader><tab>', group = 'tabs' },
