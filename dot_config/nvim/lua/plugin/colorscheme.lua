@@ -3,6 +3,7 @@ return {
   name = 'catppuccin',
   lazy = false,
   priority = 9999,
+  --- @type CatppuccinOptions
   opts = {
     background = {
       -- These are defaults, leaving them here so I remember
@@ -42,7 +43,10 @@ return {
     end,
     integrations = {
       barbar = false,
-      blink_cmp = true,
+      blink_cmp = {
+        enabled = true,
+        style = 'bordered',
+      },
       cmp = true,
       dashboard = false,
       fern = false,
