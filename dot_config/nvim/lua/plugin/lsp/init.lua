@@ -135,6 +135,7 @@ return {
         jsonc = { 'prettierd' },
         scss = { 'prettierd' },
         markdown = { 'prettierd', 'injected' },
+        kdl = { 'kdlfmt' },
       },
     },
   },

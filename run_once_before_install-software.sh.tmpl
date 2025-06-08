@@ -1,7 +1,7 @@
 #!/bin/sh
 
 {{ if .os.macos -}}
-brew bundle --no-upgrade --no-lock --file=- <<EOF
+brew bundle --no-upgrade --file=- <<EOF
 brew "bat"
 brew "editorconfig"
 brew "fd"
@@ -10,6 +10,7 @@ brew "fzf"
 brew "git"
 brew "git-delta"
 brew "gnupg"
+brew "hougesen/tap/kdlfmt"
 brew "htop"
 brew "jq"
 brew "lsd"

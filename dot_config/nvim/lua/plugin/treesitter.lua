@@ -42,6 +42,7 @@ return {
       ensure_installed = {
         'bash',
         'json',
+        'kdl',
         'lua',
         'markdown',
         'markdown_inline',
