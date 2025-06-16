@@ -25,13 +25,6 @@ set -x LESS_TERMCAP_se (tput rmso; tput sgr0) # begin standout-mode - info box
 if status is-interactive
     fish_vi_key_bindings
 
-    function prompt_new_line_seed --on-event fish_prompt
-        function prompt_new_line --on-event fish_prompt --description "Print a new line before prompt"
-            echo
-        end
-        functions -e prompt_new_line_seed
-    end
-
     # Current fish_cursor_* settings think they don't work for ghostty or
     # wezterm. But they do, so set this and hope the upstream check eventually
     # includes them.
