@@ -30,4 +30,4 @@ keybind = super+zero=reset_font_size
 
 keybind = super+enter=toggle_fullscreen
 
-command = /opt/homebrew/bin/zellij
+command = env EDITOR="nvim" PATH="/opt/homebrew/bin:$PATH" /opt/homebrew/bin/zellij
