@@ -1,8 +1,9 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    branch = 'main',
     build = ':TSUpdate',
-    event = { 'BufReadPost', 'BufNewFile' },
     dependencies = {
       'andymass/vim-matchup',
       {
@@ -11,7 +12,7 @@ return {
           vim.g.skip_ts_context_commentstring_module = true
         end,
       },
-      'nvim-treesitter/nvim-treesitter-textobjects',
+      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
       {
         'echasnovski/mini.ai',
         opts = function()
@@ -50,21 +51,23 @@ return {
         'vim',
         'vimdoc',
       },
-      sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
-      autopairs = {
-        enable = true,
-      },
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = true, disable = { 'yaml' } },
-      matchup = {
-        enable = true,
-        include_match_words = true,
-      },
     },
     config = function(_, opts)
-      require('nvim-treesitter.configs').setup(opts)
+      require('nvim-treesitter').install(opts.ensure_installed)
+
+      vim.api.nvim_create_autocmd('FileType', {
+        group = vim.api.nvim_create_augroup('tree-sitter setup', { clear = true }),
+        callback = function(args)
+          local ft = args.match
+          local lang = vim.treesitter.language.get_lang(ft)
+          if lang and vim.treesitter.language.add(lang) then
+            vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+            if vim.wo.foldexpr == '0' then
+              vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            end
+          end
+        end,
+      })
 
       -- function _G._foldtext()
       --   local text = vim.treesitter.foldtext()
