@@ -1,22 +1,17 @@
-local conditions = require('heirline.conditions')
-
 --- Git status. Shows branch name and status counts.
 return {
-  condition = conditions.is_git_repo,
+  condition = function()
+    return vim.b.minidiff_summary ~= nil
+  end,
   init = function(self)
     ---@diagnostic disable-next-line: undefined-field - This variable exists as long as the above condition is true.
-    self.status_dict = vim.b.gitsigns_status_dict
-    self.has_changes = (
-      (self.status_dict.added ~= 0)
-      or (self.status_dict.removed ~= 0)
-      or (self.status_dict.changed ~= 0)
-    )
+    self.status_dict = vim.b.minidiff_summary
+    self.has_changes = ((self.status_dict.add ~= 0) or (self.status_dict.delete ~= 0) or (self.status_dict.change ~= 0))
   end,
   hl = 'SLGitBranch',
   {
-    provider = function(self)
-      -- return ('\239\144\152 ' .. self.status_dict.head)
-      return (' ' .. self.status_dict.head)
+    provider = function()
+      return ' '
     end,
     hl = { bold = true },
   },
@@ -28,7 +23,7 @@ return {
   },
   {
     provider = function(self)
-      local count = (self.status_dict.added or 0)
+      local count = (self.status_dict.add or 0)
       if count > 0 then
         return ('+' .. count)
       end
@@ -37,7 +32,7 @@ return {
   },
   {
     provider = function(self)
-      local count = (self.status_dict.removed or 0)
+      local count = (self.status_dict.delete or 0)
       if count > 0 then
         return ('-' .. count)
       end
@@ -46,7 +41,7 @@ return {
   },
   {
     provider = function(self)
-      local count = (self.status_dict.changed or 0)
+      local count = (self.status_dict.change or 0)
       if count > 0 then
         return ('~' .. count)
       end
