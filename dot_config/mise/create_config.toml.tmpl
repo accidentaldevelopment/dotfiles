@@ -9,3 +9,7 @@ node = 'latest'
 {{ if .dev.go -}}
 go = 'latest'
 {{ end -}}
+
+[settings]
+experimental = true
+disable_backends = ['asdf']
