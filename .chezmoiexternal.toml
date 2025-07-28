@@ -8,6 +8,11 @@ type = 'file'
 url = 'https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/Catppuccin%20Mocha.theme'
 refreshPeriod = "168h"
 
+[".config/nushell/autoload/catppuccin_mocha.nu"]
+type = 'file'
+url = 'https://raw.githubusercontent.com/catppuccin/nushell/refs/heads/main/themes/catppuccin_mocha.nu'
+refreshPeriod = "168h"
+
 [".config/zellij/plugins/zjstatus.wasm"]
 type = 'file'
 url = 'https://github.com/dj95/zjstatus/releases/latest/download/zjstatus.wasm'
