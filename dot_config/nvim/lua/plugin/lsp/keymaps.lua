@@ -5,6 +5,7 @@ local M = {}
 ---@param buffer number Buffer number
 ---@diagnostic disable-next-line: unused-local
 function M.on_attach(client, buffer)
+  require('snacks').toggle.inlay_hints():map('<localleader>h')
   require('which-key').add({
     buffer = buffer,
     { '<leader>l', group = 'LSP' },

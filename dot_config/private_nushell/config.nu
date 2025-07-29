@@ -3,9 +3,9 @@ $env.PROMPT_INDICATOR_VI_NORMAL = ''
 $env.PROMPT_INDICATOR_VI_INSERT = ''
 $env.CARAPACE_BRIDGES = 'fish'
 
-$env.XDG_CONFIG_HOME = '/Users/brian/.config'
-$env.XDG_STATE_HOME = '/Users/brian/.local/state'
-$env.XDG_DATA_HOME = '/Users/brian/.local/share'
+$env.XDG_CONFIG_HOME = ($env.HOME | path join .config)
+$env.XDG_STATE_HOME = ($env.HOME | path join .local state)
+$env.XDG_DATA_HOME = ($env.HOME | path join .local share)
 
 $env.config.filesize.unit = 'metric'
 # Show _all_ the decimal places!
