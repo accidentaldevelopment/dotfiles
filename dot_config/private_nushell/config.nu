@@ -7,20 +7,20 @@ $env.XDG_CONFIG_HOME = ($env.HOME | path join .config)
 $env.XDG_STATE_HOME = ($env.HOME | path join .local state)
 $env.XDG_DATA_HOME = ($env.HOME | path join .local share)
 
-$env.config.filesize.unit = 'metric'
-# Show _all_ the decimal places!
-$env.config.filesize.precision = null
-$env.config.table.mode = 'compact'
-$env.config.history.file_format = 'sqlite'
-$env.config.show_banner = 'short'
-$env.config.use_kitty_protocol = true
-$env.config.datetime_format.normal = "%y-%m-%d %I:%M:%S%p"
-$env.config.edit_mode = "vi"
 $env.config.cursor_shape = {
   vi_insert: line
   vi_normal: block
   emacs: line
 }
+$env.config.datetime_format.normal = "%y-%m-%d %I:%M:%S%p"
+$env.config.edit_mode = "vi"
+# Show _all_ the decimal places!
+$env.config.filesize.precision = null
+$env.config.filesize.unit = 'metric'
+$env.config.history.file_format = 'sqlite'
+$env.config.show_banner = 'short'
+$env.config.table.mode = 'compact'
+$env.config.use_kitty_protocol = true
 
 $env.config.menus ++= [{
     name: completion_menu

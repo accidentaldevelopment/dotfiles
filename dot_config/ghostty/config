@@ -17,6 +17,8 @@ theme = catppuccin-mocha
 
 keybind = clear
 
+keybind = control+[=esc:
+
 keybind = super+shift+comma=reload_config
 
 keybind = super+n=new_window
