@@ -12,10 +12,8 @@ function fish_user_key_bindings -d 'set user-defined key bindings'
 
     bind -M insert \ch backward-char
     bind -M insert \cl ___forward-char-or-clear
-    bind -M insert \ck up-or-search
-    bind -M insert \cj down-or-search
-
-    bind -M insert \cn forward-word
+    bind -M insert \cp up-or-search
+    bind -M insert \cn down-or-search
 
     bind -m goto g repaint-mode
     bind -M goto -m insert w '_worktrees; commandline -f repaint'
