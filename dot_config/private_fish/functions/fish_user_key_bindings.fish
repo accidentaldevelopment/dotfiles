@@ -3,7 +3,7 @@ function ___forward-char-or-clear -d 'move the cursor forward or clear the scree
         echo -n (clear | string replace \e\[3J '')
         commandline -f repaint
     else
-        commandline -f forward-char
+        commandline -f forward-char-passive
     end
 end
 
@@ -14,6 +14,8 @@ function fish_user_key_bindings -d 'set user-defined key bindings'
     bind -M insert \cl ___forward-char-or-clear
     bind -M insert \cp up-or-search
     bind -M insert \cn down-or-search
+
+    bind -M insert \ce accept-autosuggestion
 
     bind -m goto g repaint-mode
     bind -M goto -m insert w '_worktrees; commandline -f repaint'

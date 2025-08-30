@@ -20,7 +20,7 @@ return {
     end,
   },
   {
-    'echasnovski/mini.surround',
+    'nvim-mini/mini.surround',
     keys = {
       { 'sa', desc = 'Add surrounding', mode = { 'n', 'v' } },
       { 'sd', desc = 'Delete surrounding' },

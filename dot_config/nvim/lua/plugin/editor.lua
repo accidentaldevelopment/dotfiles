@@ -2,7 +2,7 @@
 --- @type LazyPluginSpec[]
 return {
   {
-    'echasnovski/mini.files',
+    'nvim-mini/mini.files',
     keys = {
       {
         '<leader>e',
@@ -52,7 +52,7 @@ return {
     },
   },
   {
-    'echasnovski/mini.cursorword',
+    'nvim-mini/mini.cursorword',
     event = 'BufReadPost',
     config = true,
   },

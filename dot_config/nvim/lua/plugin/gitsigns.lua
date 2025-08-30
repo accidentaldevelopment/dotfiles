@@ -76,7 +76,7 @@ local function start_watching(buf_id, path)
 end
 
 return {
-  'echasnovski/mini.diff',
+  'nvim-mini/mini.diff',
   event = 'BufReadPre',
   opts = {
     source = {

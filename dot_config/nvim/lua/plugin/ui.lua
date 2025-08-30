@@ -2,7 +2,7 @@
 --- @type LazyPluginSpec[]
 return {
   {
-    'echasnovski/mini.icons',
+    'nvim-mini/mini.icons',
     opts = {},
     init = function()
       return require('mini.icons').mock_nvim_web_devicons()
