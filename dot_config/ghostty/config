@@ -13,11 +13,11 @@ quit-after-last-window-closed = true
 
 shell-integration-features = no-cursor
 
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 
 keybind = clear
 
-keybind = control+[=esc:
+keybind = cmd+shift+p=toggle_command_palette
 
 keybind = super+shift+comma=reload_config
 
@@ -32,4 +32,4 @@ keybind = super+zero=reset_font_size
 
 keybind = super+enter=toggle_fullscreen
 
-command = env EDITOR="nvim" PATH="/opt/homebrew/bin:$PATH" /opt/homebrew/bin/zellij
+command = /opt/homebrew/bin/zellij
