@@ -3,7 +3,7 @@ set -u fish_greeting
 set -x GPG_TTY "$(tty)"
 set -x EDITOR nvim
 # set -x PAGER less
-set -x MANPAGER 'nvim +Man!'
+set -x MANPAGER "sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, \"\", \$0); gsub(/.\x08/, \"\", \$0); print }'\'' | bat -p -lman'"
 set -x HOMEBREW_NO_ANALYTICS 1
 
 if test -e "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
