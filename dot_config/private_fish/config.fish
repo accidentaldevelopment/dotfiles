@@ -10,10 +10,6 @@ if test -e "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock
     set -x SSH_AUTH_SOCK "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 end
 
-set -x XDG_CONFIG_HOME "$HOME/.config"
-set -x XDG_STATE_HOME "$HOME/.local/state"
-set -x XDG_DATA_HOME "$HOME/.local/share"
-
 set -x LESS_TERMCAP_mb (tput bold; tput setaf red) # begin bold
 set -x LESS_TERMCAP_md (tput setaf 74) # begin bold
 set -x LESS_TERMCAP_me (tput sgr0) # begin bold

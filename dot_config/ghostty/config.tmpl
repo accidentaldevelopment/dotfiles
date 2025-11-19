@@ -39,4 +39,10 @@ keybind = super+zero=reset_font_size
 
 keybind = super+enter=toggle_fullscreen
 
-command = /opt/homebrew/bin/zellij
+{{ $env := dict
+  "XDG_CONFIG_HOME" (joinPath .chezmoi.homeDir ".config")
+  "XDG_DATA_HOME"   (joinPath .chezmoi.homeDir ".local" "share")
+  "XDG_STATE_HOME"  (joinPath .chezmoi.homeDir ".local" "state")
+-}}
+
+command = /usr/bin/env {{ range $name,$val := $env }}{{$name}}="{{$val}}" {{end -}} /opt/homebrew/bin/zellij
