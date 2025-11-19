@@ -38,3 +38,36 @@ $env.config.menus ++= [{
         description_text: yellow      # Text style for description
     }
 }]
+
+export-env {
+  let 1p_agent_path = $'($env.HOME)/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock'
+  if ($1p_agent_path | path exists) {
+    $env.SSH_AUTH_SOCK = $1p_agent_path
+  }
+}
+
+$env.config.keybindings ++= [{
+    modifier: control,
+    mode: [vi_normal, vi_insert],
+    keycode: 'char_[',
+    event: {
+      send: vichangemode,
+      mode: normal
+    }
+  }, {
+    modifier: control,
+    keycode: Space,
+    mode: vi_insert,
+    event: {
+      send: menu
+      name: completion_menu
+    }
+  }, {
+    modifier: control,
+    keycode: Char_y,
+    mode: vi_insert,
+    event: {
+      send: Enter
+    }
+  },
+]

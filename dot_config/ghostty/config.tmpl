@@ -43,6 +43,7 @@ keybind = super+enter=toggle_fullscreen
   "XDG_CONFIG_HOME" (joinPath .chezmoi.homeDir ".config")
   "XDG_DATA_HOME"   (joinPath .chezmoi.homeDir ".local" "share")
   "XDG_STATE_HOME"  (joinPath .chezmoi.homeDir ".local" "state")
+  "SHELL"           .shell
 -}}
 
 command = /usr/bin/env {{ range $name,$val := $env }}{{$name}}="{{$val}}" {{end -}} /opt/homebrew/bin/zellij

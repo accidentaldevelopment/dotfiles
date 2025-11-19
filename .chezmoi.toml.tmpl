@@ -1,5 +1,6 @@
 {{- $name := promptStringOnce . "name" "name?" -}}
 {{- $email := promptStringOnce . "email" "email?" -}}
+{{- $shell := "/opt/homebrew/bin/fish" -}}
 
 {{/* Various system detection stuffs */}}
 {{- $macos := eq .chezmoi.os "darwin" -}}
@@ -25,6 +26,7 @@ command = "delta"
 [data]
 name = {{ $name | quote }}
 email = {{ $email | quote }}
+shell = {{ $shell | quote }}
 
 # OS Information
 [data.os]
