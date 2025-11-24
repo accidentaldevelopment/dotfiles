@@ -1,6 +1,6 @@
 {{- $name := promptStringOnce . "name" "name?" -}}
 {{- $email := promptStringOnce . "email" "email?" -}}
-{{- $shell := "/opt/homebrew/bin/fish" -}}
+{{- $shell := "/opt/homebrew/bin/nu" -}}
 
 {{/* Various system detection stuffs */}}
 {{- $macos := eq .chezmoi.os "darwin" -}}
