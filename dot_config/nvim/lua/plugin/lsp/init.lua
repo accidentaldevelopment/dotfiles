@@ -66,6 +66,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require('plugin.lsp.rename_handler')
 
+---@module "lazy"
+---@type LazySpec[]
 return {
   {
     'neovim/nvim-lspconfig',
@@ -155,7 +157,6 @@ return {
   {
     'mfussenegger/nvim-lint',
     dependencies = { 'mason.nvim' },
-    ---@param p LazyPlugin
     ft = function(p)
       return vim.tbl_keys(p.opts.linters_by_ft)
     end,
