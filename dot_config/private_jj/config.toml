@@ -1,0 +1,38 @@
+[user]
+name = "Brian Faga"
+
+[signing]
+backend = "ssh"
+
+[git]
+sign-on-push = true
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
+
+[signing.backends.ssh]
+allowed-signers = "~/.ssh/allowed_signers"
+
+[ui]
+show-cryptographic-signatures = true
+
+[colors]
+"pr topic" = { bold = true }
+"pr body" = { fg = "default" }
+
+[aliases]
+pr-description = ['log', '-r', 'main..@', '--no-graph', '-T', 'pr']
+
+[template-aliases]
+pr = '''
+concat(
+  indent("- ", label("pr topic", description.first_line())),
+  "\n",
+  if(
+    description.contains("\n"),
+    concat(
+      "\n",
+      indent("  ", label("pr body", description.remove_prefix(description.first_line()).trim())),
+      "\n\n",
+    ),
+  ),
+)
+'''

@@ -1,0 +1,8 @@
+# Put local git config modications here.
+# This file will *not* be overwritten.
+
+[user]
+email = ''
+
+[signing]
+key = ''
