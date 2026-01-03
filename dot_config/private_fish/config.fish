@@ -19,6 +19,7 @@ set -x LESS_TERMCAP_so (tput smso) # begin standout-mode - info box
 set -x LESS_TERMCAP_se (tput rmso; tput sgr0) # begin standout-mode - info box
 
 if status is-interactive
+    fish_config theme choose catppuccin_mocha
     fish_vi_key_bindings
 
     # Current fish_cursor_* settings think they don't work for ghostty or

@@ -13,6 +13,13 @@ allowed-signers = "~/.ssh/allowed_signers"
 
 [ui]
 show-cryptographic-signatures = true
+diff-formatter = 'delta'
+
+[merge-tools.difft]
+diff-args = ["--color=always", "$left", "$right"]
+
+[merge-tools.delta]
+diff-expected-exit-codes = [0, 1]
 
 [colors]
 "pr topic" = { bold = true }

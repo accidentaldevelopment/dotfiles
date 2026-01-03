@@ -2,6 +2,7 @@ $env.EDITOR = 'nvim'
 $env.PROMPT_INDICATOR_VI_NORMAL = ''
 $env.PROMPT_INDICATOR_VI_INSERT = ''
 $env.CARAPACE_BRIDGES = 'fish'
+$env.MANPAGER = r#'sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, "", $0); gsub(/.\x08/, "", $0); print }'\'' | bat -p -lman''#
 
 $env.XDG_CONFIG_HOME = ($env.HOME | path join .config)
 $env.XDG_STATE_HOME = ($env.HOME | path join .local state)
@@ -24,18 +25,14 @@ $env.config.use_kitty_protocol = true
 
 $env.config.menus ++= [{
     name: completion_menu
-    only_buffer_difference: false # Search is done on the text written after activating the menu
-    marker: '',                  # Indicator that appears with the menu is active
+    only_buffer_difference: false
+    marker: ''
     type: {
-        layout: columnar          # Type of menu
-        columns: 4                # Number of columns where the options are displayed
-        col_width: 20             # Optional value. If missing all the screen width is used to calculate column width
-        col_padding: 2            # Padding between columns
+        layout: columnar
     }
     style: {
-        text: green                   # Text style
-        selected_text: green_reverse  # Text style for selected option
-        description_text: yellow      # Text style for description
+        text: green
+        selected_text: green_reverse
     }
 }]
 
