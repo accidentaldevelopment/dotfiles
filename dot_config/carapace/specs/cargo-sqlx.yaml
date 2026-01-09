@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://carapace.sh/schemas/command.json
+name: cargo-sqlx
+description: cargo plugin for sqlx utility for managing databases, migrations, and enabling "offline" mode.
+flags:
+  --no-dotenv: Do not automatically load `.env` files
+  -V, --version: Print version
+persistentflags:
+  -h, --help: Print help
+commands:
+  - name: database
+    description: Group of commands for creating and dropping your database
+    commands:
+      - name: create
+        description: Creates the database specified in your DATABASE_URL
+      - name: drop
+        description: Drops the database specified in your DATABASE_URL
+      - name: reset
+        description: Drops the database specified in your DATABASE_URL, re-creates it, and runs any pending migrations
+      - name: setup
+        description: Creates the database specified in your DATABASE_URL and runs any pending migrations
+      - name: help
+        description: Print this message or the help of the given subcommand(s)
+      - name: prepare
+        description: Generate query metadata to support offline compile-time verification
+    flags:
+      --check: Run in 'check' mode. Exits with 0 if the query metadata is up-to-date. Exits with 1 if the query metadata needs updating
+      --all: Prepare query macros in dependencies that exist outside the current crate or workspace
+      --workspace: Generate a single workspace-level `.sqlx` folder
+      --no-dotenv: Do not automatically load `.env` files
+      -D, --database-url=: Location of the DB, by default will be read from the DATABASE_URL env var or `.env` files
+      --connect-timeout=: The maximum time, in seconds, to try connecting to the database server before returning an error'
+      -h: Print help
+      --help: Print more help
+  - name: migrate
+    description: Group of commands for creating and running migrations
+    commands:
+      - name: add
+        description: Create a new migration with the given description
+      - name: run
+        description: Run all pending migrations
+      - name: revert
+        description: Revert the latest migration with a down file
+      - name: info
+        description: List all available migrations
+      - name: build-script
+        description: Generate a `build.rs` to trigger recompilation when a new migration is added
+      - name: help
+        description: Print this message or the help of the given subcommand(s)
+  - name: completions
+    description: Generate shell completions for the specified shell
+  - name: help
+    description: Print this message or the help of the given subcommand(s)
