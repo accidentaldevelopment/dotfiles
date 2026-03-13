@@ -25,12 +25,12 @@ function M.on_attach(client, buffer)
 
     { 'gd', Snacks.picker.lsp_definitions, desc = 'Goto Definition' },
     { 'gD', Snacks.picker.lsp_declarations, desc = 'Goto Declaration' },
-    { 'gI', Snacks.picker.lsp_implementations, desc = 'Goto Implementation' },
-    { 'gt', Snacks.picker.lsp_type_definitions, desc = 'Goto Type Definition' },
 
     { 'gra', desc = 'Code Actions' },
+    { 'gri', Snacks.picker.lsp_implementations, desc = 'Goto Implementation' },
     { 'grn', desc = 'Rename' },
     { 'grr', Snacks.picker.lsp_references, desc = 'References' },
+    { 'grt', Snacks.picker.lsp_type_definitions, desc = 'Goto Type Definition' },
 
     {
       '[e',
