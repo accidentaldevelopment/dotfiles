@@ -29,7 +29,7 @@ require('lazy').setup({
     { import = 'plugin.dev.go', enabled = vim.system({ 'which', 'go' }):wait().code == 0 },
   },
   install = {
-    colorscheme = { 'catppuccin-nvim' },
+    colorscheme = { 'catppuccin' },
   },
   checker = {
     enabled = true,

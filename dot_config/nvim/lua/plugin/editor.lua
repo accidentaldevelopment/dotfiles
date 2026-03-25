@@ -36,15 +36,13 @@ return {
     --- @type wk.Opts
     opts = {
       preset = 'helix',
-      show_help = false,
       spec = {
         mode = { 'n', 'v' },
-        { '<leader><tab>', group = 'tabs' },
         { '<leader>L', '<cmd>Lazy<cr>', desc = 'Show Lazy' },
         { '<leader>g', group = 'git' },
         { '<leader>o', group = 'open' },
         { '<leader>t', group = 'toggle' },
-        { 'g', group = 'goto' },
+        { 'g', group = 'g-commands' },
         { 's', group = 'surround' },
         { ']', group = 'next' },
         { '[', group = 'prev' },

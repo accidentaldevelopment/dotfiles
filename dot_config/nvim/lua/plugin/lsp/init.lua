@@ -8,6 +8,7 @@ vim.diagnostic.config({
     },
   },
   jump = {
+    float = true,
     on_jump = function()
       vim.diagnostic.open_float()
     end,
@@ -46,7 +47,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     require('plugin.lsp.keymaps').on_attach(client, bufnr)
 
     if client:supports_method(methods.textDocument_documentColor) then
-      vim.lsp.document_color.enable(true, bufnr, { style = 'virtual' })
+      vim.lsp.document_color.enable(true, { bufnr = 0 }, { style = 'virtual' })
     end
 
     if client:supports_method(methods.textDocument_inlayHint) then

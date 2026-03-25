@@ -6,12 +6,6 @@ return {
     build = ':TSUpdate',
     dependencies = {
       'andymass/vim-matchup',
-      {
-        'JoosepAlviste/nvim-ts-context-commentstring',
-        init = function()
-          vim.g.skip_ts_context_commentstring_module = true
-        end,
-      },
       { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
       {
         'nvim-mini/mini.ai',

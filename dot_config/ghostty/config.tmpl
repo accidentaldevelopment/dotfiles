@@ -39,6 +39,8 @@ keybind = super+zero=reset_font_size
 
 keybind = super+enter=toggle_fullscreen
 
+keybind = cmd+f=start_search
+
 {{ $env := dict
   "XDG_CONFIG_HOME" (joinPath .chezmoi.homeDir ".config")
   "XDG_DATA_HOME"   (joinPath .chezmoi.homeDir ".local" "share")
