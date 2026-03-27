@@ -5,5 +5,6 @@ vim.filetype.add({
   pattern = {
     ['*.jsonc'] = 'jsonc',
     ['tsconfig*.json'] = 'jsonc',
+    ['${XDG_CONFIG_HOME}/ghostty/%w+'] = 'ghostty',
   },
 })

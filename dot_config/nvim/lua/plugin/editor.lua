@@ -38,6 +38,7 @@ return {
       preset = 'helix',
       spec = {
         mode = { 'n', 'v' },
+        { '<leader><tab>', group = 'tabs' },
         { '<leader>L', '<cmd>Lazy<cr>', desc = 'Show Lazy' },
         { '<leader>g', group = 'git' },
         { '<leader>o', group = 'open' },
