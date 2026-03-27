@@ -9,28 +9,37 @@ ui {
     hide_session_name false
   }
 }
-keybinds clear-defaults=true {
+keybinds {
+  shared {
+    unbind "Ctrl g"
+    unbind "Ctrl s"
+    unbind "Ctrl t"
+    unbind "Ctrl p"
+    unbind "Ctrl n"
+    unbind "Ctrl h"
+    unbind "Ctrl o"
+  }
   locked {
     bind "Ctrl Shift g" {
-      SwitchToMode "Normal"
+      SwitchToMode "normal"
+    }
+  }
+  shared_except "locked" {
+    bind "Ctrl Shift g" {
+      SwitchToMode "locked"
+    }
+  }
+  shared_except "normal" {
+    bind "Ctrl c" {
+      SwitchToMode "normal"
     }
   }
   normal {
-    bind "Super p" {
-      LaunchOrFocusPlugin "plugin-manager" {
-        floating true
-        move_to_focused_tab true
-      }
-    }
     bind "Ctrl b" {
       SwitchToMode "tmux"
     }
     bind "Super t" {
       NewTab
-    }
-    bind "Super r" {
-      SwitchToMode "RenameTab"
-      TabNameInput 0
     }
     bind "Alt Left" {
       GoToPreviousTab
@@ -67,6 +76,24 @@ keybinds clear-defaults=true {
     }
   }
   tmux {
+    bind "Ctrl s" {
+      SwitchToMode "scroll"
+    }
+    bind "Ctrl t" {
+      SwitchToMode "tab"
+    }
+    bind "Ctrl p" {
+      SwitchToMode "pane"
+    }
+    bind "Ctrl n" {
+      SwitchToMode "resize"
+    }
+    bind "Ctrl h" {
+      SwitchToMode "move"
+    }
+    bind "Ctrl o" {
+      SwitchToMode "session"
+    }
     bind "\\" {
       NewPane "Right"
       SwitchToMode "normal"
@@ -76,18 +103,6 @@ keybinds clear-defaults=true {
       SwitchToMode "normal"
     }
     bind "Esc" {
-      SwitchToMode "normal"
-    }
-    bind "c" {
-      NewTab
-      SwitchToMode "normal"
-    }
-    bind "p" {
-      GoToPreviousTab
-      SwitchToMode "normal"
-    }
-    bind "n" {
-      GoToNextTab
       SwitchToMode "normal"
     }
     bind "[" {
@@ -128,134 +143,6 @@ keybinds clear-defaults=true {
     bind "m" {
       ToggleActiveSyncTab
       SwitchToMode "normal"
-    }
-  }
-  scroll {
-    bind "Ctrl s" {
-      SwitchToMode "Normal"
-    }
-    bind "e" {
-      EditScrollback
-      SwitchToMode "Normal"
-    }
-    bind "s" {
-      SwitchToMode "EnterSearch"
-      SearchInput 0
-    }
-    bind "/" {
-      SwitchToMode "EnterSearch"
-      SearchInput 0
-    }
-    bind "Ctrl c" {
-      ScrollToBottom
-      SwitchToMode "Normal"
-    }
-    bind "j" "Down" {
-      ScrollDown
-    }
-    bind "k" "Up" {
-      ScrollUp
-    }
-    bind "Ctrl f" "PageDown" "Right" "l" {
-      PageScrollDown
-    }
-    bind "Ctrl b" "PageUp" "Left" "h" {
-      PageScrollUp
-    }
-    bind "d" {
-      HalfPageScrollDown
-    }
-    bind "u" {
-      HalfPageScrollUp
-    }
- // uncomment this and adjust key if using copy_on_select=false
-        // bind "Alt c" { Copy; }
-  }
-  search {
-    bind "Ctrl s" {
-      SwitchToMode "Normal"
-    }
-    bind "Ctrl c" {
-      ScrollToBottom
-      SwitchToMode "Normal"
-    }
-    bind "j" "Down" {
-      ScrollDown
-    }
-    bind "k" "Up" {
-      ScrollUp
-    }
-    bind "Ctrl f" "PageDown" "Right" "l" {
-      PageScrollDown
-    }
-    bind "Ctrl b" "PageUp" "Left" "h" {
-      PageScrollUp
-    }
-    bind "d" {
-      HalfPageScrollDown
-    }
-    bind "u" {
-      HalfPageScrollUp
-    }
-    bind "n" {
-      Search "down"
-    }
-    bind "p" {
-      Search "up"
-    }
-    bind "c" {
-      SearchToggleOption "CaseSensitivity"
-    }
-    bind "w" {
-      SearchToggleOption "Wrap"
-    }
-    bind "o" {
-      SearchToggleOption "WholeWord"
-    }
-  }
-  entersearch {
-    bind "Ctrl c" "Esc" {
-      SwitchToMode "Scroll"
-    }
-    bind "Enter" {
-      SwitchToMode "Search"
-    }
-  }
-  renametab {
-    bind "Esc" {
-      SwitchToMode "Normal"
-    }
-    bind "Enter" {
-      SwitchToMode "Normal"
-    }
-  }
-  shared_except "locked" {
-    bind "Ctrl Shift g" {
-      SwitchToMode "Locked"
-    }
-    bind "Alt h" {
-      MessagePlugin "vim-nav" {
-        name "resize"
-        payload "left"
-      }
-    }
-    bind "Alt j" {
-      MessagePlugin "vim-nav" {
-        name "resize"
-        payload "down"
-      }
-    }
-    bind "Alt k" {
-      MessagePlugin "vim-nav" {
-        name "resize"
-        payload "up"
-      }
-    }
-    bind "Alt l" {
-      MessagePlugin "vim-nav" {
-        name "resize"
-        payload "right"
-      }
     }
   }
 }
@@ -320,13 +207,13 @@ plugins {
     mode_session "#[bg=$pink,fg=$crust,bold]   #[bg=$surface0,fg=$pink]"
     mode_prompt "#[bg=$pink,fg=$crust,bold] 󰟶  #[bg=$surface0,fg=$pink]"
     //
-    tab_normal              "#[bg=$surface0,fg=$blue] {index} {name}{floating_indicator} #[bg=$surface0,fg=surface1]"
-    tab_normal_fullscreen   "#[bg=$surface0,fg=$blue] {index} {name}{fullscreen_indicator} #[bg=$surface0,fg=$surface1]"
-    tab_normal_sync         "#[bg=$surface0,fg=$blue] {index} {name}{sync_indicator} #[bg=$surface0,fg=$surface1]"
-    tab_active              "#[bg=$surface1,fg=$peach] {index} {name}{floating_indicator} #[bg=$surface0,fg=$surface1]"
-    tab_active_fullscreen   "#[bg=$surface0,fg=$peach] {index} {name}{fullscreen_indicator} #[bg=$surface0,fg=$surface1]"
-    tab_active_sync         "#[bg=$surface0,fg=$peach] {index} {name}{sync_indicator} #[bg=$surface0,fg=$surface1]"
-    tab_separator           "#[bg=$surface0]"
+    tab_normal "#[bg=$surface0,fg=$blue] {index} {name}{floating_indicator} #[bg=$surface0,fg=surface1]"
+    tab_normal_fullscreen "#[bg=$surface0,fg=$blue] {index} {name}{fullscreen_indicator} #[bg=$surface0,fg=$surface1]"
+    tab_normal_sync "#[bg=$surface0,fg=$blue] {index} {name}{sync_indicator} #[bg=$surface0,fg=$surface1]"
+    tab_active "#[bg=$surface1,fg=$peach] {index} {name}{floating_indicator} #[bg=$surface0,fg=$surface1]"
+    tab_active_fullscreen "#[bg=$surface0,fg=$peach] {index} {name}{fullscreen_indicator} #[bg=$surface0,fg=$surface1]"
+    tab_active_sync "#[bg=$surface0,fg=$peach] {index} {name}{sync_indicator} #[bg=$surface0,fg=$surface1]"
+    tab_separator "#[bg=$surface0]"
     //
     tab_sync_indicator " "
     tab_fullscreen_indicator "󰊓 "
