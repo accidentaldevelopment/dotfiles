@@ -1,3 +1,17 @@
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'TSUpdate',
+  callback = function()
+    ---@diagnostic disable-next-line: missing-fields
+    require('nvim-treesitter.parsers').ghostty = {
+      ---@diagnostic disable-next-line: missing-fields
+      install_info = {
+        url = 'https://github.com/bezhermoso/tree-sitter-ghostty',
+        queries = 'queries/ghostty', -- also install queries from given directory
+      },
+    }
+  end,
+})
+
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -55,6 +69,12 @@ return {
     },
     config = function(_, opts)
       require('nvim-treesitter').install(opts.ensure_installed)
+      require('nvim-treesitter.parsers').ghostty = {
+        install_info = {
+          url = 'https://github.com/bezhermoso/tree-sitter-ghostty',
+          queries = 'queries/ghostty', -- also install queries from given directory
+        },
+      }
 
       vim.api.nvim_create_autocmd('FileType', {
         group = vim.api.nvim_create_augroup('tree-sitter setup', { clear = true }),
