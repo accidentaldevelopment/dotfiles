@@ -1,3 +1,28 @@
+local function activate_treesitter(lang, bufnr)
+  if lang and vim.treesitter.language.add(lang) then
+    vim.treesitter.start(bufnr, lang)
+    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+    if vim.wo.foldexpr == '0' then
+      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    end
+  end
+end
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('tree-sitter setup', { clear = true }),
+  callback = function(args)
+    local ft = args.match
+    local lang = vim.treesitter.language.get_lang(ft)
+    local ts = require('nvim-treesitter')
+    if vim.tbl_contains(ts.get_available(), lang) then
+      ts.install(lang):await(function()
+        activate_treesitter(lang, args.buf)
+      end)
+    end
+    -- activate_treesitter(lang, args.buf)
+  end,
+})
+
 vim.api.nvim_create_autocmd('User', {
   pattern = 'TSUpdate',
   callback = function()
@@ -75,21 +100,6 @@ return {
           queries = 'queries/ghostty', -- also install queries from given directory
         },
       }
-
-      vim.api.nvim_create_autocmd('FileType', {
-        group = vim.api.nvim_create_augroup('tree-sitter setup', { clear = true }),
-        callback = function(args)
-          local ft = args.match
-          local lang = vim.treesitter.language.get_lang(ft)
-          if lang and vim.treesitter.language.add(lang) then
-            vim.treesitter.start(args.buf, lang)
-            vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
-            if vim.wo.foldexpr == '0' then
-              vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-            end
-          end
-        end,
-      })
 
       -- function _G._foldtext()
       --   local text = vim.treesitter.foldtext()

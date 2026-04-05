@@ -8,7 +8,6 @@ vim.diagnostic.config({
     },
   },
   jump = {
-    float = true,
     on_jump = function()
       vim.diagnostic.open_float()
     end,
