@@ -77,7 +77,11 @@ return {
     -- dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {},
   },
-  { 'mrjones2014/smart-splits.nvim', lazy = false },
+  {
+    'mrjones2014/smart-splits.nvim',
+    lazy = false,
+    branch = 'mrj/push-lmoqzzkrnwql',
+  },
   {
     'folke/snacks.nvim',
     priority = 1000,
