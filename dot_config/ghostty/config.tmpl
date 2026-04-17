@@ -25,6 +25,10 @@ quit-after-last-window-closed = true
 shell-integration-features = no-cursor
 
 theme = Catppuccin Mocha
+background-opacity = 0.99
+background-blur = macos-glass-clear
+
+split-divider-color = light green
 
 keybind = clear
 
@@ -33,6 +37,7 @@ keybind = cmd+shift+p=toggle_command_palette
 keybind = super+shift+comma=reload_config
 
 keybind = super+n=new_window
+keybind = super+t=new_tab
 
 keybind = super+v=paste_from_clipboard
 keybind = super+c=copy_to_clipboard
@@ -45,6 +50,21 @@ keybind = super+enter=toggle_fullscreen
 
 keybind = cmd+f=start_search
 
+keybind = ctrl+b=activate_key_table_once:tmux
+keybind = tmux/\=new_split:right
+keybind = tmux/-=new_split:down
+keybind = tmux/p=previous_tab
+keybind = tmux/n=next_tab
+keybind = tmux/c=new_tab
+keybind = tmux/ctrl+p=activate_key_table:pane
+
+keybind = pane/alt+h=resize_split:left,10
+keybind = pane/alt+j=resize_split:down,10
+keybind = pane/alt+k=resize_split:up,10
+keybind = pane/alt+l=resize_split:right,10
+keybind = pane/n=new_split
+keybind = pane/escape=deactivate_key_table
+
 {{ $env := dict
   "XDG_CONFIG_HOME" (joinPath .chezmoi.homeDir ".config")
   "XDG_DATA_HOME"   (joinPath .chezmoi.homeDir ".local" "share")
@@ -52,4 +72,4 @@ keybind = cmd+f=start_search
   "SHELL"           .shell
 -}}
 
-command = /usr/bin/env {{ range $name,$val := $env }}{{$name}}="{{$val}}" {{end -}} /opt/homebrew/bin/zellij
+command = /usr/bin/env {{ range $name,$val := $env }}{{$name}}="{{$val}}" {{end -}} /opt/homebrew/bin/nu
