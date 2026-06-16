@@ -76,15 +76,10 @@ return {
         opts = {},
       },
       'b0o/schemastore.nvim',
-      -- neoconf must be loaded _before_ an lsp
       {
-        'folke/neoconf.nvim',
-        opts = {
-          import = {
-            coc = false,
-            nlsp = false,
-          },
-        },
+        'mrjones2014/codesettings.nvim',
+        lazy = false,
+        opts = {},
       },
       {
         'mason-org/mason.nvim',
@@ -104,6 +99,13 @@ return {
       },
     },
     config = function()
+      vim.lsp.config('*', {
+        before_init = function(_, config)
+          local codesettings = require('codesettings')
+          codesettings.with_local_settings(config.name, config)
+        end,
+      })
+
       -- Language servers that aren't installed via mason.
       vim.lsp.enable({ 'denols', 'nushell' })
 
