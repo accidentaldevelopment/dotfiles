@@ -7,3 +7,4 @@ cpus = {{ if (ge .cpu.threads 16) -}}
 {{ div .cpu.threads 3 }}
 {{ end -}}
 memory = {{ mul (div .mem.totalGB  4) 1024 }}
+provider = 'applehv'
