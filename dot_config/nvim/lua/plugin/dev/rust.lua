@@ -34,7 +34,7 @@ return {
   {
     'mason-tool-installer.nvim',
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { 'rust-analyzer', 'taplo' })
+      vim.list_extend(opts.ensure_installed, { 'rust-analyzer', 'tombi' })
     end,
   },
 }
