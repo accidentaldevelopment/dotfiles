@@ -13,14 +13,16 @@ $env.config.cursor_shape = {
   vi_normal: block
   emacs: line
 }
-$env.config.datetime_format.normal = "%y-%m-%d %I:%M:%S%p"
 $env.config.edit_mode = "vi"
 # Show _all_ the decimal places!
 $env.config.filesize.precision = null
 $env.config.filesize.unit = 'metric'
 $env.config.history.file_format = 'sqlite'
+$env.config.history.isolation = true
 $env.config.show_banner = 'short'
-$env.config.table.mode = 'compact'
+$env.config.table.header_on_separator = true
+$env.config.table.mode = 'rounded'
+$env.config.footer_mode = 'auto'
 $env.config.use_kitty_protocol = true
 
 $env.config.menus ++= [{
