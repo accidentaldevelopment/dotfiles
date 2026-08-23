@@ -1,4 +1,5 @@
 return {
+  ---@type lsp.rust_analyzer
   settings = {
     ['rust-analyzer'] = {
       check = {
@@ -18,9 +19,9 @@ return {
       },
       inlayHints = {
         bindingModeHints = { enable = true },
-        closureReturnTypeHints = { enable = true },
+        closureReturnTypeHints = { enable = 'always' },
         expressionAdjustmentHints = {
-          enable = true,
+          enable = 'always',
           hideOutsideUnsafe = true,
         },
         lifetimeElisionHints = {
