@@ -40,7 +40,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client:supports_method(methods.textDocument_foldingRange) then
       local win = vim.api.nvim_get_current_win()
-      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+      vim.wo[win][0].foldexpr = vim.lsp.foldexpr
     end
 
     require('plugin.lsp.keymaps').on_attach(client, bufnr)

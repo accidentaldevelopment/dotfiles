@@ -1,9 +1,9 @@
 local function activate_treesitter(lang, bufnr)
   if lang and vim.treesitter.language.add(lang) then
     vim.treesitter.start(bufnr, lang)
-    vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+    vim.bo.indentexpr = require('nvim-treesitter').indentexpr
     if vim.wo.foldexpr == '0' then
-      vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.wo.foldexpr = vim.treesitter.foldexpr
     end
   end
 end
@@ -100,33 +100,6 @@ return {
           queries = 'queries/ghostty', -- also install queries from given directory
         },
       }
-
-      -- function _G._foldtext()
-      --   local text = vim.treesitter.foldtext()
-      --   if type(text) == 'table' then
-      --     local nlines = vim.v.foldend - vim.v.foldstart
-      --     local closer = vim.api.nvim_buf_get_lines(0, vim.v.foldend - 1, vim.v.foldend, true)
-      --     table.insert(text, { ' ', 'Normal' })
-      --     table.insert(text, { string.format('+%d lines', nlines), { '@comment' } })
-      --     table.insert(text, { ' ', 'Normal' })
-      --     table.insert(text, { closer[1]:match('^%s*(.-)%s*$') })
-      --   end
-      --   return text
-      -- end
-      --
-      -- -- Folding options
-      -- vim.o.foldmethod = 'expr'
-      -- vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-      -- vim.o.foldtext = 'v:lua._foldtext()'
-      -- -- Don't fold everything at startup
-      -- vim.o.foldlevel = 99
-      -- vim.o.foldlevelstart = 99
-      -- vim.o.foldcolumn = 'auto:3'
-      -- vim.opt.fillchars:append({
-      --   foldopen = '▼',
-      --   foldclose = '▶',
-      --   fold = ' ',
-      -- })
     end,
   },
 }
