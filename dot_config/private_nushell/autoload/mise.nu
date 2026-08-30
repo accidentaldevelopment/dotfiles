@@ -40,11 +40,28 @@ module mise {
     $env.config = ($old_config | upsert $field ($old_hooks ++ [$new_hook]))
   }
 
-  def mise-completion [span: list<string>] {
-    ^mise usage | usage complete-word --shell nu -f- -- ...$span | from tsv --noheaders | rename value description
+  def 'nu-complete mise' [span: list<string>] {
+    mut comps = []
+    let line = ($span | str join ' ')
+
+    let out = (^mise __complete_word__ --shell nu --line $line | lines)
+
+    for l in $out {
+      if $l starts-with "\u{1}" {
+        match $l {
+          # TODO: There are other options here, but I don't know the situations
+          # where they show up. So hopefully this is enough to tell me more
+          # if/when those values show up.
+          "\u{1}files" => { return null }
+          _ => { return { value: $l description: $line } }
+        }
+      }
+      $comps ++= ($l | from tsv --noheaders | rename value description)
+    }
+    $comps
   }
 
-  @complete mise-completion
+  @complete 'nu-complete mise'
   export def --env --wrapped main [command?: string, --help, ...rest: string] {
     let commands = ["deactivate", "shell", "sh"]
 
@@ -62,4 +79,4 @@ module mise {
   }
 }
 
-use mise
+use mise main
