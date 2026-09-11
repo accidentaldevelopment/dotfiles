@@ -45,9 +45,10 @@ return {
     build = ':TSUpdate',
     dependencies = {
       'andymass/vim-matchup',
-      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
+      { 'nvim-treesitter/nvim-treesitter-textobjects' },
       {
         'nvim-mini/mini.ai',
+        cond = false,
         opts = function()
           local ai = require('mini.ai')
           return {

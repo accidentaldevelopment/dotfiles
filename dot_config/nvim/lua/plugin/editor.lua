@@ -78,11 +78,6 @@ return {
     opts = {},
   },
   {
-    'mrjones2014/smart-splits.nvim',
-    lazy = false,
-    branch = 'mrj/push-lmoqzzkrnwql',
-  },
-  {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
