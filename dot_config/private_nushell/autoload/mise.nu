@@ -40,9 +40,10 @@ module mise {
     $env.config = ($old_config | upsert $field ($old_hooks ++ [$new_hook]))
   }
 
-  def 'nu-complete mise' [span: list<string>] {
+  def 'nu-complete mise' [place: record] {
     mut comps = []
-    let line = ($span | str join ' ')
+    # Overwrite item 0 to be `mise`. It's usually `main` because we're wrapping the command in this module.
+    let line = ($place.command | update 0 mise | str join ' ')
 
     let out = (^mise __complete_word__ --shell nu --line $line | lines)
 
