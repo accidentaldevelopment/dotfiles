@@ -23,6 +23,7 @@ return {
   {
     'hiphish/rainbow-delimiters.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = false,
     submodules = false,
   },
   {
