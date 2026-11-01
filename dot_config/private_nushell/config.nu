@@ -4,10 +4,6 @@ $env.PROMPT_INDICATOR_VI_INSERT = ''
 $env.CARAPACE_BRIDGES = 'fish'
 $env.MANPAGER = r#'sh -c 'awk '\''{ gsub(/\x1B\[[0-9;]*m/, "", $0); gsub(/.\x08/, "", $0); print }'\'' | bat -p -lman''#
 
-$env.XDG_CONFIG_HOME = ($env.HOME | path join .config)
-$env.XDG_STATE_HOME = ($env.HOME | path join .local state)
-$env.XDG_DATA_HOME = ($env.HOME | path join .local share)
-
 $env.config.cursor_shape = {
   vi_insert: line
   vi_normal: block

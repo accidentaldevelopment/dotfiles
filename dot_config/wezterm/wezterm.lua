@@ -64,12 +64,6 @@ end
 
 config.default_prog = { '/opt/homebrew/bin/nu', '-l' }
 
-config.set_environment_variables = {
-  XDG_CONFIG_HOME = wezterm.home_dir .. '/.config',
-  XDG_STATE_HOME = wezterm.home_dir .. '/.local/state',
-  XDG_DATA_HOME = wezterm.home_dir .. '/.local/share',
-}
-
 config.mouse_bindings = {
   {
     event = { Up = { streak = 1, button = 'Left' } },

@@ -3,9 +3,14 @@ type = 'file'
 url = 'https://raw.githubusercontent.com/catppuccin/fish/refs/heads/main/themes/catppuccin-mocha.theme'
 refreshPeriod = "168h"
 
-[".config/nushell/autoload/catppuccin_mocha.nu"]
+[".config/nushell/themes/catppuccin_mocha.nu"]
 type = 'file'
 url = 'https://raw.githubusercontent.com/catppuccin/nushell/refs/heads/main/themes/catppuccin_mocha.nu'
+refreshPeriod = "168h"
+
+[".config/nushell/themes/catppuccin_latte.nu"]
+type = 'file'
+url = 'https://raw.githubusercontent.com/catppuccin/nushell/refs/heads/main/themes/catppuccin_latte.nu'
 refreshPeriod = "168h"
 
 [".config/zellij/plugins/zjstatus.wasm"]

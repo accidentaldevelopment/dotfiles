@@ -65,11 +65,4 @@ keybind = pane/alt+l=resize_split:right,10
 keybind = pane/n=new_split
 keybind = pane/escape=deactivate_key_table
 
-{{ $env := dict
-  "XDG_CONFIG_HOME" (joinPath .chezmoi.homeDir ".config")
-  "XDG_DATA_HOME"   (joinPath .chezmoi.homeDir ".local" "share")
-  "XDG_STATE_HOME"  (joinPath .chezmoi.homeDir ".local" "state")
-  "SHELL"           .shell
--}}
-
-command = /usr/bin/env {{ range $name,$val := $env }}{{$name}}="{{$val}}" {{end -}} /opt/homebrew/bin/nu
+command = /opt/homebrew/bin/nu
