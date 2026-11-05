@@ -1,15 +1,17 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+
 [user]
 name = "Brian Faga"
 
 [signing]
+behavior = 'drop'
 backend = "ssh"
-
-[git]
-sign-on-push = true
-private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 
 [signing.backends.ssh]
 allowed-signers = "~/.ssh/allowed_signers"
+
+[git]
+private-commits = "description(glob:'wip:*') | description(glob:'private:*')"
 
 [ui]
 show-cryptographic-signatures = true
@@ -27,6 +29,9 @@ diff-expected-exit-codes = [0, 1]
 
 [aliases]
 pr-description = ['log', '-r', 'main..@', '--no-graph', '-T', 'pr']
+
+[revsets]
+git-sign-on-push = '~signed() & mine()'
 
 [template-aliases]
 pr = '''
