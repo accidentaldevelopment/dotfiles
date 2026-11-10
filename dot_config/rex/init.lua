@@ -1,0 +1,15 @@
+rex.bind('super+enter', 'client.window.fullscreen.toggle')
+
+rex.mode('tmux')
+
+rex.bind('ctrl+b', 'client.mode.enter', { name = 'tmux', once = true })
+rex.bind('tmux/ctrl+[', 'client.mode.exit')
+rex.bind('tmux/c', 'client.tab.new')
+rex.bind('tmux/n', 'client.tab.next')
+rex.bind('tmux/p', 'client.tab.previous')
+rex.bind('tmux/\\', 'pane.split', { direction = 'right' })
+rex.bind('tmux/-', 'pane.split', { direction = 'down' })
+rex.bind('tmux/k', 'pane.focus', { direction = 'up' })
+rex.bind('tmux/j', 'pane.focus', { direction = 'down' })
+rex.bind('tmux/h', 'pane.focus', { direction = 'left' })
+rex.bind('tmux/l', 'pane.focus', { direction = 'right' })

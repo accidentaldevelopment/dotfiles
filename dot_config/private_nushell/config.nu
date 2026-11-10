@@ -21,6 +21,8 @@ $env.config.table.mode = 'rounded'
 $env.config.footer_mode = 'auto'
 $env.config.use_kitty_protocol = true
 
+$env.config.abbreviations.sr = 'ssh -l root'
+
 $env.config.menus ++= [{
     name: completion_menu
     only_buffer_difference: false
